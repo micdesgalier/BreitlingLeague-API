@@ -10,7 +10,7 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        return Article::all();
+        return Challenge::all();
     }
 
     public function store(Request $request)
@@ -20,29 +20,29 @@ class ChallengeController extends Controller
             'contenu' => 'required|string',
         ]);
 
-        return Article::create($validated);
+        return Challenge::create($validated);
     }
 
-    public function show(Article $article)
+    public function show(Challenge $challenge)
     {
-        return $article;
+        return $challenge;
     }
 
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Challenge $challenge)
     {
         $validated = $request->validate([
             'titre'   => 'sometimes|required|string',
             'contenu' => 'sometimes|required|string',
         ]);
 
-        $article->update($validated);
+        $challenge->update($validated);
 
-        return $article;
+        return $challenge;
     }
 
-    public function destroy(Article $article)
+    public function destroy(Challenge $challenge)
     {
-        $article->delete();
+        $challenge->delete();
 
         return response()->noContent();
     }
