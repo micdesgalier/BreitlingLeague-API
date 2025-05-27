@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePoolRequest;
+use App\Http\Requests\UpdatePoolRequest;
 use App\Models\Pool;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PoolController extends Controller
@@ -23,21 +24,12 @@ class PoolController extends Controller
     /**
      * Store a newly created pool in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorePoolRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePoolRequest $request)
     {
-        $data = $request->validate([
-            'code_id' => 'required|integer|unique:pools,code_id',
-            'stage_code_id' => 'required|integer|exists:stages,code_id',
-            'order' => 'required|integer|min:0',
-            'number_of_question' => 'required|integer|min:0',
-            'consecutive_correct_answer' => 'required|integer|min:0',
-            'minimum_correct_question' => 'required|integer|min:0',
-        ]);
-
-        $pool = Pool::create($data);
+        $pool = Pool::create($request->validated());
 
         return response()->json($pool, Response::HTTP_CREATED);
     }
@@ -56,21 +48,13 @@ class PoolController extends Controller
     /**
      * Update the specified pool in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdatePoolRequest  $request
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pool $pool)
+    public function update(UpdatePoolRequest $request, Pool $pool)
     {
-        $data = $request->validate([
-            'stage_code_id' => 'sometimes|required|integer|exists:stages,code_id',
-            'order' => 'sometimes|required|integer|min:0',
-            'number_of_question' => 'sometimes|required|integer|min:0',
-            'consecutive_correct_answer' => 'sometimes|required|integer|min:0',
-            'minimum_correct_question' => 'sometimes|required|integer|min:0',
-        ]);
-
-        $pool->update($data);
+        $pool->update($request->validated());
 
         return response()->json($pool);
     }

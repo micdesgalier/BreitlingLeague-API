@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePoolQuestionRequest;
+use App\Http\Requests\UpdatePoolQuestionRequest;
 use App\Models\PoolQuestion;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PoolQuestionController extends Controller
@@ -23,18 +24,12 @@ class PoolQuestionController extends Controller
     /**
      * Store a newly created pool question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorePoolQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePoolQuestionRequest $request)
     {
-        $data = $request->validate([
-            'pool_code_id' => 'required|integer|exists:pools,code_id',
-            'question_code_id' => 'required|integer|exists:questions,code_id',
-            'order' => 'required|integer|min:0',
-        ]);
-
-        $poolQuestion = PoolQuestion::create($data);
+        $poolQuestion = PoolQuestion::create($request->validated());
 
         return response()->json($poolQuestion, Response::HTTP_CREATED);
     }
@@ -48,33 +43,28 @@ class PoolQuestionController extends Controller
      */
     public function show($pool_code_id, $question_code_id)
     {
-        $poolQuestion = PoolQuestion::findOrFail([
-            'pool_code_id' => $pool_code_id,
-            'question_code_id' => $question_code_id,
-        ]);
+        $poolQuestion = PoolQuestion::where('pool_code_id', $pool_code_id)
+            ->where('question_code_id', $question_code_id)
+            ->firstOrFail();
+
         return response()->json($poolQuestion);
     }
 
     /**
      * Update the specified pool question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdatePoolQuestionRequest  $request
      * @param  int  $pool_code_id
      * @param  int  $question_code_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $pool_code_id, $question_code_id)
+    public function update(UpdatePoolQuestionRequest $request, $pool_code_id, $question_code_id)
     {
-        $poolQuestion = PoolQuestion::findOrFail([
-            'pool_code_id' => $pool_code_id,
-            'question_code_id' => $question_code_id,
-        ]);
+        $poolQuestion = PoolQuestion::where('pool_code_id', $pool_code_id)
+            ->where('question_code_id', $question_code_id)
+            ->firstOrFail();
 
-        $data = $request->validate([
-            'order' => 'sometimes|required|integer|min:0',
-        ]);
-
-        $poolQuestion->update($data);
+        $poolQuestion->update($request->validated());
 
         return response()->json($poolQuestion);
     }
@@ -88,10 +78,9 @@ class PoolQuestionController extends Controller
      */
     public function destroy($pool_code_id, $question_code_id)
     {
-        $poolQuestion = PoolQuestion::findOrFail([
-            'pool_code_id' => $pool_code_id,
-            'question_code_id' => $question_code_id,
-        ]);
+        $poolQuestion = PoolQuestion::where('pool_code_id', $pool_code_id)
+            ->where('question_code_id', $question_code_id)
+            ->firstOrFail();
 
         $poolQuestion->delete();
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreChoiceRequest;
+use App\Http\Requests\UpdateChoiceRequest;
 use App\Models\Choice;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ChoiceController extends Controller
@@ -23,20 +24,12 @@ class ChoiceController extends Controller
     /**
      * Store a newly created choice in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreChoiceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChoiceRequest $request)
     {
-        $data = $request->validate([
-            'code_id' => 'required|integer|unique:choices,code_id',
-            'media_id' => 'nullable|integer|exists:media,id',
-            'order' => 'required|integer|min:0',
-            'is_correct' => 'required|boolean',
-            'question_code_id' => 'required|integer|exists:questions,code_id',
-        ]);
-
-        $choice = Choice::create($data);
+        $choice = Choice::create($request->validated());
 
         return response()->json($choice, Response::HTTP_CREATED);
     }
@@ -55,20 +48,13 @@ class ChoiceController extends Controller
     /**
      * Update the specified choice in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateChoiceRequest  $request
      * @param  \App\Models\Choice  $choice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Choice $choice)
+    public function update(UpdateChoiceRequest $request, Choice $choice)
     {
-        $data = $request->validate([
-            'media_id' => 'nullable|integer|exists:media,id',
-            'order' => 'sometimes|required|integer|min:0',
-            'is_correct' => 'sometimes|required|boolean',
-            'question_code_id' => 'sometimes|required|integer|exists:questions,code_id',
-        ]);
-
-        $choice->update($data);
+        $choice->update($request->validated());
 
         return response()->json($choice);
     }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserAttemptQuestionRequest;
+use App\Http\Requests\UpdateUserAttemptQuestionRequest;
 use App\Models\UserAttemptQuestion;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserAttemptQuestionController extends Controller
@@ -23,21 +24,12 @@ class UserAttemptQuestionController extends Controller
     /**
      * Store a newly created user attempt question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUserAttemptQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserAttemptQuestionRequest $request)
     {
-        $data = $request->validate([
-            'user_attempt_id'   => 'required|integer|exists:user_attempts,id',
-            'order'             => 'required|integer|min:0',
-            'is_correct'        => 'required|boolean',
-            'score'             => 'required|integer',
-            'question_code_id'  => 'required|integer|exists:questions,code_id',
-            'combo_bonus_value' => 'required|integer',
-        ]);
-
-        $question = UserAttemptQuestion::create($data);
+        $question = UserAttemptQuestion::create($request->validated());
 
         return response()->json($question, Response::HTTP_CREATED);
     }
@@ -56,22 +48,13 @@ class UserAttemptQuestionController extends Controller
     /**
      * Update the specified user attempt question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateUserAttemptQuestionRequest  $request
      * @param  \App\Models\UserAttemptQuestion  $userAttemptQuestion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserAttemptQuestion $userAttemptQuestion)
+    public function update(UpdateUserAttemptQuestionRequest $request, UserAttemptQuestion $userAttemptQuestion)
     {
-        $data = $request->validate([
-            'user_attempt_id'   => 'sometimes|required|integer|exists:user_attempts,id',
-            'order'             => 'sometimes|required|integer|min:0',
-            'is_correct'        => 'sometimes|required|boolean',
-            'score'             => 'sometimes|required|integer',
-            'question_code_id'  => 'sometimes|required|integer|exists:questions,code_id',
-            'combo_bonus_value' => 'sometimes|required|integer',
-        ]);
-
-        $userAttemptQuestion->update($data);
+        $userAttemptQuestion->update($request->validated());
 
         return response()->json($userAttemptQuestion);
     }
@@ -85,6 +68,7 @@ class UserAttemptQuestionController extends Controller
     public function destroy(UserAttemptQuestion $userAttemptQuestion)
     {
         $userAttemptQuestion->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

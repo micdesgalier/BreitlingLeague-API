@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuizRequest;
+use App\Http\Requests\UpdateQuizRequest;
 use App\Models\Quiz;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class QuizController extends Controller
@@ -23,27 +24,12 @@ class QuizController extends Controller
     /**
      * Store a newly created quiz in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreQuizRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQuizRequest $request)
     {
-        $data = $request->validate([
-            'code_id' => 'required|integer|unique:quizzes,code_id',
-            'type' => 'required|string|max:255',
-            'label_translation_code_id' => 'nullable|integer|exists:label_translations,code_id',
-            'shuffle_type' => 'required|string|max:255',
-            'shuffle_scope' => 'required|string|max:255',
-            'draw_type' => 'required|string|max:255',
-            'max_user_attempt' => 'required|integer|min:0',
-            'is_unlimited' => 'required|boolean',
-            'duration' => 'required|integer|min:0',
-            'question_duration' => 'required|integer|min:0',
-            'correct_choice_points' => 'required|integer',
-            'wrong_choice_points' => 'required|integer',
-        ]);
-
-        $quiz = Quiz::create($data);
+        $quiz = Quiz::create($request->validated());
 
         return response()->json($quiz, Response::HTTP_CREATED);
     }
@@ -62,27 +48,13 @@ class QuizController extends Controller
     /**
      * Update the specified quiz in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateQuizRequest  $request
      * @param  \App\Models\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quiz $quiz)
+    public function update(UpdateQuizRequest $request, Quiz $quiz)
     {
-        $data = $request->validate([
-            'type' => 'sometimes|required|string|max:255',
-            'label_translation_code_id' => 'nullable|integer|exists:label_translations,code_id',
-            'shuffle_type' => 'sometimes|required|string|max:255',
-            'shuffle_scope' => 'sometimes|required|string|max:255',
-            'draw_type' => 'sometimes|required|string|max:255',
-            'max_user_attempt' => 'sometimes|required|integer|min:0',
-            'is_unlimited' => 'sometimes|required|boolean',
-            'duration' => 'sometimes|required|integer|min:0',
-            'question_duration' => 'sometimes|required|integer|min:0',
-            'correct_choice_points' => 'sometimes|required|integer',
-            'wrong_choice_points' => 'sometimes|required|integer',
-        ]);
-
-        $quiz->update($data);
+        $quiz->update($request->validated());
 
         return response()->json($quiz);
     }

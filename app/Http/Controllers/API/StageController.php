@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStageRequest;
+use App\Http\Requests\UpdateStageRequest;
 use App\Models\Stage;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class StageController extends Controller
@@ -23,19 +24,12 @@ class StageController extends Controller
     /**
      * Store a newly created stage in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreStageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStageRequest $request)
     {
-        $data = $request->validate([
-            'code_id' => 'required|integer|unique:stages,code_id',
-            'quiz_code_id' => 'required|integer|exists:quizzes,code_id',
-            'order' => 'required|integer|min:0',
-            'number_of_time_to_use' => 'required|integer|min:0',
-        ]);
-
-        $stage = Stage::create($data);
+        $stage = Stage::create($request->validated());
 
         return response()->json($stage, Response::HTTP_CREATED);
     }
@@ -54,19 +48,13 @@ class StageController extends Controller
     /**
      * Update the specified stage in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateStageRequest  $request
      * @param  \App\Models\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stage $stage)
+    public function update(UpdateStageRequest $request, Stage $stage)
     {
-        $data = $request->validate([
-            'quiz_code_id' => 'sometimes|required|integer|exists:quizzes,code_id',
-            'order' => 'sometimes|required|integer|min:0',
-            'number_of_time_to_use' => 'sometimes|required|integer|min:0',
-        ]);
-
-        $stage->update($data);
+        $stage->update($request->validated());
 
         return response()->json($stage);
     }
@@ -80,6 +68,7 @@ class StageController extends Controller
     public function destroy(Stage $stage)
     {
         $stage->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Question;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class QuestionController extends Controller
@@ -23,22 +24,12 @@ class QuestionController extends Controller
     /**
      * Store a newly created question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        $data = $request->validate([
-            'code_id' => 'required|integer|unique:questions,code_id',
-            'label_translation_code_id' => 'nullable|integer|exists:label_translations,code_id',
-            'is_active' => 'required|boolean',
-            'media_id' => 'nullable|integer|exists:media,id',
-            'type' => 'required|string|max:255',
-            'is_choice_shuffle' => 'required|boolean',
-            'correct_value' => 'required|string',
-        ]);
-
-        $question = Question::create($data);
+        $question = Question::create($request->validated());
 
         return response()->json($question, Response::HTTP_CREATED);
     }
@@ -57,22 +48,13 @@ class QuestionController extends Controller
     /**
      * Update the specified question in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateQuestionRequest  $request
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateQuestionRequest $request, Question $question)
     {
-        $data = $request->validate([
-            'label_translation_code_id' => 'nullable|integer|exists:label_translations,code_id',
-            'is_active' => 'sometimes|required|boolean',
-            'media_id' => 'nullable|integer|exists:media,id',
-            'type' => 'sometimes|required|string|max:255',
-            'is_choice_shuffle' => 'sometimes|required|boolean',
-            'correct_value' => 'sometimes|required|string',
-        ]);
-
-        $question->update($data);
+        $question->update($request->validated());
 
         return response()->json($question);
     }
