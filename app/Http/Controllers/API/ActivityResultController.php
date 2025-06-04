@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreActivityResultRequest;
+use App\Http\Requests\UpdateActivityResultRequest;
 use App\Models\ActivityResult;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ActivityResultController extends Controller
@@ -21,14 +22,9 @@ class ActivityResultController extends Controller
     /**
      * Stocke un nouveau résultat d'activité.
      */
-    public function store(Request $request)
+    public function store(StoreActivityResultRequest $request)
     {
-        $data = $request->validate([
-            'duration' => 'required|integer|min:0',
-        ]);
-
-        $result = ActivityResult::create($data);
-
+        $result = ActivityResult::create($request->validated());
         return response()->json($result, Response::HTTP_CREATED);
     }
 
@@ -43,14 +39,9 @@ class ActivityResultController extends Controller
     /**
      * Met à jour un résultat existant.
      */
-    public function update(Request $request, ActivityResult $activityResult)
+    public function update(UpdateActivityResultRequest $request, ActivityResult $activityResult)
     {
-        $data = $request->validate([
-            'duration' => 'sometimes|integer|min:0',
-        ]);
-
-        $activityResult->update($data);
-
+        $activityResult->update($request->validated());
         return response()->json($activityResult, Response::HTTP_OK);
     }
 

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserActivityGroupActivityResultRequest;
+use App\Http\Requests\UpdateUserActivityGroupActivityResultRequest;
 use App\Models\UserActivityGroupActivityResult;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserActivityGroupActivityResultController extends Controller
@@ -20,19 +21,9 @@ class UserActivityGroupActivityResultController extends Controller
     /**
      * Stocke un nouveau résultat.
      */
-    public function store(Request $request)
+    public function store(StoreUserActivityGroupActivityResultRequest $request)
     {
-        $data = $request->validate([
-            'user_id'                        => 'required|integer|exists:users,id',
-            'activity_group_activity_id'     => 'required|integer|exists:user_activity_group_activities,id',
-            'is_completed'                   => 'required|boolean',
-            'completion_date'                => 'nullable|date',
-            'score'                          => 'nullable|numeric',
-            'score_percent'                  => 'nullable|numeric',
-            'has_improved_score'             => 'required|boolean',
-        ]);
-
-        $result = UserActivityGroupActivityResult::create($data);
+        $result = UserActivityGroupActivityResult::create($request->validated());
 
         return response()->json($result, Response::HTTP_CREATED);
     }
@@ -48,19 +39,9 @@ class UserActivityGroupActivityResultController extends Controller
     /**
      * Met à jour un résultat existant.
      */
-    public function update(Request $request, UserActivityGroupActivityResult $userActivityGroupActivityResult)
+    public function update(UpdateUserActivityGroupActivityResultRequest $request, UserActivityGroupActivityResult $userActivityGroupActivityResult)
     {
-        $data = $request->validate([
-            'user_id'                        => 'sometimes|integer|exists:users,id',
-            'activity_group_activity_id'     => 'sometimes|integer|exists:user_activity_group_activities,id',
-            'is_completed'                   => 'sometimes|boolean',
-            'completion_date'                => 'sometimes|date|nullable',
-            'score'                          => 'sometimes|numeric|nullable',
-            'score_percent'                  => 'sometimes|numeric|nullable',
-            'has_improved_score'             => 'sometimes|boolean',
-        ]);
-
-        $userActivityGroupActivityResult->update($data);
+        $userActivityGroupActivityResult->update($request->validated());
 
         return response()->json($userActivityGroupActivityResult, Response::HTTP_OK);
     }

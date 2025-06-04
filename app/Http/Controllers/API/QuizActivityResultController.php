@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuizActivityResultRequest;
+use App\Http\Requests\UpdateQuizActivityResultRequest;
 use App\Models\QuizActivityResult;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class QuizActivityResultController extends Controller
@@ -21,16 +22,9 @@ class QuizActivityResultController extends Controller
     /**
      * Stocke un nouveau résultat de quiz.
      */
-    public function store(Request $request)
+    public function store(StoreQuizActivityResultRequest $request)
     {
-        $data = $request->validate([
-            'score'                 => 'required|numeric|min:0',
-            'correct_answer_count'  => 'required|integer|min:0',
-            'activity_result_id'    => 'required|integer|exists:activity_results,id',
-        ]);
-
-        $result = QuizActivityResult::create($data);
-
+        $result = QuizActivityResult::create($request->validated());
         return response()->json($result, Response::HTTP_CREATED);
     }
 
@@ -45,16 +39,9 @@ class QuizActivityResultController extends Controller
     /**
      * Met à jour un résultat de quiz existant.
      */
-    public function update(Request $request, QuizActivityResult $quizActivityResult)
+    public function update(UpdateQuizActivityResultRequest $request, QuizActivityResult $quizActivityResult)
     {
-        $data = $request->validate([
-            'score'                 => 'sometimes|numeric|min:0',
-            'correct_answer_count'  => 'sometimes|integer|min:0',
-            'activity_result_id'    => 'sometimes|integer|exists:activity_results,id',
-        ]);
-
-        $quizActivityResult->update($data);
-
+        $quizActivityResult->update($request->validated());
         return response()->json($quizActivityResult, Response::HTTP_OK);
     }
 
