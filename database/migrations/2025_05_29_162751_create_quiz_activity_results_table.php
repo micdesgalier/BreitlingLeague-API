@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('quiz_activity_results', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->float('score')->default(0);
+            $table->unsignedInteger('correct_answer_count')->default(0);
+            $table->unsignedBigInteger('activity_result_id');
+
+            // Foreign key constraint
+            $table->foreign('activity_result_id')
+                ->references('id')
+                ->on('activity_results')
+                ->onDelete('cascade');
+
+            // Pas de timestamps (conformément au modèle)
         });
     }
 
@@ -22,6 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('quiz_activity_results', function (Blueprint $table) {
+            $table->dropForeign(['activity_result_id']);
+        });
+
         Schema::dropIfExists('quiz_activity_results');
     }
 };

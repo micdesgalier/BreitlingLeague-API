@@ -16,7 +16,7 @@ class UserAttemptChoice extends Model
      * @var array<int,string>
      */
     protected $fillable = [
-        'user_attempt_id',
+        'user_attempt_question_id',
         'choice_code_id',
         'is_selected',
         'is_correct',
@@ -28,10 +28,10 @@ class UserAttemptChoice extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'user_attempt_id' => 'integer',
-        'choice_code_id'  => 'integer',
-        'is_selected'     => 'boolean',
-        'is_correct'      => 'boolean',
+        'user_attempt_question_id' => 'integer',
+        'choice_code_id'           => 'integer',
+        'is_selected'              => 'boolean',
+        'is_correct'               => 'boolean',
     ];
 
     // ========================
@@ -39,11 +39,11 @@ class UserAttemptChoice extends Model
     // ========================
 
     /**
-     * La tentative de quiz statique à laquelle cette sélection appartient.
+     * La question tentée à laquelle cette sélection appartient.
      */
-    public function userAttempt(): BelongsTo
+    public function userAttemptQuestion(): BelongsTo
     {
-        return $this->belongsTo(UserAttempt::class, 'user_attempt_id', 'id');
+        return $this->belongsTo(UserAttemptQuestion::class, 'user_attempt_question_id', 'id');
     }
 
     /**

@@ -23,17 +23,6 @@ return new class extends Migration
             $table->boolean('is_choice_shuffle')->default(false);
             $table->string('correct_value');
 
-            // Clés étrangères optionnelles
-            $table->foreign('label_translation_code_id')
-                  ->references('code_id')
-                  ->on('label_translations')
-                  ->onDelete('set null');
-
-            $table->foreign('media_id')
-                  ->references('id')
-                  ->on('media')
-                  ->onDelete('set null');
-
             // Timestamps Laravel
             $table->timestamps();
         });
@@ -45,8 +34,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropForeign(['label_translation_code_id']);
-            $table->dropForeign(['media_id']);
             $table->dropPrimary(['code_id']);
         });
 

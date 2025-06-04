@@ -14,16 +14,17 @@ return new class extends Migration
         Schema::create('user_attempt_choices', function (Blueprint $table) {
             $table->id();
 
-            // Champs définis dans le modèle
-            $table->unsignedBigInteger('user_attempt_id');
+            // ✅ Changement ici : on remplace user_attempt_id par user_attempt_question_id
+            $table->unsignedBigInteger('user_attempt_question_id');
             $table->unsignedInteger('choice_code_id');
+
             $table->boolean('is_selected')->default(false);
             $table->boolean('is_correct')->default(false);
 
-            // Clés étrangères
-            $table->foreign('user_attempt_id')
+            // ✅ Mise à jour des clés étrangères
+            $table->foreign('user_attempt_question_id')
                 ->references('id')
-                ->on('user_attempts')
+                ->on('user_attempt_questions')
                 ->onDelete('cascade');
 
             $table->foreign('choice_code_id')
@@ -31,7 +32,6 @@ return new class extends Migration
                 ->on('choices')
                 ->onDelete('cascade');
 
-            // Timestamps Laravel
             $table->timestamps();
         });
     }
@@ -42,7 +42,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('user_attempt_choices', function (Blueprint $table) {
-            $table->dropForeign(['user_attempt_id']);
+            $table->dropForeign(['user_attempt_question_id']);
             $table->dropForeign(['choice_code_id']);
         });
 

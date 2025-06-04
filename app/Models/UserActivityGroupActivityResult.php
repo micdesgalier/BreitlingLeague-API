@@ -65,12 +65,4 @@ class UserActivityGroupActivityResult extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    /**
-     * Le résultat appartient à une activité de groupe d'activités.
-     */
-    public function activityGroupActivity(): BelongsTo
-    {
-        return $this->belongsTo(ActivityGroupActivity::class, 'activity_group_activity_id');
-    }
 }

@@ -35,7 +35,6 @@ class UpdateUserRequest extends FormRequest
             'is_active'              => 'sometimes|required|boolean',
             'user_type'              => 'sometimes|required|string|max:50',
             'onboarding_done'        => 'sometimes|required|boolean',
-            'fk_registration_key_id' => 'nullable|integer|exists:registration_keys,id',
             'email'                  => [
                 'sometimes',
                 'required',

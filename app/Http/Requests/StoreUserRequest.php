@@ -31,7 +31,6 @@ class StoreUserRequest extends FormRequest
             'is_active'              => 'required|boolean',
             'user_type'              => 'required|string|max:50',
             'onboarding_done'        => 'required|boolean',
-            'fk_registration_key_id' => 'nullable|integer|exists:registration_keys,id',
             'email'                  => 'required|string|email|max:255|unique:users,email',
             // Si vous gérez le mot de passe, décommentez la ligne suivante :
             // 'password' => 'required|string|min:8|confirmed',

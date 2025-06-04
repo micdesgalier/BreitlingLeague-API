@@ -15,7 +15,7 @@ class StoreUserAttemptChoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_attempt_id' => 'required|integer|exists:user_attempts,id',
+            'user_attempt_question_id' => 'required|integer|exists:user_attempts,id',
             'choice_code_id'  => 'required|integer|exists:choices,code_id',
             'is_selected'     => 'required|boolean',
             'is_correct'      => 'required|boolean',

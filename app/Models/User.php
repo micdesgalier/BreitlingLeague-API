@@ -49,7 +49,6 @@ class User extends Authenticatable
         'is_active',
         'user_type',
         'onboarding_done',
-        'fk_registration_key_id',
         'email',
         // Si vous gérez l’authentification par mot de passe, décommentez la ligne suivante :
         // 'password',
@@ -64,7 +63,6 @@ class User extends Authenticatable
         'id'                      => 'integer',
         'is_active'               => 'boolean',
         'onboarding_done'         => 'boolean',
-        'fk_registration_key_id'  => 'integer',
         'user_type'               => 'string',
         'last_name'               => 'string',
         'first_name'              => 'string',
@@ -83,16 +81,6 @@ class User extends Authenticatable
     // ========================
     // === RELATIONSHIPS ======
     // ========================
-
-    /**
-     * La clé d’enregistrement (RegistrationKey) associée à cet utilisateur.
-     *
-     * @return BelongsTo
-     */
-    public function registrationKey(): BelongsTo
-    {
-        return $this->belongsTo(RegistrationKey::class, 'fk_registration_key_id', 'id');
-    }
 
     /**
      * Toutes les tentatives de quiz (UserAttempt) faites par cet utilisateur.

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('activity_results', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('duration')->default(0);
+
+            // Pas de timestamps, comme dans le modèle
         });
     }
 

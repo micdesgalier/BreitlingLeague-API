@@ -68,14 +68,6 @@ class UserActivityGroupActivity extends Model
     // ========================
 
     /**
-     * L’activité de groupe à laquelle se réfère cette instance.
-     */
-    public function activityGroupActivity(): BelongsTo
-    {
-        return $this->belongsTo(ActivityGroupActivity::class, 'activity_group_activity_id');
-    }
-
-    /**
      * L’utilisateur qui a réalisé cette activité.
      */
     public function user(): BelongsTo

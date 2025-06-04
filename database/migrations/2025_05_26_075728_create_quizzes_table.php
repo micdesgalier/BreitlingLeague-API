@@ -28,12 +28,6 @@ return new class extends Migration
             $table->integer('correct_choice_points');
             $table->integer('wrong_choice_points');
 
-            // Clé étrangère optionnelle vers label_translations
-            $table->foreign('label_translation_code_id')
-                  ->references('code_id')
-                  ->on('label_translations')
-                  ->onDelete('set null');
-
             // Timestamps Laravel
             $table->timestamps();
         });
@@ -45,7 +39,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('quizzes', function (Blueprint $table) {
-            $table->dropForeign(['label_translation_code_id']);
             $table->dropPrimary(['code_id']);
         });
 

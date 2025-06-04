@@ -21,7 +21,6 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign keys
-            $table->foreign('media_id')->references('id')->on('media')->nullOnDelete();
             $table->foreign('question_code_id')->references('code_id')->on('questions')->cascadeOnDelete();
         });
     }

@@ -13,7 +13,21 @@ return new class extends Migration
     {
         Schema::create('user_activity_group_activity_results', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('activity_group_activity_id');
+            $table->boolean('is_completed')->default(false);
+            $table->dateTime('completion_date')->nullable();
+            $table->float('score')->default(0);
+            $table->float('score_percent')->default(0);
+            $table->boolean('has_improved_score')->default(false);
+
             $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -22,6 +36,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('user_activity_group_activity_results', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::dropIfExists('user_activity_group_activity_results');
     }
 };
