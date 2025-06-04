@@ -5,12 +5,37 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    /**
+     * The primary key associated with the table.
+     * Laravel’s default is “id”, so this line is actually optional
+     * if you keep the column named “id” in your users table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     * Again, “true” is the default for an integer primary key,
+     * so you can safely remove this if you like.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * The “type” of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
@@ -20,53 +45,88 @@ class User extends Authenticatable
     protected $fillable = [
         'last_name',
         'first_name',
-        'nick_name',
-        'email',
+        'nickname',
         'is_active',
         'user_type',
         'onboarding_done',
-        'registration_key_id',
+        'fk_registration_key_id',
+        'email',
+        // Si vous gérez l’authentification par mot de passe, décommentez la ligne suivante :
+        // 'password',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int,string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
      * @var array<string,string>
      */
     protected $casts = [
-        'is_active'           => 'boolean',
-        'onboarding_done'     => 'boolean',
-        'email_verified_at'   => 'datetime',
-        'registration_key_id' => 'integer',
+        'id'                      => 'integer',
+        'is_active'               => 'boolean',
+        'onboarding_done'         => 'boolean',
+        'fk_registration_key_id'  => 'integer',
+        'user_type'               => 'string',
+        'last_name'               => 'string',
+        'first_name'              => 'string',
+        'nickname'                => 'string',
+        'email'                   => 'string',
     ];
+
+    /**
+     * Si vous utilisez les timestamps Laravel classiques (created_at / updated_at),
+     * laissez ceci à true. Sinon, mettez false.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     // ========================
     // === RELATIONSHIPS ======
     // ========================
 
     /**
-     * Les tentatives de quiz « statique » de l'utilisateur.
-     */
-    public function userAttempts(): HasMany
-    {
-        return $this->hasMany(UserAttempt::class);
-    }
-
-    /**
-     * La clé d'enregistrement utilisée par l'utilisateur (optionnel).
+     * La clé d’enregistrement (RegistrationKey) associée à cet utilisateur.
+     *
+     * @return BelongsTo
      */
     public function registrationKey(): BelongsTo
     {
-        return $this->belongsTo(RegistrationKey::class);
+        return $this->belongsTo(RegistrationKey::class, 'fk_registration_key_id', 'id');
     }
+
+    /**
+     * Toutes les tentatives de quiz (UserAttempt) faites par cet utilisateur.
+     *
+     * @return HasMany
+     */
+    public function quizAttempts(): HasMany
+    {
+        return $this->hasMany(UserAttempt::class, 'fk_User', 'id');
+    }
+
+    /**
+     * Toutes les réponses de type “match” que cet utilisateur a fournies
+     * (QuizUserMatchAnswer).
+     *
+     * @return HasMany
+     */
+    public function quizUserMatchAnswers(): HasMany
+    {
+        return $this->hasMany(QuizUserMatchAnswer::class, 'fk_User', 'id');
+    }
+
+    /**
+     * Toutes les activités de groupe associées à cet utilisateur
+     * (UserActivityGroupActivity).
+     *
+     * @return HasMany
+     */
+    public function userActivityGroupActivities(): HasMany
+    {
+        return $this->hasMany(UserActivityGroupActivity::class, 'fk_User', 'id');
+    }
+
+    // Si besoin, vous pouvez ajouter d’autres relations qui pointent sur la table “users”,
+    // par exemple vers QuizActivityResult, UserActivityGroupActivityResult, etc.
+    // mais celles-ci couvrent déjà les liens directs du schéma relationnel.
 }
