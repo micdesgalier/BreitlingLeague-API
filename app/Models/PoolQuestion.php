@@ -49,8 +49,8 @@ class PoolQuestion extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'pool_code_id'     => 'integer',
-        'question_code_id' => 'integer',
+        'pool_code_id'     => 'string',
+        'question_code_id' => 'string',
         'order'            => 'integer',
     ];
 
