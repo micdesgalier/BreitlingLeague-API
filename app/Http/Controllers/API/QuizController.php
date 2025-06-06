@@ -35,13 +35,28 @@ class QuizController extends Controller
     }
 
     /**
-     * Display the specified quiz.
+     * Display the specified quiz, chargé avec ses Stages → Pools → Questions → Choices.
      *
      * @param  \App\Models\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
     public function show(Quiz $quiz)
     {
+        $quiz->load([
+            'stages' => function($query) {
+                $query->orderBy('order');
+            },
+            'stages.pools' => function($query) {
+                $query->orderBy('order');
+            },
+            'stages.pools.questions' => function($query) {
+                $query->orderBy('label');
+            },
+            'stages.pools.questions.choices' => function($query) {
+                $query->orderBy('order');
+            },
+        ]);
+
         return response()->json($quiz);
     }
 
