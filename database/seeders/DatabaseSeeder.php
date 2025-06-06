@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\{
+    User,
     Quiz,
     Stage,
     Pool,
@@ -11,6 +12,7 @@ use App\Models\{
     Choice,
     PoolQuestion
 };
+use Database\Seeders\ChallengeSeeder;
 use Database\Seeders\JsonQuestionSeeder;
 use Illuminate\Support\Facades\DB;
 
