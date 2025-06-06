@@ -31,6 +31,14 @@ Route::apiResource('user-attempt-questions',               UserAttemptQuestionCo
 Route::apiResource('user-attempt-choices',                 UserAttemptChoiceController::class);
 
 Route::apiResource('user-activity-group-activities',       UserActivityGroupActivityController::class);
-Route::apiResource('user-activity-group-activity-results', UserActivityGroupActivityResultController::class);
+
+// On définit un paramètre plus court pour éviter >32 caractères
+Route::apiResource(
+    'user-activity-group-activity-results',
+    UserActivityGroupActivityResultController::class
+)->parameters([
+    'user-activity-group-activity-results' => 'user-activity-group-r'
+]);
+
 Route::apiResource('activity-results',                     ActivityResultController::class);
 Route::apiResource('quiz-activity-results',                QuizActivityResultController::class);

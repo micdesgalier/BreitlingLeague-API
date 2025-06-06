@@ -13,6 +13,8 @@ class Pool extends Model
     use HasFactory;
 
     protected $primaryKey = 'code_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +36,7 @@ class Pool extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'code_id'                    => 'integer',
+        'code_id'                    => 'string',
         'stage_code_id'              => 'integer',
         'order'                      => 'integer',
         'number_of_question'         => 'integer',

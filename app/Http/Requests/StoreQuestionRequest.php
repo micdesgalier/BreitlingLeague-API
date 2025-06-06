@@ -15,8 +15,8 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code_id'                    => 'required|integer|unique:questions,code_id',
-            'label_translation_code_id'  => 'nullable|integer|exists:label_translations,code_id',
+            'code_id'                    => 'required|string|unique:questions,code_id',
+            'label'                      => 'nullable|string|max:500',
             'is_active'                  => 'required|boolean',
             'media_id'                   => 'nullable|integer|exists:media,id',
             'type'                       => 'required|string|max:255',

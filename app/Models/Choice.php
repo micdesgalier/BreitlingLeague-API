@@ -27,6 +27,7 @@ class Choice extends Model
         'order',
         'is_correct',
         'question_code_id',
+        'label', // Ajout du champ "label"
     ];
 
     /**
@@ -35,11 +36,12 @@ class Choice extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'code_id'          => 'integer',
+        'code_id'          => 'string',
         'media_id'         => 'integer',
         'order'            => 'integer',
         'is_correct'       => 'boolean',
-        'question_code_id' => 'integer',
+        'question_code_id' => 'string',
+        'label'            => 'string', // Casting du champ "label"
     ];
 
     // ========================

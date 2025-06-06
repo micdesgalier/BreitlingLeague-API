@@ -18,7 +18,7 @@ class UpdateChoiceRequest extends FormRequest
             'media_id'         => 'nullable|integer|exists:media,id',
             'order'            => 'sometimes|required|integer|min:0',
             'is_correct'       => 'sometimes|required|boolean',
-            'question_code_id' => 'sometimes|required|integer|exists:questions,code_id',
+            'question_code_id' => 'sometimes|required|string|exists:questions,code_id',
         ];
     }
 }

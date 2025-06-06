@@ -15,9 +15,9 @@ class UpdateQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'label_translation_code_id'  => 'nullable|integer|exists:label_translations,code_id',
+            'label'                      => 'nullable|integer|exists:label_translations,code_id',
             'is_active'                  => 'sometimes|required|boolean',
-            'media_id'                   => 'nullable|integer|exists:media,id',
+            'media_id'                   => 'nullable|string|max:500',
             'type'                       => 'sometimes|required|string|max:255',
             'is_choice_shuffle'          => 'sometimes|required|boolean',
             'correct_value'              => 'sometimes|required|string',

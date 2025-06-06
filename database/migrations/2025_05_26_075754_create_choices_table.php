@@ -12,16 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('choices', function (Blueprint $table) {
-            $table->unsignedBigInteger('code_id')->primary();
+            $table->string('code_id')->primary();
             $table->unsignedBigInteger('media_id')->nullable();
             $table->unsignedInteger('order')->default(0);
             $table->boolean('is_correct')->default(false);
-            $table->unsignedBigInteger('question_code_id');
+            $table->string('question_code_id');
+
+            // Ajout de la colonne 'label' pour le texte du choix
+            $table->text('label');
 
             $table->timestamps();
 
-            // Foreign keys
-            $table->foreign('question_code_id')->references('code_id')->on('questions')->cascadeOnDelete();
+            // Foreign key vers questions.code_id
+            $table->foreign('question_code_id')
+                  ->references('code_id')
+                  ->on('questions')
+                  ->cascadeOnDelete();
         });
     }
 

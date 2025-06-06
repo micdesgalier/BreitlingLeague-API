@@ -13,7 +13,7 @@ class QuestionFactory extends Factory
     {
         return [
             'code_id'                   => $this->faker->unique()->numberBetween(100000, 999999),
-            'label_translation_code_id' => $this->faker->numberBetween(1, 9999),
+            'label'                     => $this->faker->numberBetween(1, 9999),
             'is_active'                 => $this->faker->boolean(80),
             'media_id'                  => null, // ou Media::factory()->create()->id si tu veux associer un média
             'type'                      => $this->faker->randomElement(['text', 'number', 'select']),

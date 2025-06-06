@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pool_questions', function (Blueprint $table) {
             // Pas de $table->id(), on gère nous-mêmes la PK composite
-            $table->integer('pool_code_id')->unsigned();
-            $table->integer('question_code_id')->unsigned();
+            $table->string('pool_code_id');
+            $table->string('question_code_id');
             $table->integer('order');
 
             // Déclaration de la PK composite

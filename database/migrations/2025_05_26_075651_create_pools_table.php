@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pools', function (Blueprint $table) {
             // Clé primaire personnalisée
-            $table->integer('code_id')->primary();
+            $table->string('code_id')->primary();
 
             // Foreign key vers stages.code_id
             $table->integer('stage_code_id')->unsigned();

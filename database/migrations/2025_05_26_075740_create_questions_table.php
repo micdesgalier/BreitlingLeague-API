@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             // Clé primaire personnalisée
-            $table->integer('code_id')->primary();
+            $table->string('code_id')->primary();
 
             // Colonnes métiers
-            $table->integer('label_translation_code_id')->unsigned()->nullable();
+            $table->string('label')->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('media_id')->unsigned()->nullable();
             $table->string('type');

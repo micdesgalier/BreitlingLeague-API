@@ -1,0 +1,1301 @@
+{
+  "quiz_data": [
+    {
+      "question_code": "ADVANCED_1",
+      "question_text": "Which patented development imagined and produced by Léon Breitling allowed the Swiss Police to issue the first speed tickets?",
+      "choices": [
+        {
+          "choice_code": "ADVANCED_1_CHOICE_1",
+          "choice_text": "The \"Vitesse\" pocket chronograph",
+          "is_correct": true
+        },
+        {
+          "choice_code": "ADVANCED_1_CHOICE_2",
+          "choice_text": "The mono-pusher wrist-worn chronograph",
+          "is_correct": false
+        },
+        {
+          "choice_code": "ADVANCED_1_CHOICE_3",
+          "choice_text": "The speedometer",
+          "is_correct": false
+        },
+        {
+          "choice_code": "ADVANCED_1_CHOICE_4",
+          "choice_text": "The pocket chronograph called \"Police\"",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "question_code": "ADVANCED_2",
+      "question_text": "Which cycling team are we sponsoring since 2022?",
+      "choices": [
+        {
+          "choice_code": "ADVANCED_2_CHOICE_1",
+          "choice_text": "Q36.5",
+          "is_correct": true
+        },
+        {
+          "choice_code": "ADVANCED_2_CHOICE_2",
+          "choice_text": "Qhubeka",
+          "is_correct": false
+        },
+        {
+          "choice_code": "ADVANCED_2_CHOICE_3",
+          "choice_text": "The Swiss National cycling team",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_01",
+      "question_text": "What is the purpose of the Field tool kit ?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_01_CHOICE_1",
+          "choice_text": "Replacing straps",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_01_CHOICE_2",
+          "choice_text": "Replacing bracelets",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_01_CHOICE_3",
+          "choice_text": "Adjusting the lengh of leather strap and bracelet",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_01_CHOICE_4",
+          "choice_text": "All answers above",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_02",
+      "question_text": "What is the name of this tool ?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_02_CHOICE_1",
+          "choice_text": "Screwdriver",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_02_CHOICE_2",
+          "choice_text": "Springbar pusher",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_02_CHOICE_3",
+          "choice_text": "Magnifying glass",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_02_CHOICE_4",
+          "choice_text": "Tweezer",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_03",
+      "question_text": "What is the name of this tool ?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_03_CHOICE_1",
+          "choice_text": "Breitling Kit for strap",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_03_CHOICE_2",
+          "choice_text": "Rouleau bracelet Kit",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_03_CHOICE_3",
+          "choice_text": "Kit for all accessories",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_03_CHOICE_4",
+          "choice_text": "Field tool Kit",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_04",
+      "question_text": "What is the appropriate shape of the spring bar tip for leather/rubber straps",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_1",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_2",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_3",
+          "choice_text": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_05",
+      "question_text": "Which tip should be fitted on the springbar pusher to remove the leather strap from the watch head",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_05_CHOICE_1",
+          "choice_text": "1 or 2 (but 2 is recommended)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_05_CHOICE_2",
+          "choice_text": "3 or 1 (but 1 is recommended)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_05_CHOICE_3",
+          "choice_text": "All of them",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_05_CHOICE_4",
+          "choice_text": "2 or 3 (but 3 is recommended)",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_06",
+      "question_text": "What is the last operation to take when fitting a leather strap?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_06_CHOICE_1",
+          "choice_text": "Make sure the watch is on time",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_06_CHOICE_2",
+          "choice_text": "Check the shape of the springbar tip",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_06_CHOICE_3",
+          "choice_text": "Make sure the strap is properly secure by pulling on it gently",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_07",
+      "question_text": "What is the appropriate shape of the spring bar tip for leather/rubber straps",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_1",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_2",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_3",
+          "choice_text": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_08",
+      "question_text": "In which position should you place the push piece on the deployment clasp to remove the rubber",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_08_CHOICE_1",
+          "choice_text": "No specific position",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_08_CHOICE_2",
+          "choice_text": "Fully closed",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_08_CHOICE_3",
+          "choice_text": "Fully open",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_09",
+      "question_text": "What is the function of the metal pin",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_09_CHOICE_1",
+          "choice_text": "To cut the strap",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_09_CHOICE_2",
+          "choice_text": "To clean the hole",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_09_CHOICE_3",
+          "choice_text": "All of the above",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_09_CHOICE_4",
+          "choice_text": "To maintain and position the rubber on the cutting tool",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_10",
+      "question_text": "What tools do you need for sizing a rubber strap?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_1",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_2",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_3",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_4",
+          "choice_text": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_11",
+      "question_text": "What is the first step to resize a metal bracelet",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_11_CHOICE_1",
+          "choice_text": "Apply a drop of glue on the thread",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_11_CHOICE_2",
+          "choice_text": "Detach the metal bracelet from the watch head",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_11_CHOICE_3",
+          "choice_text": "Remove all the bracelet screws",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_11_CHOICE_4",
+          "choice_text": "Separate the  bracelet into two sections",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_12",
+      "question_text": "How to separate the bracelet into two sections",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_12_CHOICE_1",
+          "choice_text": "Remove the screws with the screwdriver",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_12_CHOICE_2",
+          "choice_text": "remove the spring bar with a pen",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_12_CHOICE_3",
+          "choice_text": "Use the pin shaped spring bar pusher to press the spring bar out of the clasp",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_13",
+      "question_text": "What tool is used to detach the metal bracelet from the watch head",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_1",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_2",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_3",
+          "choice_text": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_14",
+      "question_text": "How to determine the correct position of the link when placing it back?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_14_CHOICE_1",
+          "choice_text": "The link can be placed in any position",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_14_CHOICE_2",
+          "choice_text": "A red dot should always appear on the inside of the bracelet",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_14_CHOICE_3",
+          "choice_text": "By looking at the drawing in the manual",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_14_CHOICE_4",
+          "choice_text": "By comparing the shape, orientation and surface finishing of the other links",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_15",
+      "question_text": "Why is it important not to put too much glue on the screw?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_15_CHOICE_1",
+          "choice_text": "The glue is very expensive",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_15_CHOICE_2",
+          "choice_text": "It could overflow and stain the bracelet",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_15_CHOICE_3",
+          "choice_text": "There is never too much glue",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_15_CHOICE_4",
+          "choice_text": "It can cause problems during the unscrewing process",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_16",
+      "question_text": "What should you do before tightning a screw",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_16_CHOICE_1",
+          "choice_text": "Clean the screw",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_16_CHOICE_2",
+          "choice_text": "Place a drop of glue in the hole",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_16_CHOICE_3",
+          "choice_text": "Check that the link is not scratched",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_16_CHOICE_4",
+          "choice_text": "Apply a drop of glue on the thread of the screw",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_17",
+      "question_text": "Why is it important to apply a drop of glue on the screw?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_17_CHOICE_1",
+          "choice_text": "It is impossible to tighten the screw without glue",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_17_CHOICE_2",
+          "choice_text": "It is not important",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_17_CHOICE_3",
+          "choice_text": "To make sure the owner of the watch doesn't unscrew it by himself",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_17_CHOICE_4",
+          "choice_text": "To avoid the screw coming loose in the future",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_18",
+      "question_text": "What should you do with the spare links?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_18_CHOICE_1",
+          "choice_text": "Keep them and reuse them to make another bracelet longer",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_18_CHOICE_2",
+          "choice_text": "Throw them away (recycle them if possible)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_18_CHOICE_3",
+          "choice_text": "Put them in a bag in bulk and give them back to the customer",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_18_CHOICE_4",
+          "choice_text": "Reassemble them, put them in a bag and give them back to the customer",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_19",
+      "question_text": "What tools do you need to add a link to rouleau bracelets ?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_1",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_2",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_3",
+          "choice_text": "",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_4",
+          "choice_text": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_20",
+      "question_text": "What is the signification of the arrow engraved on the back of the rouleau bracelet?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_20_CHOICE_1",
+          "choice_text": "It shows where to add a drop of glue",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_20_CHOICE_2",
+          "choice_text": "It shows where to add the ring",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_20_CHOICE_3",
+          "choice_text": "It shows the pin push length you must use",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_20_CHOICE_4",
+          "choice_text": "It shows the pin removal direction",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_FIELDTOOLKIT_21",
+      "question_text": "When removing the bracelet pin, why is it important to use the shorter push pin first ?",
+      "choices": [
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_21_CHOICE_1",
+          "choice_text": "To create additionnal work",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_21_CHOICE_2",
+          "choice_text": "No specific reason",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_21_CHOICE_3",
+          "choice_text": "To make the process more valuable for the client",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_FIELDTOOLKIT_21_CHOICE_4",
+          "choice_text": "To avoid to break the push pin",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_01",
+      "question_text": "What is the excellence of Breitling's after-sales service due to?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_01_CHOICE_1",
+          "choice_text": "Flexible and responsive organization",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_01_CHOICE_2",
+          "choice_text": "Robust and reliable interventions",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_01_CHOICE_3",
+          "choice_text": "Quality system focused on continous improvement",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_01_CHOICE_4",
+          "choice_text": "All of the above",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_02",
+      "question_text": "After-sales service is not just a way of fixing problems. What else is it?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_02_CHOICE_1",
+          "choice_text": "A place where  second-hand watches can be exchanged",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_02_CHOICE_2",
+          "choice_text": "A web site for collectors",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_02_CHOICE_3",
+          "choice_text": "An opportunity to conduct customer surveys",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_02_CHOICE_4",
+          "choice_text": "A marketing and customer loyalty tool which is part of the sales process",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_03",
+      "question_text": "Who can repair a Breitling watch?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_03_CHOICE_1",
+          "choice_text": "Any jewelery store",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_03_CHOICE_2",
+          "choice_text": "Breitling Headquarters only",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_03_CHOICE_3",
+          "choice_text": "Any Breitling retailers",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_03_CHOICE_4",
+          "choice_text": "Breitling's authorized service centers",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_04",
+      "question_text": "Why should a Breitling watch undergo regular maintenances?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_04_CHOICE_1",
+          "choice_text": "To always keep it look as new",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_04_CHOICE_2",
+          "choice_text": "To receive customer rewards",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_04_CHOICE_3",
+          "choice_text": "To keep our watchmakers busy",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_04_CHOICE_4",
+          "choice_text": "To maintain its performance and reliability in the long term",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_05",
+      "question_text": "How often is a maintenance service recommended? Every…",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_05_CHOICE_1",
+          "choice_text": "1 year",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_05_CHOICE_2",
+          "choice_text": "5 years",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_05_CHOICE_3",
+          "choice_text": "10 years",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_05_CHOICE_4",
+          "choice_text": "2 years",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_06",
+      "question_text": "What is included in a maintenance service ?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_06_CHOICE_1",
+          "choice_text": "Checking movement parameters and watch functions",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_06_CHOICE_2",
+          "choice_text": "Changing all seals and checking water resistance",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_06_CHOICE_3",
+          "choice_text": "Cleaning the case and metal bracelet",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_06_CHOICE_4",
+          "choice_text": "All of the above",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_07",
+      "question_text": "How often is a complete service recommended? Every…",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_07_CHOICE_1",
+          "choice_text": "2-3 years",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_07_CHOICE_2",
+          "choice_text": "1 year",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_07_CHOICE_3",
+          "choice_text": "8-10 years",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_07_CHOICE_4",
+          "choice_text": "4-6 years",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_08",
+      "question_text": "What is not included in a complete service ?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_08_CHOICE_1",
+          "choice_text": "Disassembly, cleaning and exchange of standard movement parts",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_08_CHOICE_2",
+          "choice_text": "Assembly, lubrication, adjustement and setting of movement function parameters",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_08_CHOICE_3",
+          "choice_text": "Changing all seals, checking water resistance, polishing of the case and bracelet",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_08_CHOICE_4",
+          "choice_text": "Replacement of the crystal",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_09",
+      "question_text": "The polishing service can only be ordered additionally to another service, which one?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_09_CHOICE_1",
+          "choice_text": "Emergency service",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_09_CHOICE_2",
+          "choice_text": "Complete Service",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_09_CHOICE_3",
+          "choice_text": "Certificate of authenticity",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_09_CHOICE_4",
+          "choice_text": "Maintenance service",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_10",
+      "question_text": "Which materials cannot be polished ?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_10_CHOICE_1",
+          "choice_text": "Stainless steel",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_10_CHOICE_2",
+          "choice_text": "Gold",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_10_CHOICE_3",
+          "choice_text": "Titanium",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_10_CHOICE_4",
+          "choice_text": "Black DLC coating and Breitlight",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_11",
+      "question_text": "Can a certificate of authenticity be delivered if some of the components are not original Breitling parts",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_11_CHOICE_1",
+          "choice_text": "YES",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_11_CHOICE_2",
+          "choice_text": "NO, unless they are replaced by original ones)",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_12",
+      "question_text": "What is included in the Emergency service",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_12_CHOICE_1",
+          "choice_text": "control of parameters of movement, transmitter(s) and antenna(s), test receiver or charger (depending on the model);",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_12_CHOICE_2",
+          "choice_text": "exchange of batteries and accumulator (depending on the model)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_12_CHOICE_3",
+          "choice_text": "Control of main gaskets; water resistance control, polishing of the case and bracelet.",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_12_CHOICE_4",
+          "choice_text": "All of the above",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_13",
+      "question_text": "How long is the repair warranty valid?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_13_CHOICE_1",
+          "choice_text": "2 years worldwide",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_13_CHOICE_2",
+          "choice_text": "5 years worldwide",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_13_CHOICE_3",
+          "choice_text": "5 years in Switzerland and Europe, 2 years in other countries",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_13_CHOICE_4",
+          "choice_text": "1 year (some countries offer 2 years by law)",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_14",
+      "question_text": "What is the core concern of the brand?",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_14_CHOICE_1",
+          "choice_text": "Producing more watches",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_14_CHOICE_2",
+          "choice_text": "Decreasing the volume of repairs at SAV",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_14_CHOICE_3",
+          "choice_text": "Reducing the repair delivery lead time",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_14_CHOICE_4",
+          "choice_text": "Customer satisfaction",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_INTRO_15",
+      "question_text": "What are the two main services at Breitling",
+      "choices": [
+        {
+          "choice_code": "AFS_INTRO_15_CHOICE_1",
+          "choice_text": "Battery & Maintenance",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_15_CHOICE_2",
+          "choice_text": "Polishing & Maintenance",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_15_CHOICE_3",
+          "choice_text": "Time adjustment & Complete",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_INTRO_15_CHOICE_4",
+          "choice_text": "Maintenance & Complete",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_01",
+      "question_text": "What are the important steps of the customer journey?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_01_CHOICE_1",
+          "choice_text": "Welcome, enquiry, acquisition, service and new sale",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_01_CHOICE_2",
+          "choice_text": "Listening, watch testing, reflexion, sale and service",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_01_CHOICE_3",
+          "choice_text": "awareness, consideration, acquisition, service and buidling loyalty",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_02",
+      "question_text": "Which of these is a step of the customer journey",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_02_CHOICE_1",
+          "choice_text": "Explaining the repair process",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_02_CHOICE_2",
+          "choice_text": "Take the opportunity to show the new collection",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_02_CHOICE_3",
+          "choice_text": "Listening to the customer",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_02_CHOICE_4",
+          "choice_text": "All of the above",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_03",
+      "question_text": "How long does the diagnostic and estimate process lasts (outside of vintage watches)?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_03_CHOICE_1",
+          "choice_text": "1 week",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_03_CHOICE_2",
+          "choice_text": "4 weeks",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_03_CHOICE_3",
+          "choice_text": "6 weeks",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_03_CHOICE_4",
+          "choice_text": "2 weeks",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_04",
+      "question_text": "How long does the diagnostic and estimate process lasts (vintage watches)?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_04_CHOICE_1",
+          "choice_text": "2 weeks",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_04_CHOICE_2",
+          "choice_text": "6 weeks",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_04_CHOICE_3",
+          "choice_text": "8 weeks",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_04_CHOICE_4",
+          "choice_text": "10 weeks",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_05",
+      "question_text": "Why is the welcoming phase important",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_05_CHOICE_1",
+          "choice_text": "To avoid that the customer complains for too long",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_05_CHOICE_2",
+          "choice_text": "To avoid that other customers notice that our watches come back for repairs",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_05_CHOICE_3",
+          "choice_text": "To make the customer feel understood",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_06",
+      "question_text": "What are the 3 sections of the repair form",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_06_CHOICE_1",
+          "choice_text": "1)Personal data\n2)Watch description\n3)Estimate",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_06_CHOICE_2",
+          "choice_text": "1) Warranty description\n2)Service description\n3)Value of the watch",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_06_CHOICE_3",
+          "choice_text": "1)Daily care\n2)what to avoid\n3)pre-diagnostic",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_06_CHOICE_4",
+          "choice_text": "1)Customer and watch information  \n2) Warranty information\n3) Describe the defects on the watch",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_07",
+      "question_text": "Should you ask the customer to explain the watch defects and why?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_07_CHOICE_1",
+          "choice_text": "No, our watchmakers are much more qualified for this",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_07_CHOICE_2",
+          "choice_text": "No, it would take too long",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_07_CHOICE_3",
+          "choice_text": "Yes, to add more interventions on the estimate",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_07_CHOICE_4",
+          "choice_text": "Yes, to help determine what kind of service might be needed",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_08",
+      "question_text": "What service will you recomend if the last complete service was done 6 years ago?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_08_CHOICE_1",
+          "choice_text": "Polishing service",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_08_CHOICE_2",
+          "choice_text": "Maintenance service",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_08_CHOICE_3",
+          "choice_text": "It depends on how well the watch functions",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_08_CHOICE_4",
+          "choice_text": "Complete service",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_09",
+      "question_text": "When must the pre-inspection of the watch be done",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_09_CHOICE_1",
+          "choice_text": "After sending the estimate",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_09_CHOICE_2",
+          "choice_text": "As soon as the customer has left the shop",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_09_CHOICE_3",
+          "choice_text": "Within 5 days of receiving the watch",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_09_CHOICE_4",
+          "choice_text": "In front of the customer",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_10",
+      "question_text": "Who does the pre-inspection of the watch?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_10_CHOICE_1",
+          "choice_text": "Breitling headquarters in Switzerland",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_10_CHOICE_2",
+          "choice_text": "A Breitling watchmaker",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_10_CHOICE_3",
+          "choice_text": "The customer himself",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_10_CHOICE_4",
+          "choice_text": "The sales staff together with the customer",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_11",
+      "question_text": "What is not checked during the pre-inspection?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_11_CHOICE_1",
+          "choice_text": "Any damages, scratches and missing parts",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_11_CHOICE_2",
+          "choice_text": "setting the date and time",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_11_CHOICE_3",
+          "choice_text": "winding the movement",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_11_CHOICE_4",
+          "choice_text": "The movement parts",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_12",
+      "question_text": "At what distance should the watch be examined during the pre-inspection?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_12_CHOICE_1",
+          "choice_text": "As close as possible with a magnifying glass",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_12_CHOICE_2",
+          "choice_text": "At arm's length with naked eyes",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_12_CHOICE_3",
+          "choice_text": "Close up with naked eyes",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_12_CHOICE_4",
+          "choice_text": "At 30cm with naked eyes",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_13",
+      "question_text": "Who does the diagnostic and estimate?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_13_CHOICE_1",
+          "choice_text": "the sales associate",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_13_CHOICE_2",
+          "choice_text": "A non-Breitling certified watchmaker",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_13_CHOICE_3",
+          "choice_text": "The boutique manager",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_13_CHOICE_4",
+          "choice_text": "A Breitling certified watchmaker",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "question_code": "AFS_REPAIR_14",
+      "question_text": "Read the quotation?",
+      "choices": [
+        {
+          "choice_code": "AFS_REPAIR_14_CHOICE_1",
+          "choice_text": "Wrong answer 1 (TBD)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_14_CHOICE_2",
+          "choice_text": "Wrong answer 2 (TBD)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_14_CHOICE_3",
+          "choice_text": "Wrong answer 3 (TBD)",
+          "is_correct": false
+        },
+        {
+          "choice_code": "AFS_REPAIR_14_CHOICE_4",
+          "choice_text": "Right answer (TBD)",
+          "is_correct": true
+        }
+      ]
+    }
+  ]
+}

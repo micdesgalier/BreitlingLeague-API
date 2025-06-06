@@ -18,6 +18,8 @@ class Question extends Model
      * @var string
      */
     protected $primaryKey = 'code_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +28,7 @@ class Question extends Model
      */
     protected $fillable = [
         'code_id',
-        'label_translation_code_id',
+        'label',
         'is_active',
         'media_id',
         'type',
@@ -40,8 +42,8 @@ class Question extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'code_id'                    => 'integer',
-        'label_translation_code_id'  => 'integer',
+        'code_id'                    => 'string',
+        'label'                      => 'string',
         'is_active'                  => 'boolean',
         'media_id'                   => 'integer',
         'type'                       => 'string',
@@ -86,13 +88,5 @@ class Question extends Model
     public function userAttemptQuestions(): HasMany
     {
         return $this->hasMany(UserAttemptQuestion::class, 'question_code_id', 'code_id');
-    }
-
-    /**
-     * Le média associé à la question (optionnel).
-     */
-    public function media(): BelongsTo
-    {
-        return $this->belongsTo(Media::class, 'media_id', 'id');
     }
 }

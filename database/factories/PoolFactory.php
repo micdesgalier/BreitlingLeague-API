@@ -13,7 +13,7 @@ class PoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'code_id'                    => $this->faker->unique()->numberBetween(10000, 99999),
+            'code_id'                    => $this->faker->word(),
             'stage_code_id'              => Stage::factory(), // Crée un Stage et récupère son code_id
             'order'                      => $this->faker->numberBetween(1, 10),
             'number_of_question'         => $this->faker->numberBetween(5, 20),
