@@ -14,15 +14,16 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'last_name'              => $this->faker->lastName(),
-            'first_name'             => $this->faker->firstName(),
-            'nickname'               => $this->faker->userName(),
-            'is_active'              => $this->faker->boolean(100), // 100 % de chances d’être actif
-            'user_type'              => $this->faker->randomElement(['admin','user']),
-            'onboarding_done'        => $this->faker->boolean(50),
-            'email'                  => $this->faker->unique()->safeEmail(),
+            'last_name'       => $this->faker->lastName(),
+            'first_name'      => $this->faker->firstName(),
+            'nickname'        => $this->faker->userName(),
+            'is_active'       => $this->faker->boolean(100), // 100 % de chances d’être actif
+            'user_type'       => $this->faker->randomElement(['specialist', 'user']),
+            'onboarding_done' => $this->faker->boolean(50),
+            'email'           => $this->faker->unique()->safeEmail(),
+            'media'           => $this->faker->imageUrl(200, 200, 'people', true), // URL factice pour la photo de profil
             // si vous gérez un mot de passe :
-            'password' => bcrypt('test123'), 
+            'password'        => bcrypt('test123'),
         ];
     }
 }

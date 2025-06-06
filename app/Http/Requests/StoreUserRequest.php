@@ -8,7 +8,7 @@ class StoreUserRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajuste selon ta logique d’authentification/autorisation.
+     * Ajustez selon votre logique d’authentification/autorisation.
      *
      * @return bool
      */
@@ -25,13 +25,14 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'last_name'              => 'required|string|max:100',
-            'first_name'             => 'required|string|max:100',
-            'nickname'               => 'nullable|string|max:100',
-            'is_active'              => 'required|boolean',
-            'user_type'              => 'required|string|max:50',
-            'onboarding_done'        => 'required|boolean',
-            'email'                  => 'required|string|email|max:255|unique:users,email',
+            'last_name'       => 'required|string|max:100',
+            'first_name'      => 'required|string|max:100',
+            'nickname'        => 'nullable|string|max:100',
+            'is_active'       => 'required|boolean',
+            'user_type'       => 'required|string|max:50',
+            'onboarding_done' => 'required|boolean',
+            'email'           => 'required|string|email|max:255|unique:users,email',
+            'media'           => 'nullable|string|max:255', // champ pour l’URL/chemin de la photo de profil
             // Si vous gérez le mot de passe, décommentez la ligne suivante :
             // 'password' => 'required|string|min:8|confirmed',
         ];

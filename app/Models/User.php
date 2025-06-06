@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
@@ -14,8 +13,7 @@ class User extends Authenticatable
 
     /**
      * The primary key associated with the table.
-     * Laravel’s default is “id”, so this line is actually optional
-     * if you keep the column named “id” in your users table.
+     * Laravel’s default is “id”, so cette ligne est facultative si vous gardez “id”.
      *
      * @var string
      */
@@ -23,8 +21,6 @@ class User extends Authenticatable
 
     /**
      * Indicates if the IDs are auto-incrementing.
-     * Again, “true” is the default for an integer primary key,
-     * so you can safely remove this if you like.
      *
      * @var bool
      */
@@ -50,7 +46,7 @@ class User extends Authenticatable
         'user_type',
         'onboarding_done',
         'email',
-        // Si vous gérez l’authentification par mot de passe, décommentez la ligne suivante :
+        'media', // Ajout du champ “media” pour stocker l’URL ou le chemin de la photo
         // 'password',
     ];
 
@@ -60,14 +56,15 @@ class User extends Authenticatable
      * @var array<string,string>
      */
     protected $casts = [
-        'id'                      => 'integer',
-        'is_active'               => 'boolean',
-        'onboarding_done'         => 'boolean',
-        'user_type'               => 'string',
-        'last_name'               => 'string',
-        'first_name'              => 'string',
-        'nickname'                => 'string',
-        'email'                   => 'string',
+        'id'              => 'integer',
+        'is_active'       => 'boolean',
+        'onboarding_done' => 'boolean',
+        'user_type'       => 'string',
+        'last_name'       => 'string',
+        'first_name'      => 'string',
+        'nickname'        => 'string',
+        'email'           => 'string',
+        'media'           => 'string', // Ajout du cast pour “media”
     ];
 
     /**
@@ -114,7 +111,5 @@ class User extends Authenticatable
         return $this->hasMany(UserActivityGroupActivity::class, 'fk_User', 'id');
     }
 
-    // Si besoin, vous pouvez ajouter d’autres relations qui pointent sur la table “users”,
-    // par exemple vers QuizActivityResult, UserActivityGroupActivityResult, etc.
-    // mais celles-ci couvrent déjà les liens directs du schéma relationnel.
+    // Ajoutez d’autres relations si nécessaire…
 }

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->enum('user_type', ['admin', 'user'])->default('user');
             $table->boolean('onboarding_done')->default(false);
             $table->string('email')->unique();
+            $table->string('media')->nullable(); // Ajout du champ pour la photo de profil
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
