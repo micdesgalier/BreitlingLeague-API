@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('nickname')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->enum('user_type', ['admin', 'user'])->default('user');
+            $table->enum('user_type', ['specialist', 'user'])->default('user');
             $table->boolean('onboarding_done')->default(false);
             $table->string('email')->unique();
             $table->string('media')->nullable(); // Ajout du champ pour la photo de profil
