@@ -14,8 +14,8 @@ class Quiz extends Model
      * The primary key associated with the table.
      */
     protected $primaryKey = 'code_id';
-    // public $incrementing = false;
-    // protected $keyType = 'string';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -43,7 +43,7 @@ class Quiz extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'code_id'                   => 'integer',
+        'code_id'                   => 'string',
         'type'                      => 'string',
         'label_translation_code_id' => 'integer',
         'shuffle_type'              => 'string',

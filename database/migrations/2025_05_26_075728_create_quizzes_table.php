@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             // Clé primaire personnalisée
-            $table->integer('code_id')->primary();
+            $table->string('code_id')->primary();
 
             // Colonnes métiers
             $table->string('type');

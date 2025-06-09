@@ -37,7 +37,7 @@ class Pool extends Model
      */
     protected $casts = [
         'code_id'                    => 'string',
-        'stage_code_id'              => 'integer',
+        'stage_code_id'              => 'string',
         'order'                      => 'integer',
         'number_of_question'         => 'integer',
         'consecutive_correct_answer' => 'integer',

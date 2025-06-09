@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('stages', function (Blueprint $table) {
             // Clé primaire personnalisée
-            $table->integer('code_id')->primary();
+            $table->string('code_id')->primary();
 
             // Foreign key vers quizzes.code_id
-            $table->integer('quiz_code_id')->unsigned();
+            $table->string('quiz_code_id');
             $table->foreign('quiz_code_id')
                   ->references('code_id')
                   ->on('quizzes')

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('code_id')->primary();
 
             // Foreign key vers stages.code_id
-            $table->integer('stage_code_id')->unsigned();
+            $table->string('stage_code_id');
             $table->foreign('stage_code_id')
                   ->references('code_id')
                   ->on('stages')

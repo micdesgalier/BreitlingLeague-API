@@ -17,8 +17,8 @@ class Stage extends Model
      * Uncomment and adjust if your PK is not 'id'.
      */
     protected $primaryKey = 'code_id';
-    // public $incrementing = false;
-    // protected $keyType = 'int';
+    public $incrementing = false;
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
@@ -38,8 +38,8 @@ class Stage extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'code_id'               => 'integer',
-        'quiz_code_id'          => 'integer',
+        'code_id'               => 'string',
+        'quiz_code_id'          => 'string',
         'order'                 => 'integer',
         'number_of_time_to_use' => 'integer',
     ];
