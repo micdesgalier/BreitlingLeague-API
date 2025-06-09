@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
 
-            $table->unsignedInteger('quiz_code_id');
+            $table->string('quiz_code_id');
             $table->unsignedBigInteger('user_id');
 
             $table->boolean('is_completed')->default(false);

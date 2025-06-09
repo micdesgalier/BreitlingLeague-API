@@ -16,7 +16,7 @@ class UpdateUserAttemptRequest extends FormRequest
         return [
             'start_date'         => 'nullable|date',
             'end_date'           => 'nullable|date|after_or_equal:start_date',
-            'quiz_code_id'       => 'sometimes|required|integer|exists:quizzes,code_id',
+            'quiz_code_id'       => 'sometimes|required|string|exists:quizzes,code_id',
             'user_id'            => 'sometimes|required|integer|exists:users,id',
             'is_completed'       => 'sometimes|required|boolean',
             'duration'           => 'nullable|integer|min:0',

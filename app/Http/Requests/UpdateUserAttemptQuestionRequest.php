@@ -18,7 +18,7 @@ class UpdateUserAttemptQuestionRequest extends FormRequest
             'order'             => 'sometimes|required|integer|min:0',
             'is_correct'        => 'sometimes|required|boolean',
             'score'             => 'sometimes|required|integer',
-            'question_code_id'  => 'sometimes|required|integer|exists:questions,code_id',
+            'question_code_id'  => 'sometimes|required|string|exists:questions,code_id',
             'combo_bonus_value' => 'sometimes|required|integer',
         ];
     }

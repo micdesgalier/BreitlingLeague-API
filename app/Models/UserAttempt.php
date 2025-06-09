@@ -37,7 +37,7 @@ class UserAttempt extends Model
     protected $casts = [
         'start_date'         => 'datetime',
         'end_date'           => 'datetime',
-        'quiz_code_id'       => 'integer',
+        'quiz_code_id'       => 'string',
         'user_id'            => 'integer',
         'is_completed'       => 'boolean',
         'duration'           => 'integer',

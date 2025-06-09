@@ -16,7 +16,7 @@ class StoreUserAttemptChoiceRequest extends FormRequest
     {
         return [
             'user_attempt_question_id' => 'required|integer|exists:user_attempts,id',
-            'choice_code_id'  => 'required|integer|exists:choices,code_id',
+            'choice_code_id'  => 'required|string|exists:choices,code_id',
             'is_selected'     => 'required|boolean',
             'is_correct'      => 'required|boolean',
         ];

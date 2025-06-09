@@ -29,7 +29,7 @@ class UserAttemptChoice extends Model
      */
     protected $casts = [
         'user_attempt_question_id' => 'integer',
-        'choice_code_id'           => 'integer',
+        'choice_code_id'           => 'string',
         'is_selected'              => 'boolean',
         'is_correct'               => 'boolean',
     ];

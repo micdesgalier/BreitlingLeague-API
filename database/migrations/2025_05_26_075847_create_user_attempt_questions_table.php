@@ -16,7 +16,7 @@ return new class extends Migration
 
             // Colonnes métiers
             $table->unsignedBigInteger('user_attempt_id');
-            $table->unsignedInteger('question_code_id');
+            $table->string('question_code_id');
             $table->integer('order')->nullable();
             $table->boolean('is_correct')->default(false);
             $table->integer('score')->nullable();

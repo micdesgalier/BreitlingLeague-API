@@ -17,6 +17,7 @@ use App\Http\Controllers\API\UserActivityGroupActivityController;
 use App\Http\Controllers\API\UserActivityGroupActivityResultController;
 use App\Http\Controllers\API\ActivityResultController;
 use App\Http\Controllers\API\QuizActivityResultController;
+use App\Http\Controllers\API\QuizAttemptQuestionController;
 
 Route::apiResource('users',                                UserController::class);
 Route::apiResource('challenges',                           ChallengeController::class);
@@ -39,6 +40,11 @@ Route::apiResource(
 )->parameters([
     'user-activity-group-activity-results' => 'user-activity-group-r'
 ]);
+
+Route::post(
+    'quizzes/{quiz}/questions/{question}/answer',
+    [QuizAttemptQuestionController::class, 'storeOrStart']
+)->name('quizzes.attempts.questions.answer');
 
 Route::apiResource('activity-results',                     ActivityResultController::class);
 Route::apiResource('quiz-activity-results',                QuizActivityResultController::class);

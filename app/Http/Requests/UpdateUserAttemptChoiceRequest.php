@@ -16,7 +16,7 @@ class UpdateUserAttemptChoiceRequest extends FormRequest
     {
         return [
             'user_attempt_question_id' => 'sometimes|required|integer|exists:user_attempts,id',
-            'choice_code_id'  => 'sometimes|required|integer|exists:choices,code_id',
+            'choice_code_id'  => 'sometimes|required|string|exists:choices,code_id',
             'is_selected'     => 'sometimes|required|boolean',
             'is_correct'      => 'sometimes|required|boolean',
         ];

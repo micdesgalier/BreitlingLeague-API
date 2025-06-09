@@ -16,7 +16,7 @@ return new class extends Migration
 
             // ✅ Changement ici : on remplace user_attempt_id par user_attempt_question_id
             $table->unsignedBigInteger('user_attempt_question_id');
-            $table->unsignedInteger('choice_code_id');
+            $table->string('choice_code_id');
 
             $table->boolean('is_selected')->default(false);
             $table->boolean('is_correct')->default(false);

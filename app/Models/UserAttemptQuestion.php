@@ -35,7 +35,7 @@ class UserAttemptQuestion extends Model
         'order'              => 'integer',
         'is_correct'         => 'boolean',
         'score'              => 'integer',
-        'question_code_id'   => 'integer',
+        'question_code_id'   => 'string',
         'combo_bonus_value'  => 'integer',
     ];
 
