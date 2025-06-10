@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuizMatchRequest;
+use App\Http\Requests\UpdateQuizMatchRequest;
 use App\Models\QuizMatch;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,6 @@ class QuizMatchController extends Controller
      */
     public function index(): JsonResponse
     {
-        // Charger éventuellement les relations si nécessaire
         $matches = QuizMatch::with(['quiz', 'participants', 'questions'])->get();
         return response()->json($matches);
     }
@@ -23,21 +23,14 @@ class QuizMatchController extends Controller
     /**
      * Store a newly created quiz match in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreQuizMatchRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'quiz_code_id' => 'required|string|exists:quizzes,code_id',
-            'status'       => 'required|string',
-            // si d'autres champs sont nécessaires, ajoutez-les ici
-        ]);
+        $data = $request->validated();
 
-        // Générer un ID de type string (UUID) pour la PK
+        // Générer un ID UUID pour la PK si nécessaire
         $data['id'] = (string) Str::uuid();
-        // Laravel remplira automatiquement 'created_date' grâce à const CREATED_AT
 
         $quizMatch = QuizMatch::create($data);
-
-        // Charger relations si besoin
         $quizMatch->load(['quiz', 'participants', 'questions']);
 
         return response()->json($quizMatch, 201);
@@ -48,7 +41,6 @@ class QuizMatchController extends Controller
      */
     public function show(QuizMatch $quizMatch): JsonResponse
     {
-        // Charger relations pour renvoyer le détail complet
         $quizMatch->load(['quiz', 'participants', 'questions']);
         return response()->json($quizMatch);
     }
@@ -56,17 +48,13 @@ class QuizMatchController extends Controller
     /**
      * Update the specified quiz match in storage.
      */
-    public function update(Request $request, QuizMatch $quizMatch): JsonResponse
+    public function update(UpdateQuizMatchRequest $request, QuizMatch $quizMatch): JsonResponse
     {
-        $data = $request->validate([
-            // On n'autorise que la mise à jour de status par exemple
-            'status' => 'sometimes|required|string',
-            // Vous pouvez ajouter d'autres champs modifiables ici
-        ]);
+        $data = $request->validated();
 
         $quizMatch->update($data);
-
         $quizMatch->load(['quiz', 'participants', 'questions']);
+
         return response()->json($quizMatch);
     }
 

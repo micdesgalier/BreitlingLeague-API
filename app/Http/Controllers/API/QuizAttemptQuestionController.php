@@ -12,41 +12,41 @@ use Illuminate\Http\JsonResponse;
 class QuizAttemptQuestionController extends Controller
 {
     /**
-     * Fusionne création de l'UserAttempt et enregistrement de la réponse.
+     * Enregistre la réponse de l'utilisateur à une question d'un quiz.
+     * Vérifie l'existence et la cohérence de la tentative (attempt_id) passée en body.
      */
     public function storeOrStart(
         Quiz $quiz,
         Question $question,
         StoreQuizAnswerRequest $request
     ): JsonResponse {
-        // On simule un utilisateur en local
-        $user = \App\Models\User::inRandomOrder()->first();
+        // Récupérer attempt_id depuis la requête
+        $attemptId = $request->input('attempt_id');
+        if (! $attemptId) {
+            return response()->json(['error' => 'Le champ attempt_id est requis.'], 400);
+        }
 
-        // Crée ou récupère la tentative non complétée
-        $attempt = UserAttempt::firstOrCreate(
-            [
-                'user_id'      => $user->id,
-                'quiz_code_id' => $quiz->code_id,
-                'is_completed' => false,
-            ],
-            [
-                'start_date'         => now(),
-                'end_date'           => null,
-                'duration'           => 0,
-                'score'              => 0,
-                'initial_score'      => 0,
-                'combo_bonus_score'  => 0,
-                'time_bonus_score'   => 0,
-            ]
-        );
+        // Récupérer la tentative
+        $attempt = UserAttempt::find($attemptId);
+        if (! $attempt) {
+            return response()->json(['error' => 'Tentative introuvable.'], 404);
+        }
 
-        // Délègue à store() et renvoie toujours un JsonResponse
+        // Vérifier la cohérence : tentative non complétée et correspond bien au quiz
+        if ($attempt->is_completed) {
+            return response()->json(['error' => 'Cette tentative est déjà terminée.'], 400);
+        }
+        if ($attempt->quiz_code_id !== $quiz->code_id) {
+            return response()->json(['error' => 'Tentative invalide pour ce quiz.'], 400);
+        }
+
+        // Déléguer à store() et renvoyer toujours un JsonResponse
         try {
             return $this->store($quiz, $attempt, $question, $request);
         } catch (\Throwable $e) {
             \Log::error('Quiz answer error: ' . $e->getMessage());
             \Log::error('Stack trace: ' . $e->getTraceAsString());
-            
+
             return response()->json([
                 'error'   => 'Impossible d\'enregistrer la réponse.',
                 'message' => $e->getMessage(),
@@ -58,6 +58,12 @@ class QuizAttemptQuestionController extends Controller
 
     /**
      * Enregistre la réponse de l'utilisateur à une question d'un quiz.
+     * 
+     * @param Quiz $quiz
+     * @param UserAttempt $attempt  // reçu depuis storeOrStart, on ne crée plus ici
+     * @param Question $question
+     * @param StoreQuizAnswerRequest $request
+     * @return JsonResponse
      */
     public function store(
         Quiz $quiz,
@@ -65,7 +71,7 @@ class QuizAttemptQuestionController extends Controller
         Question $question,
         StoreQuizAnswerRequest $request
     ): JsonResponse {
-        // 1) Vérifier la cohérence
+        // 1) Vérifier la cohérence (déjà faite dans storeOrStart, mais on peut double-check)
         abort_unless($attempt->quiz_code_id === $quiz->code_id, 404);
 
         // 2) Créer ou récupérer UserAttemptQuestion
@@ -79,7 +85,7 @@ class QuizAttemptQuestionController extends Controller
             ]
         );
 
-        // 3) Enregistrer les choix
+        // 3) Enregistrer les choix : on supprime d'abord d'éventuelles réponses précédentes
         $uaq->userAttemptChoices()->delete();
         $selected     = $request->input('selected_choices', []);
         $isAllCorrect = true;
@@ -108,6 +114,9 @@ class QuizAttemptQuestionController extends Controller
             'is_correct' => $isAllCorrect,
             'score'      => $points,
         ]);
+
+        $totalScore = $attempt->userAttemptQuestions()->sum('score');
+        $attempt->update(['score' => $totalScore]);
 
         // 5) Réponse JSON
         return response()->json([

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // --- Partie existante : import JSON, challenges, users, quiz/stage/pool/question linkage
         $this->call(JsonQuestionSeeder::class);
         $this->call(ChallengeSeeder::class);
-        User::factory()->count(10)->create();
+        User::factory()->count(32)->create();
 
         $allQuestionCodes = Question::pluck('code_id')->toArray();
 

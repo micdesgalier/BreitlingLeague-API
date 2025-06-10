@@ -131,17 +131,17 @@
       "choices": [
         {
           "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_1",
-          "choice_text": "",
+          "choice_text": "Flat tip",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_2",
-          "choice_text": "",
+          "choice_text": "Sharp pointed tip",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_04_CHOICE_3",
-          "choice_text": "",
+          "choice_text": "Rounded fork tip",
           "is_correct": true
         }
       ]
@@ -199,17 +199,17 @@
       "choices": [
         {
           "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_1",
-          "choice_text": "",
+          "choice_text": "Flat edge tip",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_2",
-          "choice_text": "",
+          "choice_text": "Needle point tip",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_07_CHOICE_3",
-          "choice_text": "",
+          "choice_text": "Fork-shaped tip",
           "is_correct": true
         }
       ]
@@ -267,22 +267,22 @@
       "choices": [
         {
           "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_1",
-          "choice_text": "",
+          "choice_text": "Only cutting blade",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_2",
-          "choice_text": "",
+          "choice_text": "Only metal pin",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_3",
-          "choice_text": "",
+          "choice_text": "Only measuring ruler",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_10_CHOICE_4",
-          "choice_text": "",
+          "choice_text": "Cutting blade and metal pin",
           "is_correct": true
         }
       ]
@@ -340,17 +340,17 @@
       "choices": [
         {
           "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_1",
-          "choice_text": "",
+          "choice_text": "Screwdriver",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_2",
-          "choice_text": "",
+          "choice_text": "Tweezer",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_13_CHOICE_3",
-          "choice_text": "",
+          "choice_text": "Spring bar pusher",
           "is_correct": true
         }
       ]
@@ -491,22 +491,22 @@
       "choices": [
         {
           "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_1",
-          "choice_text": "",
+          "choice_text": "Only screwdriver",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_2",
-          "choice_text": "",
+          "choice_text": "Only spring bar pusher",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_3",
-          "choice_text": "",
+          "choice_text": "Only tweezer",
           "is_correct": false
         },
         {
           "choice_code": "AFS_FIELDTOOLKIT_19_CHOICE_4",
-          "choice_text": "",
+          "choice_text": "Spring bar pusher and push pins",
           "is_correct": true
         }
       ]

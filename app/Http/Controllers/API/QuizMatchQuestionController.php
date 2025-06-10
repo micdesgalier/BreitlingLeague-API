@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuizMatchQuestionRequest;
+use App\Http\Requests\UpdateQuizMatchQuestionRequest;
 use App\Models\QuizMatchQuestion;
 use App\Models\QuizMatch;
-use App\Models\Question;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
@@ -17,7 +17,6 @@ class QuizMatchQuestionController extends Controller
      */
     public function index(): JsonResponse
     {
-        // Charger les relations si besoin (quizMatch et question, éventuellement answers)
         $items = QuizMatchQuestion::with(['quizMatch', 'question', 'answers'])->get();
         return response()->json($items);
     }
@@ -25,13 +24,9 @@ class QuizMatchQuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreQuizMatchQuestionRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'quiz_match_id'    => 'required|string|exists:quiz_matches,id',
-            'question_code_id' => 'required|string|exists:questions,code_id',
-            'order'            => 'required|integer|min:0',
-        ]);
+        $data = $request->validated();
 
         // Vérifier que le match existe
         $quizMatch = QuizMatch::find($data['quiz_match_id']);
@@ -39,7 +34,7 @@ class QuizMatchQuestionController extends Controller
             return response()->json(['error' => 'QuizMatch introuvable.'], 422);
         }
 
-        // Optionnel : vérifier qu’on n’a pas déjà cette question pour ce match
+        // Vérifier qu’on n’a pas déjà cette question pour ce match
         $exists = QuizMatchQuestion::where('quiz_match_id', $data['quiz_match_id'])
             ->where('question_code_id', $data['question_code_id'])
             ->exists();
@@ -51,8 +46,6 @@ class QuizMatchQuestionController extends Controller
         $data['id'] = (string) Str::uuid();
 
         $item = QuizMatchQuestion::create($data);
-
-        // Charger relations pour la réponse
         $item->load(['quizMatch', 'question', 'answers']);
 
         return response()->json($item, 201);
@@ -72,15 +65,12 @@ class QuizMatchQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update(UpdateQuizMatchQuestionRequest $request, string $id): JsonResponse
     {
         $item = QuizMatchQuestion::findOrFail($id);
 
-        $data = $request->validate([
-            // On n'autorise généralement pas à changer quiz_match_id ni question_code_id
-            'order' => 'sometimes|required|integer|min:0',
-        ]);
-
+        $data = $request->validated();
+        // Seule 'order' peut être modifié selon les règles
         $item->update($data);
 
         $item->load(['quizMatch', 'question', 'answers']);

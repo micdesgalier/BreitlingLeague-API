@@ -16,7 +16,7 @@ class StoreQuizAnswerRequest extends FormRequest
     {
         return [
             // Vous pouvez, si besoin, passer en body un user_id pour tests :
-            'user_id'           => 'sometimes|integer|exists:users,id',
+            'attempt_id'       => ['required','integer','exists:user_attempts,id'],
 
             // Les choix sélectionnés pour la question (une ou plusieurs)
             'selected_choices'  => 'required|array|min:1',
