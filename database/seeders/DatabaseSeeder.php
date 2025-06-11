@@ -25,7 +25,19 @@ class DatabaseSeeder extends Seeder
         // --- Partie existante : import JSON, challenges, users, quiz/stage/pool/question linkage
         $this->call(JsonQuestionSeeder::class);
         $this->call(ChallengeSeeder::class);
-        User::factory()->count(32)->create();
+
+        // 1) Créer le user spécifique en premier : la factory va générer l’ID 1 puisque la table est vide.
+        User::factory()->create([
+            'nickname' => 'BreitlingSpecialistTest',
+            'email'    => 'breitling.specialist@example.com', 
+            // autres champs spécifiques si besoin, sinon la factory génère last_name, first_name aléatoires
+            'user_type'=> 'specialist',
+            'password' => bcrypt('test123'),
+            // ...
+        ]);
+
+        // 2) Puis créer les autres users :
+        User::factory()->count(9)->create();
 
         $allQuestionCodes = Question::pluck('code_id')->toArray();
 

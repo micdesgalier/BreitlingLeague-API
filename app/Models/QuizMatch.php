@@ -30,7 +30,9 @@ class QuizMatch extends Model
      * @var array<int,string>
      */
     protected $fillable = [
+        'id',
         'quiz_code_id',
+        'next_turn_user_id',
         'status',
         // 'created_date' est géré automatiquement par Laravel lors de la création
     ];
@@ -43,6 +45,7 @@ class QuizMatch extends Model
     protected $casts = [
         'quiz_code_id' => 'string',
         'created_date' => 'datetime',
+        'next_turn_user_id' => 'int',
         'status'       => 'string',
     ];
 
@@ -79,5 +82,13 @@ class QuizMatch extends Model
     public function questions(): HasMany
     {
         return $this->hasMany(QuizMatchQuestion::class, 'quiz_match_id', 'id');
+    }
+
+    /** Relation optionnelle vers User pour next_turn_user */
+    public function nextTurnUser(): BelongsTo
+    {
+        // si users.id est integer
+        return $this->belongsTo(User::class, 'next_turn_user_id', 'id');
+        // si user PK est UUID, adapter 'string'
     }
 }

@@ -28,6 +28,7 @@ class QuizMatchQuestion extends Model
      * @var array<int,string>
      */
     protected $fillable = [
+        'id',
         'quiz_match_id',
         'question_code_id',
         'order',

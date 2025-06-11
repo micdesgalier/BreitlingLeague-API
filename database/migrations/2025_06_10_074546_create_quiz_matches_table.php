@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quiz_matches', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('id')->primary(); // UUID non auto-incrémenté
+            $table->string('quiz_code_id'); // Clé étrangère vers quizzes.code_id
+            $table->string('status')->default('pending'); // Statut du match
+            $table->timestamp('created_date')->useCurrent(); // Seulement created_date
         });
     }
 
