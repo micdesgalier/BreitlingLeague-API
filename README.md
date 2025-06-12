@@ -16,7 +16,6 @@ Ce backend Laravel fournit une API REST pour gérer les utilisateurs, quiz, tent
    ```bash
    git clone <URL_DU_REPO_BACKEND> backend
    cd backend
-``
 
 2. **Copier le fichier d’environnement**
 
