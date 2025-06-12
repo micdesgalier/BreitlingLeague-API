@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -13,6 +12,10 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        // Listes fixes pour country et group
+        $countries = ['Switzerland', 'France', 'Germany', 'Spain', 'Italy'];
+        $groups    = ['Groupe A', 'Groupe B', 'Groupe C', 'Groupe D', 'Groupe E'];
+
         return [
             'last_name'       => $this->faker->lastName(),
             'first_name'      => $this->faker->firstName(),
@@ -21,9 +24,17 @@ class UserFactory extends Factory
             'user_type'       => $this->faker->randomElement(['specialist', 'user']),
             'onboarding_done' => $this->faker->boolean(50),
             'email'           => $this->faker->unique()->safeEmail(),
-            'media'           => $this->faker->imageUrl(200, 200, 'people', true), // URL factice pour la photo de profil
-            // si vous gérez un mot de passe :
+            // Exemple de media séquentiel ou aléatoire : ici on laisse Faker générique
+            'media'           => $this->faker->imageUrl(200, 200, 'people', true),
             'password'        => bcrypt('test123'),
+
+            // Nouveaux champs group et country avec valeurs limitées
+            'group'           => $this->faker->randomElement($groups),
+            'country'         => $this->faker->randomElement($countries),
+
+            // Si vous aviez d’autres champs comme boutique/pays, adaptables de la même façon :
+            // 'boutique' => $this->faker->company(),
+            // 'pays'     => $this->faker->randomElement(['Switzerland', 'France', ...]),
         ];
     }
 }

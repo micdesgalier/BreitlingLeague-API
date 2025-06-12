@@ -22,8 +22,8 @@ class QuizFactory extends Factory
             'is_unlimited'              => $this->faker->boolean(20),
             'duration'                  => $this->faker->numberBetween(60, 3600), // en secondes
             'question_duration'         => $this->faker->numberBetween(10, 120),
-            'correct_choice_points'     => $this->faker->numberBetween(1, 10),
-            'wrong_choice_points'       => $this->faker->numberBetween(-5, 0),
+            'correct_choice_points'     => 1000,
+            'wrong_choice_points'       => 0,
         ];
     }
 }

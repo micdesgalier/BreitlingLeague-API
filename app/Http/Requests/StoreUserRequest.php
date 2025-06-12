@@ -32,8 +32,13 @@ class StoreUserRequest extends FormRequest
             'user_type'       => 'required|string|max:50',
             'onboarding_done' => 'required|boolean',
             'email'           => 'required|string|email|max:255|unique:users,email',
-            'media'           => 'nullable|string|max:255', // champ pour l’URL/chemin de la photo de profil
-            // Si vous gérez le mot de passe, décommentez la ligne suivante :
+            'media'           => 'nullable|string|max:255',
+
+            // Nouveaux champs boutique et pays
+            'boutique'        => 'nullable|string|max:255',
+            'pays'            => 'nullable|string|max:255',
+
+            // Si vous gérez le mot de passe, décommentez ou ajustez la règle
             // 'password' => 'required|string|min:8|confirmed',
         ];
     }

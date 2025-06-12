@@ -32,12 +32,16 @@ class DatabaseSeeder extends Seeder
             'email'    => 'breitling.specialist@example.com', 
             // autres champs spécifiques si besoin, sinon la factory génère last_name, first_name aléatoires
             'user_type'=> 'specialist',
+            'media' => "/assets/images/avatar/1avatar.webp",
             'password' => bcrypt('test123'),
             // ...
         ]);
 
-        // 2) Puis créer les autres users :
-        User::factory()->count(9)->create();
+        for ($i = 2; $i <= 10; $i++) {
+            User::factory()->create([
+                'media' => "/assets/images/avatar/{$i}avatar.webp",
+            ]);
+        }
 
         $allQuestionCodes = Question::pluck('code_id')->toArray();
 

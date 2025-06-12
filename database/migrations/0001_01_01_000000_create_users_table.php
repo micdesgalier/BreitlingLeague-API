@@ -19,7 +19,10 @@ return new class extends Migration
             $table->enum('user_type', ['specialist', 'user'])->default('user');
             $table->boolean('onboarding_done')->default(false);
             $table->string('email')->unique();
-            $table->string('media')->nullable(); // Ajout du champ pour la photo de profil
+            $table->string('media')->nullable(); // photo de profil
+            // Nouveaux champs boutique et pays
+            $table->string('group')->nullable()->after('media');
+            $table->string('country')->nullable()->after('boutique');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

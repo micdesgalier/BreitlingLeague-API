@@ -12,6 +12,8 @@ use App\Models\QuizMatchQuestion;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\QuizMatchAnswer;
+use App\Http\Requests\StoreQuizMatchRequest;
+use App\Http\Requests\UpdateQuizMatchRequest;
 
 class QuizMatchController extends Controller
 {

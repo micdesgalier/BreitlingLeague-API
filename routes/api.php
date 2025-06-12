@@ -24,24 +24,6 @@ use App\Http\Controllers\API\QuizMatchParticipantController;
 use App\Http\Controllers\API\QuizMatchQuestionController;
 use App\Http\Controllers\API\QuizMatchAnswerController;
 
-Route::apiResource('users',                                UserController::class);
-Route::apiResource('challenges',                           ChallengeController::class);
-Route::apiResource('quizzes',                              QuizController::class);
-Route::apiResource('stages',                               StageController::class);
-Route::apiResource('pools',                                PoolController::class);
-Route::apiResource('pool-questions',                       PoolQuestionController::class);
-Route::apiResource('questions',                            QuestionController::class);
-Route::apiResource('choices',                              ChoiceController::class);
-Route::apiResource('user-attempts',                        UserAttemptController::class);
-Route::apiResource('user-attempt-questions',               UserAttemptQuestionController::class);
-Route::apiResource('user-attempt-choices',                 UserAttemptChoiceController::class);
-Route::apiResource('user-activity-group-activities',       UserActivityGroupActivityController::class);
-
-Route::apiResource('quiz-matches',                         QuizMatchController::class);
-Route::apiResource('quiz-match-participants',              QuizMatchParticipantController::class);
-Route::apiResource('quiz-match-questions',                 QuizMatchQuestionController::class);
-Route::apiResource('quiz-match-answers',                   QuizMatchAnswerController::class);
-
 // On définit un paramètre plus court pour éviter >32 caractères
 Route::apiResource(
     'user-activity-group-activity-results',
@@ -66,3 +48,24 @@ Route::get('/quiz-matches/{quizMatch}/end-quiz-match', [QuizMatchController::cla
 
 Route::apiResource('activity-results',                     ActivityResultController::class);
 Route::apiResource('quiz-activity-results',                QuizActivityResultController::class);
+
+Route::get('users/ranking', [UserController::class, 'ranking']);
+Route::get('users/{user}/quiz-match-list', [UserController::class, 'quizMatch']);
+Route::apiResource('users', UserController::class)
+     ->where(['user' => '[0-9]+']);
+Route::apiResource('challenges',                           ChallengeController::class);
+Route::apiResource('quizzes',                              QuizController::class);
+Route::apiResource('stages',                               StageController::class);
+Route::apiResource('pools',                                PoolController::class);
+Route::apiResource('pool-questions',                       PoolQuestionController::class);
+Route::apiResource('questions',                            QuestionController::class);
+Route::apiResource('choices',                              ChoiceController::class);
+Route::apiResource('user-attempts',                        UserAttemptController::class);
+Route::apiResource('user-attempt-questions',               UserAttemptQuestionController::class);
+Route::apiResource('user-attempt-choices',                 UserAttemptChoiceController::class);
+Route::apiResource('user-activity-group-activities',       UserActivityGroupActivityController::class);
+
+Route::apiResource('quiz-matches',                         QuizMatchController::class);
+Route::apiResource('quiz-match-participants',              QuizMatchParticipantController::class);
+Route::apiResource('quiz-match-questions',                 QuizMatchQuestionController::class);
+Route::apiResource('quiz-match-answers',                   QuizMatchAnswerController::class);

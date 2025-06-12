@@ -11,30 +11,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The primary key associated with the table.
-     * Laravel’s default is “id”, so cette ligne est facultative si vous gardez “id”.
-     *
-     * @var string
-     */
     protected $primaryKey = 'id';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
     public $incrementing = true;
-
-    /**
-     * The “type” of the primary key ID.
-     *
-     * @var string
-     */
     protected $keyType = 'int';
 
     /**
-     * The attributes that are mass assignable.
+     * Les attributs "mass assignable".
      *
      * @var array<int,string>
      */
@@ -46,12 +28,14 @@ class User extends Authenticatable
         'user_type',
         'onboarding_done',
         'email',
-        'media', // Ajout du champ “media” pour stocker l’URL ou le chemin de la photo
-        // 'password',
+        'media',
+        // Ajout des champs boutique et pays :
+        'group',
+        'country',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Les attributs à caster en types natifs.
      *
      * @var array<string,string>
      */
@@ -64,52 +48,37 @@ class User extends Authenticatable
         'first_name'      => 'string',
         'nickname'        => 'string',
         'email'           => 'string',
-        'media'           => 'string', // Ajout du cast pour “media”
+        'media'           => 'string',
+        // Cast pour boutique et pays
+        'group'        => 'string',
+        'country'            => 'string',
+        // si vous stockez password, Laravel ne le caste pas explicitement ici
     ];
 
-    /**
-     * Si vous utilisez les timestamps Laravel classiques (created_at / updated_at),
-     * laissez ceci à true. Sinon, mettez false.
-     *
-     * @var bool
-     */
     public $timestamps = true;
 
     // ========================
     // === RELATIONSHIPS ======
     // ========================
 
-    /**
-     * Toutes les tentatives de quiz (UserAttempt) faites par cet utilisateur.
-     *
-     * @return HasMany
-     */
     public function quizAttempts(): HasMany
     {
-        return $this->hasMany(UserAttempt::class, 'fk_User', 'id');
+        return $this->hasMany(UserAttempt::class, 'user_id', 'id');
     }
 
-    /**
-     * Toutes les réponses de type “match” que cet utilisateur a fournies
-     * (QuizUserMatchAnswer).
-     *
-     * @return HasMany
-     */
     public function quizUserMatchAnswers(): HasMany
     {
-        return $this->hasMany(QuizUserMatchAnswer::class, 'fk_User', 'id');
+        return $this->hasMany(QuizUserMatchAnswer::class, 'user_id', 'id');
     }
 
-    /**
-     * Toutes les activités de groupe associées à cet utilisateur
-     * (UserActivityGroupActivity).
-     *
-     * @return HasMany
-     */
     public function userActivityGroupActivities(): HasMany
     {
-        return $this->hasMany(UserActivityGroupActivity::class, 'fk_User', 'id');
+        return $this->hasMany(UserActivityGroupActivity::class, 'user_id', 'id');
     }
 
-    // Ajoutez d’autres relations si nécessaire…
+    public function quizMatchParticipants(): HasMany
+    {
+        // suppose que QuizMatchParticipant a user_id comme clé étrangère
+        return $this->hasMany(\App\Models\QuizMatchParticipant::class, 'user_id', 'id');
+    }
 }
