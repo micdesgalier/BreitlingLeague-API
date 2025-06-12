@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             // ...
         ]);
 
-        for ($i = 2; $i <= 10; $i++) {
+        for ($i = 2; $i <= 32; $i++) {
             User::factory()->create([
                 'media' => "/assets/images/avatar/{$i}avatar.webp",
             ]);
