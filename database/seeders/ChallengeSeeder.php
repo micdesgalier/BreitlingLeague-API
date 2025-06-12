@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Database\Seeders;
 
@@ -9,13 +9,15 @@ use Illuminate\Support\Str;
 class ChallengeSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Exécute le seed pour insérer des challenges en base.
+     *
+     * Crée 10 challenges avec un titre simple et un contenu aléatoire.
      */
     public function run(): void
     {
         for ($i = 1; $i <= 10; $i++) {
             Challenge::create([
-                'titre' => "Challenge $i",
+                'titre'   => "Challenge $i",
                 'contenu' => "Contenu du challenge $i : " . Str::random(50),
             ]);
         }

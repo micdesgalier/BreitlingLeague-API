@@ -12,9 +12,9 @@ class UserAttempt extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributs pouvant être assignés en masse.
      *
-     * @var array<int,string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'start_date',
@@ -30,9 +30,9 @@ class UserAttempt extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Casts permettant de convertir automatiquement les attributs dans les bons types.
      *
-     * @var array<string,string>
+     * @var array<string, string>
      */
     protected $casts = [
         'start_date'         => 'datetime',
@@ -48,11 +48,11 @@ class UserAttempt extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // ===== RELATIONS ========
     // ========================
 
     /**
-     * L'utilisateur qui réalise cette tentative.
+     * L'utilisateur qui a effectué cette tentative.
      */
     public function user(): BelongsTo
     {
@@ -60,7 +60,7 @@ class UserAttempt extends Model
     }
 
     /**
-     * Le quiz « statique » associé à cette tentative.
+     * Le quiz auquel cette tentative est associée.
      */
     public function quiz(): BelongsTo
     {
@@ -68,7 +68,7 @@ class UserAttempt extends Model
     }
 
     /**
-     * Les questions répondue lors de cette tentative.
+     * Les réponses associées à cette tentative.
      */
     public function userAttemptQuestions(): HasMany
     {

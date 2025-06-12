@@ -8,7 +8,6 @@ class StoreChoiceRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon ta logique d'authentification/autorisation
         return true;
     }
 

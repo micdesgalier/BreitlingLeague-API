@@ -11,21 +11,21 @@ use Illuminate\Http\Response;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the questions.
+     * Retourne la liste de toutes les questions.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $questions = Question::all();
-        return response()->json($questions);
+        return response()->json($questions, Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created question in storage.
+     * Enregistre une nouvelle question dans la base de données.
      *
-     * @param  \App\Http\Requests\StoreQuestionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreQuestionRequest  $request  Données validées de la requête
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreQuestionRequest $request)
     {
@@ -35,35 +35,35 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified question.
+     * Affiche une question spécifique.
      *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param  Question  $question  Instance de la question récupérée par injection de dépendance
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Question $question)
     {
-        return response()->json($question);
+        return response()->json($question, Response::HTTP_OK);
     }
 
     /**
-     * Update the specified question in storage.
+     * Met à jour une question existante avec de nouvelles données validées.
      *
-     * @param  \App\Http\Requests\UpdateQuestionRequest  $request
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param  UpdateQuestionRequest  $request  Données validées de la requête
+     * @param  Question  $question             Question à modifier
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
         $question->update($request->validated());
 
-        return response()->json($question);
+        return response()->json($question, Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified question from storage.
+     * Supprime une question de la base de données.
      *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param  Question  $question  Question à supprimer
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Question $question)
     {

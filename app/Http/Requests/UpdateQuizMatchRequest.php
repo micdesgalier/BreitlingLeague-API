@@ -8,13 +8,12 @@ class UpdateQuizMatchRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique (auth, rôles, etc.).
      *
      * @return bool
      */
     public function authorize(): bool
     {
-        // Pour l’instant on autorise toujours. Changez si nécessaire.
+        // Pour l’instant on autorise toujours. 
         return true;
     }
 
@@ -26,8 +25,6 @@ class UpdateQuizMatchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // On n’autorise en général qu’une mise à jour du statut,
-            // mais on peut ajouter d’autres champs modifiables.
             'status' => 'sometimes|required|string|max:50',
         ];
     }

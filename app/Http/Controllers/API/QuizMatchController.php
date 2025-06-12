@@ -18,41 +18,39 @@ use App\Http\Requests\UpdateQuizMatchRequest;
 class QuizMatchController extends Controller
 {
     /**
-     * Display a listing of quiz matches.
+     * Récupérer la liste de tous les matchs avec leurs relations principales.
      */
     public function index(): JsonResponse
     {
-        // On charge nextTurnUser pour que le front puisse voir directement qui commence si souhaité
+        // Charger les relations pour que le front ait toutes les infos nécessaires
         $matches = QuizMatch::with(['quiz', 'participants', 'questions', 'nextTurnUser'])->get();
         return response()->json($matches);
     }
 
     /**
-     * Store a newly created quiz match in storage.
-     * (On peut laisser tel quel ou supprimer si on utilise startMatch pour la création d’un duel).
+     * Créer un nouveau match (optionnel si on utilise startMatch pour créer un duel).
      */
     public function store(StoreQuizMatchRequest $request): JsonResponse
     {
         $data = $request->validated();
         $data['id'] = (string) Str::uuid();
-        // Si on veut initialiser next_turn_user_id ici, on peut, mais on préfère le faire dans startMatch
+        // Création du match sans initialiser next_turn_user_id ici (fait dans startMatch)
         $quizMatch = QuizMatch::create($data);
         $quizMatch->load(['quiz', 'participants', 'questions', 'nextTurnUser']);
         return response()->json($quizMatch, 201);
     }
 
     /**
-     * Display the specified quiz match.
+     * Afficher un match spécifique avec ses relations.
      */
     public function show(QuizMatch $quizMatch): JsonResponse
     {
-        // On charge nextTurnUser pour que le front voie le champ
         $quizMatch->load(['quiz', 'participants', 'questions', 'nextTurnUser']);
         return response()->json($quizMatch);
     }
 
     /**
-     * Update the specified quiz match in storage.
+     * Mettre à jour un match existant.
      */
     public function update(UpdateQuizMatchRequest $request, QuizMatch $quizMatch): JsonResponse
     {
@@ -63,7 +61,7 @@ class QuizMatchController extends Controller
     }
 
     /**
-     * Remove the specified quiz match from storage.
+     * Supprimer un match.
      */
     public function destroy(QuizMatch $quizMatch): JsonResponse
     {
@@ -165,6 +163,9 @@ class QuizMatchController extends Controller
         ], 201);
     }
 
+    /**
+     * Afficher un match détaillé avec participants, questions, choix, et info du joueur actif.
+     */
     public function detailedShow(string $id): JsonResponse
     {
         $quizMatch = QuizMatch::with([
@@ -180,6 +181,9 @@ class QuizMatchController extends Controller
         return response()->json($quizMatch);
     }
 
+    /**
+     * Enregistrer la réponse d’un participant à une question et gérer le tour suivant.
+     */
     public function answerQuestion(Request $request, QuizMatch $quizMatch, string $questionCode): JsonResponse
     {
         // Validation du body
@@ -280,6 +284,9 @@ class QuizMatchController extends Controller
         ], 200);
     }
 
+    /**
+     * Enregistrer la fin d'un quiz
+     */
     public function endQuizMatch(QuizMatch $quizMatch): JsonResponse
     {
         // Charger participants et leur user pour retour détaillé

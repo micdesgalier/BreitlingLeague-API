@@ -15,7 +15,8 @@ use Illuminate\Support\Str;
 class QuizMatchAnswerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retourne la liste complète des réponses aux quiz match,
+     * avec leurs relations associées (match, participant, question, choix).
      */
     public function index(): JsonResponse
     {
@@ -30,19 +31,22 @@ class QuizMatchAnswerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Crée une nouvelle réponse pour un quiz match.
+     * Vérifie que la question et le participant appartiennent bien au même match.
      */
     public function store(StoreQuizMatchAnswerRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        // Vérifier cohérence : question et participant appartiennent au même match
+        // Vérification que la question appartient au match indiqué
         $question = QuizMatchQuestion::find($data['quiz_match_question_id']);
         if (!$question || $question->quiz_match_id !== $data['quiz_match_id']) {
             return response()->json([
                 'error' => 'La question n’appartient pas au match indiqué.'
             ], 422);
         }
+
+        // Vérification que le participant appartient au match indiqué
         $participant = QuizMatchParticipant::find($data['quiz_match_participant_id']);
         if (!$participant || $participant->quiz_match_id !== $data['quiz_match_id']) {
             return response()->json([
@@ -50,9 +54,10 @@ class QuizMatchAnswerController extends Controller
             ], 422);
         }
 
-        // Générer un ID string si la PK n’est pas auto-incrément
+        // Génère un UUID comme identifiant si la clé primaire n’est pas auto-incrémentée
         $data['id'] = (string) Str::uuid();
 
+        // Création de la réponse et chargement des relations pour la réponse JSON
         $answer = QuizMatchAnswer::create($data);
         $answer->load(['quizMatch', 'participant', 'question', 'choice']);
 
@@ -60,7 +65,8 @@ class QuizMatchAnswerController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche une réponse spécifique identifiée par son ID,
+     * avec ses relations associées chargées.
      */
     public function show(string $id): JsonResponse
     {
@@ -75,7 +81,7 @@ class QuizMatchAnswerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour une réponse existante à partir des données validées.
      */
     public function update(UpdateQuizMatchAnswerRequest $request, string $id): JsonResponse
     {
@@ -84,18 +90,21 @@ class QuizMatchAnswerController extends Controller
         $data = $request->validated();
 
         $answer->update($data);
+
+        // Recharge les relations pour la réponse mise à jour
         $answer->load(['quizMatch', 'participant', 'question', 'choice']);
 
         return response()->json($answer);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime une réponse identifiée par son ID.
      */
     public function destroy(string $id): JsonResponse
     {
         $answer = QuizMatchAnswer::findOrFail($id);
         $answer->delete();
+
         return response()->json(null, 204);
     }
 }

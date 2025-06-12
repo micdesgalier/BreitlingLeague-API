@@ -8,7 +8,6 @@ class UpdateStageRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon tes règles d’accès
         return true;
     }
 

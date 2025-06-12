@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,9 +11,7 @@ use Illuminate\Http\Response;
 class UserAttemptController extends Controller
 {
     /**
-     * Display a listing of user attempts.
-     *
-     * @return \Illuminate\Http\Response
+     * Retourne la liste de toutes les tentatives utilisateur.
      */
     public function index()
     {
@@ -22,10 +20,7 @@ class UserAttemptController extends Controller
     }
 
     /**
-     * Store a newly created user attempt in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserAttemptRequest  $request
-     * @return \Illuminate\Http\Response
+     * Crée une nouvelle tentative utilisateur à partir des données validées.
      */
     public function store(StoreUserAttemptRequest $request)
     {
@@ -35,10 +30,7 @@ class UserAttemptController extends Controller
     }
 
     /**
-     * Display the specified user attempt.
-     *
-     * @param  \App\Models\UserAttempt  $userAttempt
-     * @return \Illuminate\Http\Response
+     * Affiche une tentative utilisateur spécifique.
      */
     public function show(UserAttempt $userAttempt)
     {
@@ -46,11 +38,7 @@ class UserAttemptController extends Controller
     }
 
     /**
-     * Update the specified user attempt in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUserAttemptRequest  $request
-     * @param  \App\Models\UserAttempt  $userAttempt
-     * @return \Illuminate\Http\Response
+     * Met à jour une tentative utilisateur avec les données validées.
      */
     public function update(UpdateUserAttemptRequest $request, UserAttempt $userAttempt)
     {
@@ -60,10 +48,7 @@ class UserAttemptController extends Controller
     }
 
     /**
-     * Remove the specified user attempt from storage.
-     *
-     * @param  \App\Models\UserAttempt  $userAttempt
-     * @return \Illuminate\Http\Response
+     * Supprime une tentative utilisateur donnée.
      */
     public function destroy(UserAttempt $userAttempt)
     {

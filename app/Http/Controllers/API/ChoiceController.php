@@ -11,21 +11,21 @@ use Illuminate\Http\Response;
 class ChoiceController extends Controller
 {
     /**
-     * Display a listing of the choices.
+     * Retourne la liste complète des choix.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $choices = Choice::all();
-        return response()->json($choices);
+        return response()->json($choices, Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created choice in storage.
+     * Crée un nouveau choix à partir des données validées.
      *
-     * @param  \App\Http\Requests\StoreChoiceRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreChoiceRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreChoiceRequest $request)
     {
@@ -35,35 +35,35 @@ class ChoiceController extends Controller
     }
 
     /**
-     * Display the specified choice.
+     * Retourne un choix spécifique.
      *
-     * @param  \App\Models\Choice  $choice
-     * @return \Illuminate\Http\Response
+     * @param  Choice  $choice
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Choice $choice)
     {
-        return response()->json($choice);
+        return response()->json($choice, Response::HTTP_OK);
     }
 
     /**
-     * Update the specified choice in storage.
+     * Met à jour les données d’un choix existant.
      *
-     * @param  \App\Http\Requests\UpdateChoiceRequest  $request
-     * @param  \App\Models\Choice  $choice
-     * @return \Illuminate\Http\Response
+     * @param  UpdateChoiceRequest  $request
+     * @param  Choice               $choice
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateChoiceRequest $request, Choice $choice)
     {
         $choice->update($request->validated());
 
-        return response()->json($choice);
+        return response()->json($choice, Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified choice from storage.
+     * Supprime un choix donné de la base de données.
      *
-     * @param  \App\Models\Choice  $choice
-     * @return \Illuminate\Http\Response
+     * @param  Choice  $choice
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Choice $choice)
     {

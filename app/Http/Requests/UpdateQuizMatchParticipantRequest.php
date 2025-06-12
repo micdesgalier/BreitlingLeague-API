@@ -8,13 +8,12 @@ class UpdateQuizMatchParticipantRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique (auth, rôles, etc.).
      *
      * @return bool
      */
     public function authorize(): bool
     {
-        // Pour l’instant on autorise toujours. Changez si nécessaire.
+        // Pour l’instant on autorise toujours.
         return true;
     }
 
@@ -26,8 +25,6 @@ class UpdateQuizMatchParticipantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Normalement on ne change pas quiz_match_id ou user_id,
-            // mais si besoin, vous pouvez autoriser leur modification en retirant 'prohibited'.
             'quiz_match_id'    => 'prohibited',
             'user_id'          => 'prohibited',
 

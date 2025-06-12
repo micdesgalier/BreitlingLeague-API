@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 class QuizController extends Controller
 {
     /**
-     * Display a listing of the quizzes.
+     * Retourne la liste complète des quiz existants.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,38 +22,38 @@ class QuizController extends Controller
     }
 
     /**
-     * Store a newly created quiz in storage.
+     * Crée un nouveau quiz à partir des données validées.
      *
-     * @param  \App\Http\Requests\StoreQuizRequest  $request
+     * @param  StoreQuizRequest  $request  Requête contenant les données du quiz
      * @return \Illuminate\Http\Response
      */
     public function store(StoreQuizRequest $request)
     {
         $quiz = Quiz::create($request->validated());
-
         return response()->json($quiz, Response::HTTP_CREATED);
     }
 
     /**
-     * Display the specified quiz, chargé avec ses Stages → Pools → Questions → Choices.
+     * Affiche un quiz spécifique avec ses relations imbriquées :
+     * Stages → Pools → Questions → Choices, chacun trié de manière logique.
      *
-     * @param  \App\Models\Quiz  $quiz
+     * @param  Quiz  $quiz  Le quiz à afficher
      * @return \Illuminate\Http\Response
      */
     public function show(Quiz $quiz)
     {
         $quiz->load([
             'stages' => function($query) {
-                $query->orderBy('order');
+                $query->orderBy('order'); // Tri des stages par ordre
             },
             'stages.pools' => function($query) {
-                $query->orderBy('order');
+                $query->orderBy('order'); // Tri des pools dans chaque stage
             },
             'stages.pools.questions' => function($query) {
-                $query->orderBy('label');
+                $query->orderBy('label'); // Tri des questions par libellé
             },
             'stages.pools.questions.choices' => function($query) {
-                $query->orderBy('order');
+                $query->orderBy('order'); // Tri des choix de réponse
             },
         ]);
 
@@ -61,23 +61,22 @@ class QuizController extends Controller
     }
 
     /**
-     * Update the specified quiz in storage.
+     * Met à jour les informations d’un quiz existant.
      *
-     * @param  \App\Http\Requests\UpdateQuizRequest  $request
-     * @param  \App\Models\Quiz  $quiz
+     * @param  UpdateQuizRequest  $request  Requête contenant les nouvelles données du quiz
+     * @param  Quiz  $quiz                  Le quiz à modifier
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateQuizRequest $request, Quiz $quiz)
     {
         $quiz->update($request->validated());
-
         return response()->json($quiz);
     }
 
     /**
-     * Remove the specified quiz from storage.
+     * Supprime un quiz existant de la base de données.
      *
-     * @param  \App\Models\Quiz  $quiz
+     * @param  Quiz  $quiz  Le quiz à supprimer
      * @return \Illuminate\Http\Response
      */
     public function destroy(Quiz $quiz)

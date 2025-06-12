@@ -15,7 +15,6 @@ class StartQuizRequest extends FormRequest
     {
         return [
             'user_id'    => ['required','integer','exists:users,id'],
-            // facultatif : filtres, ex. 'category_id' => ['nullable','integer','exists:categories,id'], etc.
         ];
     }
 

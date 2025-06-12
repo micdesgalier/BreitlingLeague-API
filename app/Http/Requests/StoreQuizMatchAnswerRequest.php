@@ -8,7 +8,6 @@ class StoreQuizMatchAnswerRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique (authentification, rôles, etc.).
      *
      * @return bool
      */

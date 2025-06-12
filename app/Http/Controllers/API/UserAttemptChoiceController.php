@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,9 +11,7 @@ use Illuminate\Http\Response;
 class UserAttemptChoiceController extends Controller
 {
     /**
-     * Display a listing of user attempt choices.
-     *
-     * @return \Illuminate\Http\Response
+     * Récupère et retourne toutes les réponses d'essais utilisateurs.
      */
     public function index()
     {
@@ -22,10 +20,7 @@ class UserAttemptChoiceController extends Controller
     }
 
     /**
-     * Store a newly created user attempt choice in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserAttemptChoiceRequest  $request
-     * @return \Illuminate\Http\Response
+     * Enregistre une nouvelle réponse d'essai utilisateur validée.
      */
     public function store(StoreUserAttemptChoiceRequest $request)
     {
@@ -35,10 +30,7 @@ class UserAttemptChoiceController extends Controller
     }
 
     /**
-     * Display the specified user attempt choice.
-     *
-     * @param  \App\Models\UserAttemptChoice  $userAttemptChoice
-     * @return \Illuminate\Http\Response
+     * Affiche une réponse d'essai utilisateur spécifique.
      */
     public function show(UserAttemptChoice $userAttemptChoice)
     {
@@ -46,11 +38,7 @@ class UserAttemptChoiceController extends Controller
     }
 
     /**
-     * Update the specified user attempt choice in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUserAttemptChoiceRequest  $request
-     * @param  \App\Models\UserAttemptChoice  $userAttemptChoice
-     * @return \Illuminate\Http\Response
+     * Met à jour une réponse d'essai utilisateur avec les données validées.
      */
     public function update(UpdateUserAttemptChoiceRequest $request, UserAttemptChoice $userAttemptChoice)
     {
@@ -60,10 +48,7 @@ class UserAttemptChoiceController extends Controller
     }
 
     /**
-     * Remove the specified user attempt choice from storage.
-     *
-     * @param  \App\Models\UserAttemptChoice  $userAttemptChoice
-     * @return \Illuminate\Http\Response
+     * Supprime une réponse d'essai utilisateur donnée.
      */
     public function destroy(UserAttemptChoice $userAttemptChoice)
     {

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -12,12 +12,12 @@ class Choice extends Model
     use HasFactory;
 
     /**
-     * The primary key associated with the table.
+     * Clé primaire de la table (par défaut : 'id', ici 'code_id').
      */
     protected $primaryKey = 'code_id';
 
     /**
-     * The attributes that are mass assignable.
+     * Attributs pouvant être assignés en masse.
      *
      * @var array<int, string>
      */
@@ -27,11 +27,11 @@ class Choice extends Model
         'order',
         'is_correct',
         'question_code_id',
-        'label', // Ajout du champ "label"
+        'label',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Conversion automatique des attributs en types natifs.
      *
      * @var array<string, string>
      */
@@ -41,15 +41,15 @@ class Choice extends Model
         'order'            => 'integer',
         'is_correct'       => 'boolean',
         'question_code_id' => 'string',
-        'label'            => 'string', // Casting du champ "label"
+        'label'            => 'string',
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * La question à laquelle appartient ce choix.
+     * Retourne la question à laquelle ce choix est lié.
      */
     public function question(): BelongsTo
     {
@@ -57,7 +57,7 @@ class Choice extends Model
     }
 
     /**
-     * Le média associé à ce choix (optionnel).
+     * Retourne le média associé à ce choix (peut être null).
      */
     public function media(): BelongsTo
     {
@@ -65,7 +65,7 @@ class Choice extends Model
     }
 
     /**
-     * Les sélections utilisateur associées à ce choix.
+     * Retourne les sélections utilisateur liées à ce choix.
      */
     public function userAttemptChoices(): HasMany
     {

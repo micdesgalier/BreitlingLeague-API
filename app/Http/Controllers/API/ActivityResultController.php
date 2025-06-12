@@ -11,25 +11,35 @@ use Illuminate\Http\Response;
 class ActivityResultController extends Controller
 {
     /**
-     * Affiche tous les résultats d'activité.
+     * Retourne la liste complète des résultats d'activité.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $results = ActivityResult::all();
+
         return response()->json($results, Response::HTTP_OK);
     }
 
     /**
-     * Stocke un nouveau résultat d'activité.
+     * Crée et enregistre un nouveau résultat d'activité.
+     *
+     * @param  StoreActivityResultRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreActivityResultRequest $request)
     {
         $result = ActivityResult::create($request->validated());
+
         return response()->json($result, Response::HTTP_CREATED);
     }
 
     /**
-     * Affiche un résultat spécifique.
+     * Affiche les détails d’un résultat d’activité spécifique.
+     *
+     * @param  ActivityResult  $activityResult
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(ActivityResult $activityResult)
     {
@@ -37,20 +47,29 @@ class ActivityResultController extends Controller
     }
 
     /**
-     * Met à jour un résultat existant.
+     * Met à jour les informations d’un résultat d’activité existant.
+     *
+     * @param  UpdateActivityResultRequest  $request
+     * @param  ActivityResult               $activityResult
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateActivityResultRequest $request, ActivityResult $activityResult)
     {
         $activityResult->update($request->validated());
+
         return response()->json($activityResult, Response::HTTP_OK);
     }
 
     /**
-     * Supprime un résultat d'activité.
+     * Supprime définitivement un résultat d’activité.
+     *
+     * @param  ActivityResult  $activityResult
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(ActivityResult $activityResult)
     {
         $activityResult->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

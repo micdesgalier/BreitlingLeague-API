@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Database\Factories;
 
@@ -7,12 +7,21 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
-    // Indique à Laravel sur quel modèle cette factory porte
+    /**
+     * Modèle associé à cette factory.
+     *
+     * @var class-string<\App\Models\User>
+     */
     protected $model = User::class;
 
+    /**
+     * Génère des données factices pour un utilisateur.
+     *
+     * @return array<string, mixed>
+     */
     public function definition()
     {
-        // Listes fixes pour country et group
+        // Listes fixes de pays et groupes pour limiter les valeurs possibles
         $countries = ['Switzerland', 'France', 'Germany', 'Spain', 'Italy'];
         $groups    = ['Groupe A', 'Groupe B', 'Groupe C', 'Groupe D', 'Groupe E'];
 
@@ -20,21 +29,26 @@ class UserFactory extends Factory
             'last_name'       => $this->faker->lastName(),
             'first_name'      => $this->faker->firstName(),
             'nickname'        => $this->faker->userName(),
-            'is_active'       => $this->faker->boolean(100), // 100 % de chances d’être actif
+
+            // Toujours actif dans ce cas (100% de chances)
+            'is_active'       => $this->faker->boolean(100),
+
+            // Type d'utilisateur : spécialiste ou utilisateur standard
             'user_type'       => $this->faker->randomElement(['specialist', 'user']),
+
             'onboarding_done' => $this->faker->boolean(50),
+
             'email'           => $this->faker->unique()->safeEmail(),
-            // Exemple de media séquentiel ou aléatoire : ici on laisse Faker générique
+
+            // Image générique de profil (dimensions 200x200, catégorie people)
             'media'           => $this->faker->imageUrl(200, 200, 'people', true),
+
+            // Mot de passe hashé par défaut (valeur test)
             'password'        => bcrypt('test123'),
 
-            // Nouveaux champs group et country avec valeurs limitées
+            // Affectation aléatoire d’un groupe et d’un pays parmi les listes fixes
             'group'           => $this->faker->randomElement($groups),
             'country'         => $this->faker->randomElement($countries),
-
-            // Si vous aviez d’autres champs comme boutique/pays, adaptables de la même façon :
-            // 'boutique' => $this->faker->company(),
-            // 'pays'     => $this->faker->randomElement(['Switzerland', 'France', ...]),
         ];
     }
 }

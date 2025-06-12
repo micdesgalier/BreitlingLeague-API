@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 class UserActivityGroupActivityResultController extends Controller
 {
     /**
-     * Affiche la liste de tous les résultats.
+     * Retourne tous les résultats enregistrés.
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class UserActivityGroupActivityResultController extends Controller
     }
 
     /**
-     * Stocke un nouveau résultat.
+     * Crée un nouveau résultat avec les données validées.
      */
     public function store(StoreUserActivityGroupActivityResultRequest $request)
     {
@@ -30,7 +30,7 @@ class UserActivityGroupActivityResultController extends Controller
     }
 
     /**
-     * Affiche un résultat spécifique.
+     * Retourne un résultat spécifique.
      */
     public function show(UserActivityGroupActivityResult $userActivityGroupActivityResult)
     {
@@ -38,7 +38,7 @@ class UserActivityGroupActivityResultController extends Controller
     }
 
     /**
-     * Met à jour un résultat existant.
+     * Met à jour un résultat existant avec les données validées.
      */
     public function update(UpdateUserActivityGroupActivityResultRequest $request, UserActivityGroupActivityResult $userActivityGroupActivityResult)
     {
@@ -48,7 +48,7 @@ class UserActivityGroupActivityResultController extends Controller
     }
 
     /**
-     * Supprime un résultat.
+     * Supprime un résultat donné.
      */
     public function destroy(UserActivityGroupActivityResult $userActivityGroupActivityResult)
     {

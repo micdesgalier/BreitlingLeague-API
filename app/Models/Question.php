@@ -12,20 +12,12 @@ class Question extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
+    // Clé primaire personnalisée, non auto-incrémentée, de type string
     protected $primaryKey = 'code_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int,string>
-     */
+    // Champs assignables en masse
     protected $fillable = [
         'code_id',
         'label',
@@ -36,27 +28,23 @@ class Question extends Model
         'correct_value',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types
     protected $casts = [
-        'code_id'                    => 'string',
-        'label'                      => 'string',
-        'is_active'                  => 'boolean',
-        'media_id'                   => 'integer',
-        'type'                       => 'string',
-        'is_choice_shuffle'          => 'boolean',
-        'correct_value'              => 'string',
+        'code_id'           => 'string',
+        'label'             => 'string',
+        'is_active'         => 'boolean',
+        'media_id'          => 'integer',
+        'type'              => 'string',
+        'is_choice_shuffle' => 'boolean',
+        'correct_value'     => 'string',
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Les choix possibles pour cette question.
+     * Les choix liés à cette question.
      */
     public function choices(): HasMany
     {
@@ -64,7 +52,7 @@ class Question extends Model
     }
 
     /**
-     * Les entrées pivot PoolQuestion pour ordonnancer la question dans les pools.
+     * Les entrées pivot PoolQuestion associées à cette question.
      */
     public function poolQuestions(): HasMany
     {
@@ -72,7 +60,7 @@ class Question extends Model
     }
 
     /**
-     * Les pools contenant cette question.
+     * Les pools contenant cette question via la table pivot.
      */
     public function pools(): BelongsToMany
     {
@@ -83,7 +71,7 @@ class Question extends Model
     }
 
     /**
-     * Les réponses dans les tentatives utilisateur pour cette question.
+     * Les réponses données par les utilisateurs pour cette question.
      */
     public function userAttemptQuestions(): HasMany
     {

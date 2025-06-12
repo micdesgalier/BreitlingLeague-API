@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Database\Seeders;
 
@@ -11,28 +11,31 @@ class JsonQuestionSeeder extends Seeder
 {
     public function run()
     {
-        // 1) Charger le fichier JSON (data.json placé dans database/seeders/)
+        // Chemin vers le fichier JSON à importer
         $jsonPath = database_path('seeders/data.json');
+
+        // Vérification de l'existence du fichier JSON
         if (! File::exists($jsonPath)) {
             $this->command->error("Le fichier data.json est introuvable dans database/seeders/");
             return;
         }
 
-        // 2) Lire et décoder le JSON
+        // Lecture et décodage du contenu JSON en tableau associatif
         $jsonString = File::get($jsonPath);
         $payload = json_decode($jsonString, true);
 
+        // Vérification que la clé 'quiz_data' existe et contient un tableau
         if (! isset($payload['quiz_data']) || ! is_array($payload['quiz_data'])) {
             $this->command->error("Le JSON doit contenir une clé 'quiz_data' qui est un tableau.");
             return;
         }
 
-        // 3) Boucler sur chaque objet dans quiz_data
         $rows = $payload['quiz_data'];
         $countQuestions = 0;
 
+        // Parcours de chaque question dans le tableau quiz_data
         foreach ($rows as $item) {
-            // Vérifier les clés attendues dans chaque question
+            // Validation des clés nécessaires dans chaque question
             if (
                 ! isset($item['question_code']) ||
                 ! isset($item['question_text']) ||
@@ -43,7 +46,7 @@ class JsonQuestionSeeder extends Seeder
                 continue;
             }
 
-            // 4) Créer ou mettre à jour la Question
+            // Création ou mise à jour de la question en base selon son code unique
             $questionCode = (string) $item['question_code'];
             $question = Question::updateOrCreate(
                 ['code_id' => $questionCode],
@@ -57,9 +60,10 @@ class JsonQuestionSeeder extends Seeder
                 ]
             );
 
-            // 5) Pour chaque choix dans 'choices'
+            // Parcours des choix associés à la question
             $order = 1;
             foreach ($item['choices'] as $c) {
+                // Validation des clés nécessaires dans chaque choix
                 if (
                     ! isset($c['choice_code']) ||
                     ! isset($c['choice_text']) ||
@@ -69,6 +73,7 @@ class JsonQuestionSeeder extends Seeder
                     continue;
                 }
 
+                // Création ou mise à jour du choix en base selon son code unique
                 Choice::updateOrCreate(
                     ['code_id' => (string) $c['choice_code']],
                     [
@@ -84,6 +89,7 @@ class JsonQuestionSeeder extends Seeder
             $countQuestions++;
         }
 
+        // Affichage du nombre de questions importées avec succès
         $this->command->info("Import JSON terminé : {$countQuestions} questions traitées.");
     }
 }

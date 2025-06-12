@@ -9,18 +9,29 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolQuestionFactory extends Factory
 {
+    /**
+     * Modèle associé à cette factory.
+     *
+     * @var class-string<\App\Models\PoolQuestion>
+     */
     protected $model = PoolQuestion::class;
 
+    /**
+     * Génère des données factices pour associer une question à un pool.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
-            // Récupère aléatoirement un code_id de Pool déjà en base
-            'pool_code_id'     => Pool::inRandomOrder()->value('code_id'),
-            
-            // Récupère aléatoirement un code_id de Question déjà en base
+            // Choisit un pool existant au hasard
+            'pool_code_id' => Pool::inRandomOrder()->value('code_id'),
+
+            // Choisit une question existante au hasard
             'question_code_id' => Question::inRandomOrder()->value('code_id'),
-            
-            'order'            => $this->faker->numberBetween(1, 10),
+
+            // Position ou ordre de la question dans le pool
+            'order' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

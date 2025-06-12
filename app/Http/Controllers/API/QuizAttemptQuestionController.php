@@ -12,40 +12,44 @@ use Illuminate\Http\JsonResponse;
 class QuizAttemptQuestionController extends Controller
 {
     /**
-     * Enregistre la réponse de l'utilisateur à une question d'un quiz.
-     * Vérifie l'existence et la cohérence de la tentative (attempt_id) passée en body.
+     * Point d'entrée pour enregistrer la réponse d'un utilisateur à une question de quiz.
+     * Valide la tentative, puis délègue l'enregistrement à la méthode store().
+     *
+     * @param  Quiz  $quiz                      Le quiz concerné
+     * @param  Question  $question              La question concernée
+     * @param  StoreQuizAnswerRequest  $request Requête contenant l'ID de tentative et les choix sélectionnés
+     * @return JsonResponse
      */
     public function storeOrStart(
         Quiz $quiz,
         Question $question,
         StoreQuizAnswerRequest $request
     ): JsonResponse {
-        // Récupérer attempt_id depuis la requête
         $attemptId = $request->input('attempt_id');
+
         if (! $attemptId) {
             return response()->json(['error' => 'Le champ attempt_id est requis.'], 400);
         }
 
-        // Récupérer la tentative
         $attempt = UserAttempt::find($attemptId);
+
         if (! $attempt) {
             return response()->json(['error' => 'Tentative introuvable.'], 404);
         }
 
-        // Vérifier la cohérence : tentative non complétée et correspond bien au quiz
         if ($attempt->is_completed) {
             return response()->json(['error' => 'Cette tentative est déjà terminée.'], 400);
         }
+
         if ($attempt->quiz_code_id !== $quiz->code_id) {
             return response()->json(['error' => 'Tentative invalide pour ce quiz.'], 400);
         }
 
-        // Déléguer à store() et renvoyer toujours un JsonResponse
         try {
             return $this->store($quiz, $attempt, $question, $request);
         } catch (\Throwable $e) {
-            \Log::error('Quiz answer error: ' . $e->getMessage());
-            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            \Log::error('Erreur lors de l\'enregistrement de la réponse : ' . $e->getMessage());
+            \Log::error('Trace : ' . $e->getTraceAsString());
 
             return response()->json([
                 'error'   => 'Impossible d\'enregistrer la réponse.',
@@ -57,12 +61,13 @@ class QuizAttemptQuestionController extends Controller
     }
 
     /**
-     * Enregistre la réponse de l'utilisateur à une question d'un quiz.
-     * 
-     * @param Quiz $quiz
-     * @param UserAttempt $attempt  // reçu depuis storeOrStart, on ne crée plus ici
-     * @param Question $question
-     * @param StoreQuizAnswerRequest $request
+     * Enregistre la réponse à une question pour une tentative utilisateur donnée.
+     * Calcule si la réponse est correcte et met à jour le score de la tentative.
+     *
+     * @param  Quiz  $quiz
+     * @param  UserAttempt  $attempt
+     * @param  Question  $question
+     * @param  StoreQuizAnswerRequest  $request
      * @return JsonResponse
      */
     public function store(
@@ -71,10 +76,10 @@ class QuizAttemptQuestionController extends Controller
         Question $question,
         StoreQuizAnswerRequest $request
     ): JsonResponse {
-        // 1) Vérifier la cohérence (déjà faite dans storeOrStart, mais on peut double-check)
+        // Vérification finale de la cohérence (sécurité supplémentaire)
         abort_unless($attempt->quiz_code_id === $quiz->code_id, 404);
 
-        // 2) Créer ou récupérer UserAttemptQuestion
+        // Création ou récupération d’un enregistrement de réponse utilisateur à cette question
         $uaq = $attempt->userAttemptQuestions()->firstOrCreate(
             ['question_code_id' => $question->code_id],
             [
@@ -85,19 +90,24 @@ class QuizAttemptQuestionController extends Controller
             ]
         );
 
-        // 3) Enregistrer les choix : on supprime d'abord d'éventuelles réponses précédentes
+        // Suppression des choix précédemment enregistrés pour cette question
         $uaq->userAttemptChoices()->delete();
+
         $selected     = $request->input('selected_choices', []);
         $isAllCorrect = true;
 
+        // Parcours des choix sélectionnés pour les enregistrer et vérifier leur validité
         foreach ($selected as $choiceCode) {
             $choice = $question->choices()->where('code_id', $choiceCode)->first();
+
             if (! $choice) {
                 continue;
             }
+
             if (! $choice->is_correct) {
                 $isAllCorrect = false;
             }
+
             $uaq->userAttemptChoices()->create([
                 'choice_code_id' => $choice->code_id,
                 'is_selected'    => true,
@@ -105,20 +115,22 @@ class QuizAttemptQuestionController extends Controller
             ]);
         }
 
-        // 4) Calcul du score
+        // Détermination du score à attribuer pour cette réponse
         $points = $isAllCorrect
             ? ($quiz->correct_choice_points ?? 1)
             : ($quiz->wrong_choice_points   ?? 0);
 
+        // Mise à jour de l’état de la réponse à la question
         $uaq->update([
             'is_correct' => $isAllCorrect,
             'score'      => $points,
         ]);
 
+        // Mise à jour du score total de la tentative utilisateur
         $totalScore = $attempt->userAttemptQuestions()->sum('score');
         $attempt->update(['score' => $totalScore]);
 
-        // 5) Réponse JSON
+        // Retourne les informations sur la réponse enregistrée
         return response()->json([
             'attempt_id' => $attempt->id,
             'question'   => $question->code_id,

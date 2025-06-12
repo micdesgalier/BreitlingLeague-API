@@ -10,18 +10,12 @@ class Quiz extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     */
+    // Clé primaire personnalisée, non auto-incrémentée, de type string
     protected $primaryKey = 'code_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int,string>
-     */
+    // Champs assignables en masse
     protected $fillable = [
         'code_id',
         'type',
@@ -37,11 +31,7 @@ class Quiz extends Model
         'wrong_choice_points',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types
     protected $casts = [
         'code_id'                   => 'string',
         'type'                      => 'string',
@@ -58,11 +48,11 @@ class Quiz extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Les stages (niveaux) qui composent ce quiz.
+     * Les stages (niveaux) liés à ce quiz.
      */
     public function stages(): HasMany
     {
@@ -70,7 +60,7 @@ class Quiz extends Model
     }
 
     /**
-     * Les tentatives statiques des utilisateurs pour ce quiz.
+     * Les tentatives des utilisateurs pour ce quiz.
      */
     public function userAttempts(): HasMany
     {
@@ -78,7 +68,7 @@ class Quiz extends Model
     }
 
     /**
-     * Les matches (duels) basés sur ce quiz.
+     * Les duels (quiz matches) associés à ce quiz.
      */
     public function quizMatches(): HasMany
     {

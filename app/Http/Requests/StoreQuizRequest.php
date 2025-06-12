@@ -9,7 +9,6 @@ class StoreQuizRequest extends FormRequest
     public function authorize(): bool
     {
         // Autorise tous les utilisateurs pour l’instant,
-        // ou ajoute ici ta logique (policies, rôles…)
         return true;
     }
 

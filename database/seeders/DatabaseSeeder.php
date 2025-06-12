@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Database\Seeders;
 
@@ -22,29 +22,30 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // --- Partie existante : import JSON, challenges, users, quiz/stage/pool/question linkage
+        // Import des questions JSON et création des challenges
         $this->call(JsonQuestionSeeder::class);
         $this->call(ChallengeSeeder::class);
 
-        // 1) Créer le user spécifique en premier : la factory va générer l’ID 1 puisque la table est vide.
+        // Création d’un utilisateur spécifique avec des données fixes
         User::factory()->create([
             'nickname' => 'BreitlingSpecialistTest',
-            'email'    => 'breitling.specialist@example.com', 
-            // autres champs spécifiques si besoin, sinon la factory génère last_name, first_name aléatoires
+            'email'    => 'breitling.specialist@example.com',
             'user_type'=> 'specialist',
-            'media' => "/assets/images/avatar/1avatar.webp",
+            'media'    => "/assets/images/avatar/1avatar.webp",
             'password' => bcrypt('test123'),
-            // ...
         ]);
 
+        // Création de 31 autres utilisateurs avec avatars spécifiques
         for ($i = 2; $i <= 32; $i++) {
             User::factory()->create([
                 'media' => "/assets/images/avatar/{$i}avatar.webp",
             ]);
         }
 
+        // Récupération des codes de toutes les questions existantes
         $allQuestionCodes = Question::pluck('code_id')->toArray();
 
+        // Création de 2 quiz avec leurs stages, pools et questions associées
         Quiz::factory()->count(2)->create()->each(function ($quiz) use ($allQuestionCodes) {
             $nbStages = rand(2, 4);
             Stage::factory()->count($nbStages)->create([
@@ -69,20 +70,17 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        // --- NOUVEAU : lier User → UserAttempt → UserAttemptQuestion → UserAttemptChoice
-
-        // 1) récupérer en mémoire tous les users et quizzes
+        // Récupération en mémoire des utilisateurs et des quiz avec relations imbriquées
         $users  = User::all();
         $quizzes = Quiz::with('stages.pools.questions.choices')->get();
 
+        // Pour chaque utilisateur, création de 1 à 3 tentatives sur des quiz aléatoires
         foreach ($users as $user) {
-            // chaque user peut faire 1 à 3 tentatives
             $attemptsCount = rand(1, 3);
             for ($i = 0; $i < $attemptsCount; $i++) {
-                // 2) choisir un quiz au hasard
                 $quiz = $quizzes->random();
 
-                // 3) créer la tentative
+                // Création d’une tentative d’utilisateur sur un quiz donné
                 $ua = UserAttempt::create([
                     'user_id'       => $user->id,
                     'quiz_code_id'  => $quiz->code_id,
@@ -90,36 +88,36 @@ class DatabaseSeeder extends Seeder
                     'end_date'      => now(),
                     'is_completed'  => true,
                     'duration'      => rand(60, 600),
-                    'score'         => 0,    // on recalculera plus bas
-                    'initial_score'=> 0,
-                    'combo_bonus_score'=> 0,
+                    'score'         => 0, // sera recalculé ensuite
+                    'initial_score' => 0,
+                    'combo_bonus_score' => 0,
                     'time_bonus_score' => 0,
                 ]);
 
                 $totalScore = 0;
 
-                // 4) itérer toutes les questions du quiz en respectant l'ordre stage→pool→pivot.order
+                // Parcours de toutes les questions du quiz dans l’ordre stage→pool→ordre pivot
                 foreach ($quiz->stages as $stage) {
                     foreach ($stage->pools as $pool) {
                         foreach ($pool->questions as $question) {
-                            // créer l'entrée UserAttemptQuestion
+                            // Création d’une entrée UserAttemptQuestion liée à la tentative
                             $uaq = UserAttemptQuestion::create([
-                                'user_attempt_id'   => $ua->id,
-                                'question_code_id'  => $question->code_id,
-                                'order'             => $question->pivot->order,
-                                'is_correct'        => false,  // maj après choix
-                                'score'             => 0,
-                                'combo_bonus_value' => 0,
+                                'user_attempt_id'  => $ua->id,
+                                'question_code_id' => $question->code_id,
+                                'order'            => $question->pivot->order,
+                                'is_correct'       => false, // sera mis à jour après choix
+                                'score'            => 0,
+                                'combo_bonus_value'=> 0,
                             ]);
 
-                            // choisir un choix au hasard parmi les choices
+                            // Choix aléatoire parmi les choix disponibles de la question
                             $choice = $question->choices->random();
-                            $isCorrect = $choice->is_correct ? true : false;
-                            $points    = $isCorrect 
-                                         ? $quiz->correct_choice_points 
-                                         : $quiz->wrong_choice_points;
+                            $isCorrect = $choice->is_correct;
+                            $points = $isCorrect 
+                                ? $quiz->correct_choice_points 
+                                : $quiz->wrong_choice_points;
 
-                            // créer UserAttemptChoice
+                            // Enregistrement du choix fait par l’utilisateur
                             UserAttemptChoice::create([
                                 'user_attempt_question_id' => $uaq->id,
                                 'choice_code_id'           => $choice->code_id,
@@ -127,7 +125,7 @@ class DatabaseSeeder extends Seeder
                                 'is_correct'               => $isCorrect,
                             ]);
 
-                            // mettre à jour questionAttempt
+                            // Mise à jour de la question dans la tentative avec le résultat
                             $uaq->update([
                                 'is_correct' => $isCorrect,
                                 'score'      => $points,
@@ -138,11 +136,11 @@ class DatabaseSeeder extends Seeder
                     }
                 }
 
-                // 5) mettre à jour le score total de la tentative
+                // Mise à jour du score total de la tentative après traitement des questions
                 $ua->update(['score' => $totalScore]);
             }
         }
 
-        // … tu peux ensuite appeler d’autres seeders si besoin …
+        // Possibilité d’appeler d’autres seeders ici si besoin
     }
 }

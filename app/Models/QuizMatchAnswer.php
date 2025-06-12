@@ -10,22 +10,15 @@ class QuizMatchAnswer extends Model
 {
     use HasFactory;
 
-    // Si la table s'appelle différemment, décommentez et ajustez :
-    // protected $table = 'quiz_match_answers';
-
-    // Clé primaire auto-incrémentée par défaut
+    // Clé primaire non auto-incrémentée de type string
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // Utilisation des timestamps created_at/updated_at par défaut
+    // Utilisation des timestamps created_at et updated_at par défaut
     public $timestamps = true;
 
-    /**
-     * Attributs "mass assignable".
-     *
-     * @var array<int,string>
-     */
+    // Attributs assignables en masse
     protected $fillable = [
         'id',
         'quiz_match_id',
@@ -36,28 +29,22 @@ class QuizMatchAnswer extends Model
         'answer_date',
     ];
 
-    /**
-     * Casts des attributs.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types des attributs
     protected $casts = [
-        'quiz_match_id'              => 'string',
-        'quiz_match_participant_id'  => 'string',
-        'quiz_match_question_id'     => 'string',
-        'choice_code_id'             => 'string',
-        'is_correct'                 => 'boolean',
-        'answer_date'                => 'datetime',
+        'quiz_match_id'             => 'string',
+        'quiz_match_participant_id' => 'string',
+        'quiz_match_question_id'    => 'string',
+        'choice_code_id'            => 'string',
+        'is_correct'                => 'boolean',
+        'answer_date'               => 'datetime',
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le match associé à cette réponse.
-     *
-     * @return BelongsTo
+     * Le match auquel cette réponse appartient.
      */
     public function quizMatch(): BelongsTo
     {
@@ -65,9 +52,7 @@ class QuizMatchAnswer extends Model
     }
 
     /**
-     * Le participant qui a donné cette réponse.
-     *
-     * @return BelongsTo
+     * Le participant ayant fourni cette réponse.
      */
     public function participant(): BelongsTo
     {
@@ -75,9 +60,7 @@ class QuizMatchAnswer extends Model
     }
 
     /**
-     * La question du match associée à cette réponse.
-     *
-     * @return BelongsTo
+     * La question du match liée à cette réponse.
      */
     public function question(): BelongsTo
     {
@@ -85,13 +68,10 @@ class QuizMatchAnswer extends Model
     }
 
     /**
-     * Le choix sélectionné par le participant.
-     *
-     * @return BelongsTo
+     * Le choix sélectionné par le participant pour cette réponse.
      */
     public function choice(): BelongsTo
     {
-        // Le modèle Choice utilise 'code_id' comme primaryKey
         return $this->belongsTo(Choice::class, 'choice_code_id', 'code_id');
     }
 }

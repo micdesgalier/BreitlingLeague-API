@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -10,7 +10,7 @@ class Challenge extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributs pouvant être assignés en masse lors de la création ou mise à jour.
      *
      * @var array<int, string>
      */

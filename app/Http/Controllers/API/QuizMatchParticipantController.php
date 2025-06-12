@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class QuizMatchParticipantController extends Controller
 {
     /**
-     * Display a listing of participants.
+     * Récupérer la liste complète des participants avec leurs relations.
      */
     public function index(): JsonResponse
     {
@@ -22,19 +22,19 @@ class QuizMatchParticipantController extends Controller
     }
 
     /**
-     * Store a newly created participant in storage.
+     * Créer un nouveau participant dans un match.
      */
     public function store(StoreQuizMatchParticipantRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        // Vérifier que le quiz_match existe
+        // Vérifier que le match existe avant d’ajouter un participant
         $quizMatch = QuizMatch::find($data['quiz_match_id']);
         if (! $quizMatch) {
             return response()->json(['error' => 'Match introuvable.'], 422);
         }
 
-        // Vérifier qu’on n’a pas déjà ce participant pour ce match
+        // Empêcher la création d’un doublon de participant pour ce match
         $exists = QuizMatchParticipant::where('quiz_match_id', $data['quiz_match_id'])
             ->where('user_id', $data['user_id'])
             ->exists();
@@ -42,19 +42,20 @@ class QuizMatchParticipantController extends Controller
             return response()->json(['error' => 'Ce participant est déjà associé à ce match.'], 422);
         }
 
-        // Générer un ID UUID si la PK n’est pas auto-incrément
+        // Générer un UUID pour l’ID si nécessaire
         $data['id'] = (string) Str::uuid();
 
+        // Création du participant
         $participant = QuizMatchParticipant::create($data);
 
-        // Charger relations pour la réponse
+        // Charger les relations pour la réponse JSON
         $participant->load(['quizMatch', 'user', 'answers']);
 
         return response()->json($participant, 201);
     }
 
     /**
-     * Display the specified participant.
+     * Afficher un participant spécifique avec ses relations.
      */
     public function show(string $id): JsonResponse
     {
@@ -65,7 +66,7 @@ class QuizMatchParticipantController extends Controller
     }
 
     /**
-     * Update the specified participant in storage.
+     * Mettre à jour un participant existant.
      */
     public function update(UpdateQuizMatchParticipantRequest $request, string $id): JsonResponse
     {
@@ -73,19 +74,23 @@ class QuizMatchParticipantController extends Controller
 
         $data = $request->validated();
 
+        // Mise à jour des données du participant
         $participant->update($data);
 
+        // Recharger les relations pour la réponse à jour
         $participant->load(['quizMatch', 'user', 'answers']);
         return response()->json($participant);
     }
 
     /**
-     * Remove the specified participant from storage.
+     * Supprimer un participant.
      */
     public function destroy(string $id): JsonResponse
     {
         $participant = QuizMatchParticipant::findOrFail($id);
         $participant->delete();
+
+        // Réponse 204 No Content pour indiquer la suppression réussie
         return response()->json(null, 204);
     }
 }

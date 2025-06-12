@@ -11,9 +11,9 @@ class UserAttemptChoice extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributs pouvant être assignés en masse.
      *
-     * @var array<int,string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'user_attempt_question_id',
@@ -23,9 +23,9 @@ class UserAttemptChoice extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Casts automatiques des attributs dans les bons types PHP.
      *
-     * @var array<string,string>
+     * @var array<string, string>
      */
     protected $casts = [
         'user_attempt_question_id' => 'integer',
@@ -35,11 +35,11 @@ class UserAttemptChoice extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // ===== RELATIONS ========
     // ========================
 
     /**
-     * La question tentée à laquelle cette sélection appartient.
+     * La question à laquelle cette réponse est liée.
      */
     public function userAttemptQuestion(): BelongsTo
     {
@@ -47,7 +47,7 @@ class UserAttemptChoice extends Model
     }
 
     /**
-     * Le choix sélectionné/de choix candidat pour la question.
+     * Le choix (réponse possible) concerné par cette sélection.
      */
     public function choice(): BelongsTo
     {

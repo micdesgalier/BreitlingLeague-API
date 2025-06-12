@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 class UserActivityGroupActivityController extends Controller
 {
     /**
-     * Affiche tous les enregistrements.
+     * Retourne la liste de tous les enregistrements.
      */
     public function index()
     {
@@ -20,7 +20,8 @@ class UserActivityGroupActivityController extends Controller
     }
 
     /**
-     * Stocke un nouvel enregistrement.
+     * Crée un nouvel enregistrement avec les données validées.
+     * Retourne l’enregistrement créé.
      */
     public function store(StoreUserActivityGroupActivityRequest $request)
     {
@@ -30,7 +31,7 @@ class UserActivityGroupActivityController extends Controller
     }
 
     /**
-     * Affiche un enregistrement spécifique.
+     * Affiche un enregistrement précis.
      */
     public function show(UserActivityGroupActivity $userActivityGroupActivity)
     {
@@ -38,7 +39,8 @@ class UserActivityGroupActivityController extends Controller
     }
 
     /**
-     * Met à jour un enregistrement existant.
+     * Met à jour un enregistrement existant avec les données validées.
+     * Retourne l’enregistrement mis à jour.
      */
     public function update(UpdateUserActivityGroupActivityRequest $request, UserActivityGroupActivity $userActivityGroupActivity)
     {
@@ -48,7 +50,7 @@ class UserActivityGroupActivityController extends Controller
     }
 
     /**
-     * Supprime un enregistrement.
+     * Supprime un enregistrement donné.
      */
     public function destroy(UserActivityGroupActivity $userActivityGroupActivity)
     {

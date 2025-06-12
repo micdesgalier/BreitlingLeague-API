@@ -8,7 +8,6 @@ class StorePoolQuestionRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon ta logique d’auth (par ex. vérifier un rôle ou une permission)
         return true;
     }
 

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -10,44 +10,24 @@ class PoolQuestion extends Model
 {
     use HasFactory;
 
-    /**
-     * La table associée à ce modèle.
-     * Par convention, Laravel utiliserait “pool_questions” automatiquement,
-     * donc cette ligne est optionnelle si votre table s’appelle bien “pool_questions”.
-     *
-     * @var string
-     */
+    // Nom explicite de la table (optionnel si respecte la convention Laravel)
     protected $table = 'pool_questions';
 
-    /**
-     * Comme il n'y a pas de colonne “id” auto-incrémentée dans cette table,
-     * on désactive l’auto-incrémentation et on indique que la clé n'est pas un entier auto-incrémenté.
-     */
+    // Pas de clé auto-incrémentée, clé de type string
     public $incrementing = false;
-    protected $keyType = 'string'; // ou 'int' si vos clés (pool_code_id, question_code_id) sont de type integer
+    protected $keyType = 'string';
 
-    /**
-     * Si vous n’utilisez pas les timestamps “created_at”/“updated_at” dans cette table,
-     * mettez à false. En général, pour une table pivot, on n’a pas de timestamps.
-     */
+    // Pas de timestamps dans cette table pivot
     public $timestamps = false;
 
-    /**
-     * Les colonnes “mass assignable” de cette table pivot.
-     *
-     * @var array<int,string>
-     */
+    // Champs pouvant être assignés en masse
     protected $fillable = [
         'pool_code_id',
         'question_code_id',
         'order',
     ];
 
-    /**
-     * Les casts pour que Laravel interprète correctement les types.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types
     protected $casts = [
         'pool_code_id'     => 'string',
         'question_code_id' => 'string',
@@ -55,13 +35,11 @@ class PoolQuestion extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le pool auquel cette entrée (pivot) est attachée.
-     *
-     * @return BelongsTo
+     * Le pool auquel cette entrée pivot appartient.
      */
     public function pool(): BelongsTo
     {
@@ -69,9 +47,7 @@ class PoolQuestion extends Model
     }
 
     /**
-     * La question référencée dans ce pool.
-     *
-     * @return BelongsTo
+     * La question associée à cette entrée pivot.
      */
     public function question(): BelongsTo
     {

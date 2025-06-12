@@ -11,30 +11,13 @@ class UserActivityGroupActivity extends Model
 {
     use HasFactory;
 
-    /**
-     * Si votre table ne suit pas la convention plurielle standard,
-     * décommentez et ajustez la ligne suivante :
-     */
-    // protected $table = 'user_activity_group_activities';
-
-    /**
-     * Clé primaire non standard (ici « id », donc facultatif).
-     *
-     * @var string
-     */
-    // protected $primaryKey = 'id';
-
-    /**
-     * Désactive les timestamps si vous n'avez pas created_at / updated_at.
-     *
-     * @var bool
-     */
+    // Désactive la gestion automatique des timestamps (created_at / updated_at)
     public $timestamps = false;
 
     /**
-     * Attributs assignables en masse.
+     * Attributs pouvant être assignés en masse.
      *
-     * @var array<int,string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'start_date',
@@ -48,27 +31,27 @@ class UserActivityGroupActivity extends Model
     ];
 
     /**
-     * Casts pour convertir automatiquement les types.
+     * Définition des conversions automatiques de types.
      *
-     * @var array<string,string>
+     * @var array<string, string>
      */
     protected $casts = [
-        'start_date'                  => 'datetime',
-        'end_date'                    => 'datetime',
-        'progression_score'           => 'float',
-        'progression_score_percent'   => 'float',
-        'external_id'                 => 'integer',
-        'user_id'                     => 'integer',
-        'activity_group_activity_id'  => 'integer',
-        'activity_result_id'          => 'integer',
+        'start_date'                 => 'datetime',
+        'end_date'                   => 'datetime',
+        'progression_score'          => 'float',
+        'progression_score_percent'  => 'float',
+        'external_id'                => 'integer',
+        'user_id'                    => 'integer',
+        'activity_group_activity_id' => 'integer',
+        'activity_result_id'         => 'integer',
     ];
 
     // ========================
-    // === RELATIONS =========
+    // ===== RELATIONS ========
     // ========================
 
     /**
-     * L’utilisateur qui a réalisé cette activité.
+     * L'utilisateur ayant participé à l'activité.
      */
     public function user(): BelongsTo
     {
@@ -76,7 +59,7 @@ class UserActivityGroupActivity extends Model
     }
 
     /**
-     * Le résultat détaillé de l’activité.
+     * Le résultat détaillé associé à cette activité.
      */
     public function activityResult(): HasOne
     {

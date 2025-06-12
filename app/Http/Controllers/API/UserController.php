@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -12,15 +12,14 @@ use Illuminate\Http\JsonResponse;
 class UserController extends Controller
 {
     /**
-     * Affiche la liste de tous les utilisateurs.
-     *
-     * GET /api/users
+     * Récupère et renvoie tous les utilisateurs.
      *
      * @return JsonResponse
      */
     public function index(): JsonResponse
     {
         $users = User::all();
+
         return response()->json([
             'success' => true,
             'data'    => $users,
@@ -28,11 +27,9 @@ class UserController extends Controller
     }
 
     /**
-     * Stocke un nouvel utilisateur en base.
+     * Crée un nouvel utilisateur à partir des données validées.
      *
-     * POST /api/users
-     *
-     * @param  StoreUserRequest  $request
+     * @param StoreUserRequest $request
      * @return JsonResponse
      */
     public function store(StoreUserRequest $request): JsonResponse
@@ -46,11 +43,9 @@ class UserController extends Controller
     }
 
     /**
-     * Affiche un utilisateur spécifique.
+     * Affiche un utilisateur spécifique via Route Model Binding.
      *
-     * GET /api/users/{user}
-     *
-     * @param  User  $user   (Route Model Binding)
+     * @param User $user
      * @return JsonResponse
      */
     public function show(User $user): JsonResponse
@@ -62,18 +57,17 @@ class UserController extends Controller
     }
 
     /**
-     * Met à jour un utilisateur existant.
+     * Met à jour un utilisateur existant avec les données validées.
      *
-     * PUT/PATCH /api/users/{user}
-     *
-     * @param  UpdateUserRequest  $request
-     * @param  User               $user    (Route Model Binding)
+     * @param UpdateUserRequest $request
+     * @param User $user
      * @return JsonResponse
      */
     public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $user->update($request->validated());
 
+        // Renvoie la version fraîchement mise à jour de l'utilisateur
         return response()->json([
             'success' => true,
             'data'    => $user->fresh(),
@@ -81,11 +75,9 @@ class UserController extends Controller
     }
 
     /**
-     * Supprime un utilisateur.
+     * Supprime un utilisateur donné.
      *
-     * DELETE /api/users/{user}
-     *
-     * @param  User  $user    (Route Model Binding)
+     * @param User $user
      * @return JsonResponse
      */
     public function destroy(User $user): JsonResponse
@@ -98,19 +90,21 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Récupère tous les matchs de quiz où l'utilisateur est participant,
+     * avec leurs relations utiles préchargées.
+     *
+     * @param User $user
+     * @return JsonResponse
+     */
     public function quizMatch(User $user): JsonResponse
     {
-        // On peut récupérer directement les quizMatches via whereHas, pour charger les relations utiles.
         $matches = QuizMatch::whereHas('participants', function ($q) use ($user) {
             $q->where('user_id', $user->id);
         })->with([
-            // charger le quiz de base si utile
             'quiz',
-            // charger tous les participants (et leurs users) pour chaque match
             'participants.user',
-            // charger les questions du match + la question + ses choix
             'questions.question.choices',
-            // charger nextTurnUser si la relation existe
             'nextTurnUser',
         ])->get();
 
@@ -120,36 +114,34 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Calcule le classement général des utilisateurs
+     * selon la somme de leurs scores sur tous les quiz attempts.
+     *
+     * @return JsonResponse
+     */
     public function ranking(): JsonResponse
     {
-        // 1) Charger tous les users avec la somme des scores de leurs quizAttempts
-        //    Le withSum crée un attribut quiz_attempts_sum_score.
-        //    Note : selon la version de Laravel, l’attribut sera quiz_attempts_sum_score.
-        $users = User::withSum('quizAttempts as total_score', 'score')
-                     ->get();
+        // Charger tous les utilisateurs avec la somme de leurs scores (total_score)
+        $users = User::withSum('quizAttempts as total_score', 'score')->get();
 
-        // 2) Ordonner par total_score décroissant. Si total_score null (pas de tentative), on traite comme 0.
-        $users = $users->sortByDesc(function ($user) {
-            // withSum alias 'total_score' : peut être null si aucun attempt ; on convertit en 0
-            return $user->total_score ?? 0;
-        })->values(); // reindexer la collection de 0...
+        // Trier par score décroissant (les scores nulls sont considérés comme 0)
+        $users = $users->sortByDesc(fn($user) => $user->total_score ?? 0)->values();
 
-        // 3) Calcul du rang (dense ranking : partagés en cas d’égalité)
+        // Calcul du rang dense (égalité partage le même rang)
         $ranked = [];
         $prevScore = null;
-        $position = 0; // position dans la liste (1-based)
+        $position = 0;
         $currentRank = 0;
 
         foreach ($users as $user) {
             $position++;
             $score = $user->total_score ?? 0;
             if ($prevScore === null || $score < $prevScore) {
-                // nouveau score inférieur => nouveau rang = position
                 $currentRank = $position;
                 $prevScore = $score;
             }
-            // else si $score == $prevScore, on garde $currentRank inchangé (même rang que précédent)
-            // on peut extraire seulement les champs nécessaires pour la réponse
+
             $ranked[] = [
                 'user' => [
                     'id'         => $user->id,
@@ -160,7 +152,6 @@ class UserController extends Controller
                     'media'      => $user->media,
                     'group'      => $user->group ?? null,
                     'country'    => $user->country ?? null,
-                    // Ajoutez d’autres champs que vous souhaitez exposer
                 ],
                 'total_score' => $score,
                 'rank'        => $currentRank,
@@ -173,33 +164,37 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Calcule le classement des utilisateurs d'un pays donné
+     * selon la somme de leurs scores.
+     *
+     * @param string $country
+     * @return JsonResponse
+     */
     public function rankingByCountry(string $country): JsonResponse
     {
-        // 1) Charger les users du pays donné, avec la somme des scores de leurs quizAttempts
-        //    On alias la somme en 'total_score'.
+        // Charger les utilisateurs du pays (insensible à la casse) avec leur total_score
         $users = User::whereRaw('LOWER(country) = ?', [strtolower($country)])
-             ->withSum('quizAttempts as total_score', 'score')
-             ->get();
+            ->withSum('quizAttempts as total_score', 'score')
+            ->get();
 
-        // 2) Ordonner par total_score décroissant. Si total_score null (pas de tentative), on traite comme 0.
-        $users = $users->sortByDesc(function ($user) {
-            return $user->total_score ?? 0;
-        })->values();
+        // Trier par score décroissant
+        $users = $users->sortByDesc(fn($user) => $user->total_score ?? 0)->values();
 
-        // 3) Calcul du rang (dense ranking : partagés en cas d’égalité)
+        // Calcul du rang dense (égalité partage le même rang)
         $ranked = [];
         $prevScore = null;
-        $position = 0;   // position dans la liste (1-based)
+        $position = 0;
         $currentRank = 0;
 
         foreach ($users as $user) {
             $position++;
             $score = $user->total_score ?? 0;
             if ($prevScore === null || $score < $prevScore) {
-                // nouveau score inférieur => nouveau rang = position
                 $currentRank = $position;
                 $prevScore = $score;
             }
+
             $ranked[] = [
                 'user' => [
                     'id'         => $user->id,
@@ -210,7 +205,6 @@ class UserController extends Controller
                     'media'      => $user->media,
                     'group'      => $user->group ?? null,
                     'country'    => $user->country ?? null,
-                    // Ajoutez d’autres champs à exposer si besoin
                 ],
                 'total_score' => $score,
                 'rank'        => $currentRank,
@@ -224,11 +218,19 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Récupère tous les membres du groupe de l'utilisateur donné,
+     * avec leur score total sur les quiz attempts.
+     *
+     * @param User $user
+     * @return JsonResponse
+     */
     public function groupMembers(User $user): JsonResponse
     {
         $group = $user->group;
+
         if (empty($group)) {
-            // Pas de groupe défini : renvoyer un array vide ou message d’erreur selon besoin
+            // Aucun groupe défini, on renvoie une réponse vide avec message
             return response()->json([
                 'success' => true,
                 'message' => 'Aucun groupe défini pour cet utilisateur.',
@@ -236,16 +238,14 @@ class UserController extends Controller
             ], 200);
         }
 
-        // Récupérer tous les utilisateurs du même groupe
+        // Récupérer tous les utilisateurs du même groupe, avec leur total_score
         $usersInGroup = User::where('group', $group)
-            // Optionnel : si vous voulez exclure l’utilisateur lui-même :
-            // ->where('id', '!=', $user->id)
-            ->withSum('quizAttempts as total_score', 'score') // si vous souhaitez inclure le score total
+            ->withSum('quizAttempts as total_score', 'score')
             ->get();
 
-        // Construire la réponse : on peut inclure user + total_score + éventuellement un rank local au groupe
-        // Exemple simple : on retourne la liste brute avec leur total_score
+        // Préparer la réponse avec les infos utilisateur + score
         $result = [];
+
         foreach ($usersInGroup as $u) {
             $result[] = [
                 'id'          => $u->id,

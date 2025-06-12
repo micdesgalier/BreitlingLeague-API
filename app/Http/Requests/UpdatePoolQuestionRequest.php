@@ -8,7 +8,6 @@ class UpdatePoolQuestionRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon ta logique d’auth
         return true;
     }
 

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,9 +11,7 @@ use Illuminate\Http\Response;
 class StageController extends Controller
 {
     /**
-     * Display a listing of the stages.
-     *
-     * @return \Illuminate\Http\Response
+     * Récupérer et retourner tous les stages.
      */
     public function index()
     {
@@ -22,10 +20,8 @@ class StageController extends Controller
     }
 
     /**
-     * Store a newly created stage in storage.
-     *
-     * @param  \App\Http\Requests\StoreStageRequest  $request
-     * @return \Illuminate\Http\Response
+     * Créer un nouveau stage avec les données validées.
+     * Retourne le stage créé avec le code 201.
      */
     public function store(StoreStageRequest $request)
     {
@@ -35,10 +31,7 @@ class StageController extends Controller
     }
 
     /**
-     * Display the specified stage.
-     *
-     * @param  \App\Models\Stage  $stage
-     * @return \Illuminate\Http\Response
+     * Retourner les informations d’un stage spécifique.
      */
     public function show(Stage $stage)
     {
@@ -46,11 +39,8 @@ class StageController extends Controller
     }
 
     /**
-     * Update the specified stage in storage.
-     *
-     * @param  \App\Http\Requests\UpdateStageRequest  $request
-     * @param  \App\Models\Stage  $stage
-     * @return \Illuminate\Http\Response
+     * Mettre à jour un stage avec les données validées.
+     * Retourne le stage mis à jour.
      */
     public function update(UpdateStageRequest $request, Stage $stage)
     {
@@ -60,10 +50,8 @@ class StageController extends Controller
     }
 
     /**
-     * Remove the specified stage from storage.
-     *
-     * @param  \App\Models\Stage  $stage
-     * @return \Illuminate\Http\Response
+     * Supprimer un stage.
+     * Retourne une réponse sans contenu (204).
      */
     public function destroy(Stage $stage)
     {

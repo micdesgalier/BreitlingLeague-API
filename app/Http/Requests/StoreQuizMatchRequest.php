@@ -8,13 +8,12 @@ class StoreQuizMatchRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique (auth, rôles, etc.).
      *
      * @return bool
      */
     public function authorize(): bool
     {
-        // Pour l’instant on autorise toujours. Changez si nécessaire.
+        // Pour l’instant on autorise toujours.
         return true;
     }
 
@@ -29,7 +28,7 @@ class StoreQuizMatchRequest extends FormRequest
             // Le quiz associé doit exister dans la table quizzes, PK code_id
             'quiz_code_id' => 'required|string|exists:quizzes,code_id',
 
-            // Statut du match, ajustez la liste si nécessaire
+            // Statut du match
             'status'       => 'required|string|max:50',
         ];
     }

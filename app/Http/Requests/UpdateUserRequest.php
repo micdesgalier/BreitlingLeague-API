@@ -9,7 +9,6 @@ class UpdateUserRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique d’authentification/autorisation.
      *
      * @return bool
      */
@@ -26,8 +25,6 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         // On récupère l’ID de l’utilisateur à mettre à jour via le Route Model Binding
-        // Si votre route est par ex. Route::put('users/{user}', ...),
-        // $this->route('user') renvoie l’instance User.
         $user = $this->route('user');
         $userId = $user ? $user->id : null;
 
@@ -51,9 +48,6 @@ class UpdateUserRequest extends FormRequest
             // Nouveaux champs boutique et pays
             'boutique'        => 'sometimes|nullable|string|max:255',
             'pays'            => 'sometimes|nullable|string|max:255',
-
-            // Si vous gérez le changement de mot de passe, décommentez :
-            // 'password' => 'sometimes|required|string|min:8|confirmed',
         ];
     }
 }

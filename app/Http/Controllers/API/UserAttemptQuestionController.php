@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -11,9 +11,7 @@ use Illuminate\Http\Response;
 class UserAttemptQuestionController extends Controller
 {
     /**
-     * Display a listing of the user attempt questions.
-     *
-     * @return \Illuminate\Http\Response
+     * Retourne la liste de toutes les questions associées aux tentatives utilisateur.
      */
     public function index()
     {
@@ -22,10 +20,7 @@ class UserAttemptQuestionController extends Controller
     }
 
     /**
-     * Store a newly created user attempt question in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserAttemptQuestionRequest  $request
-     * @return \Illuminate\Http\Response
+     * Crée une nouvelle question pour une tentative utilisateur.
      */
     public function store(StoreUserAttemptQuestionRequest $request)
     {
@@ -35,10 +30,7 @@ class UserAttemptQuestionController extends Controller
     }
 
     /**
-     * Display the specified user attempt question.
-     *
-     * @param  \App\Models\UserAttemptQuestion  $userAttemptQuestion
-     * @return \Illuminate\Http\Response
+     * Affiche une question spécifique liée à une tentative utilisateur.
      */
     public function show(UserAttemptQuestion $userAttemptQuestion)
     {
@@ -46,11 +38,7 @@ class UserAttemptQuestionController extends Controller
     }
 
     /**
-     * Update the specified user attempt question in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUserAttemptQuestionRequest  $request
-     * @param  \App\Models\UserAttemptQuestion  $userAttemptQuestion
-     * @return \Illuminate\Http\Response
+     * Met à jour une question liée à une tentative utilisateur.
      */
     public function update(UpdateUserAttemptQuestionRequest $request, UserAttemptQuestion $userAttemptQuestion)
     {
@@ -60,10 +48,7 @@ class UserAttemptQuestionController extends Controller
     }
 
     /**
-     * Remove the specified user attempt question from storage.
-     *
-     * @param  \App\Models\UserAttemptQuestion  $userAttemptQuestion
-     * @return \Illuminate\Http\Response
+     * Supprime une question liée à une tentative utilisateur.
      */
     public function destroy(UserAttemptQuestion $userAttemptQuestion)
     {

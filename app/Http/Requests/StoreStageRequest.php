@@ -8,7 +8,6 @@ class StoreStageRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon tes règles d’accès (policies, rôles…)
         return true;
     }
 

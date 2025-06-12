@@ -11,63 +11,45 @@ class QuizMatch extends Model
 {
     use HasFactory;
 
-    // Si votre table s'appelle différemment, décommentez et ajustez :
-    // protected $table = 'quiz_matches';
-
-    // Clé primaire auto-incrémentée par défaut
+    // Clé primaire non auto-incrémentée de type string
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // On suppose que la colonne "created_date" stocke la date de création.
-    // Laravel va automatiquement remplir created_date, et on n’a pas d’updated_at.
+    // Utilisation de "created_date" pour la date de création, pas de updated_at
     const CREATED_AT = 'created_date';
     const UPDATED_AT = null;
 
-    /**
-     * Les attributs "mass assignable".
-     *
-     * @var array<int,string>
-     */
+    // Attributs assignables en masse
     protected $fillable = [
         'id',
         'quiz_code_id',
         'next_turn_user_id',
         'status',
-        // 'created_date' est géré automatiquement par Laravel lors de la création
     ];
 
-    /**
-     * Casts des attributs.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types des attributs
     protected $casts = [
-        'quiz_code_id' => 'string',
-        'created_date' => 'datetime',
-        'next_turn_user_id' => 'int',
-        'status'       => 'string',
+        'quiz_code_id'     => 'string',
+        'created_date'     => 'datetime',
+        'next_turn_user_id'=> 'integer',
+        'status'           => 'string',
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le quiz associé à ce match.
-     *
-     * @return BelongsTo
+     * Le quiz auquel ce match est associé.
      */
     public function quiz(): BelongsTo
     {
-        // Quiz::class doit avoir protected $primaryKey = 'code_id'
         return $this->belongsTo(Quiz::class, 'quiz_code_id', 'code_id');
     }
 
     /**
-     * Les participants de ce match.
-     *
-     * @return HasMany
+     * Les participants à ce match.
      */
     public function participants(): HasMany
     {
@@ -75,20 +57,18 @@ class QuizMatch extends Model
     }
 
     /**
-     * Les questions de ce match.
-     *
-     * @return HasMany
+     * Les questions liées à ce match.
      */
     public function questions(): HasMany
     {
         return $this->hasMany(QuizMatchQuestion::class, 'quiz_match_id', 'id');
     }
 
-    /** Relation optionnelle vers User pour next_turn_user */
+    /**
+     * L’utilisateur dont c’est le tour au prochain coup.
+     */
     public function nextTurnUser(): BelongsTo
     {
-        // si users.id est integer
         return $this->belongsTo(User::class, 'next_turn_user_id', 'id');
-        // si user PK est UUID, adapter 'string'
     }
 }

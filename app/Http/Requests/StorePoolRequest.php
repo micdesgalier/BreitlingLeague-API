@@ -8,7 +8,6 @@ class StorePoolRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon ton système d’authentification
         return true;
     }
 

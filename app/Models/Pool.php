@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -12,12 +12,13 @@ class Pool extends Model
 {
     use HasFactory;
 
+    // Clé primaire personnalisée (non auto-incrémentée, de type string)
     protected $primaryKey = 'code_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     /**
-     * The attributes that are mass assignable.
+     * Attributs pouvant être assignés en masse.
      *
      * @var array<int,string>
      */
@@ -31,7 +32,7 @@ class Pool extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Conversion automatique des attributs en types natifs.
      *
      * @var array<string,string>
      */
@@ -45,11 +46,11 @@ class Pool extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le stage auquel appartient ce pool.
+     * Le stage auquel ce pool est rattaché.
      */
     public function stage(): BelongsTo
     {
@@ -57,7 +58,7 @@ class Pool extends Model
     }
 
     /**
-     * Les questions pivot de ce pool (avec ordre).
+     * Les entrées pivot PoolQuestion liées à ce pool (contiennent l'ordre des questions).
      */
     public function poolQuestions(): HasMany
     {
@@ -65,7 +66,7 @@ class Pool extends Model
     }
 
     /**
-     * Les questions de ce pool, via la table pivot.
+     * Les questions associées à ce pool via la table pivot 'pool_questions', ordonnées.
      */
     public function questions(): BelongsToMany
     {

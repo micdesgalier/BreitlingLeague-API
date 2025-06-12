@@ -12,20 +12,15 @@ class ActivityResult extends Model
     use HasFactory;
 
     /**
-     * Si votre table ne suit pas le nom standard « activity_results »,
-     * décommentez et ajustez la ligne suivante :
-     */
-    // protected $table = 'activity_result';
-
-    /**
-     * Désactive les timestamps si vous n’avez pas de created_at / updated_at.
+     * Désactive la gestion automatique des timestamps (created_at, updated_at)
+     * car la table ne les contient pas.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * Les attributs assignables en masse.
+     * Attributs pouvant être assignés en masse.
      *
      * @var array<int,string>
      */
@@ -34,7 +29,7 @@ class ActivityResult extends Model
     ];
 
     /**
-     * Les casts pour convertir automatiquement les types.
+     * Cast des attributs pour forcer leur type.
      *
      * @var array<string,string>
      */
@@ -43,12 +38,16 @@ class ActivityResult extends Model
     ];
 
     // ========================
-    // === RELATIONS =========
+    // === RELATIONS ===========
     // ========================
 
     /**
-     * L’activité de groupe (UserActivityGroupActivity) à laquelle
-     * ce résultat est rattaché.
+     * Relation "appartient à" vers l'activité de groupe (UserActivityGroupActivity)
+     * liée à ce résultat d'activité.
+     *
+     * Note : la clé locale 'id' est reliée à 'activity_result_id' dans UserActivityGroupActivity.
+     *
+     * @return BelongsTo
      */
     public function userActivityGroupActivity(): BelongsTo
     {
@@ -60,7 +59,10 @@ class ActivityResult extends Model
     }
 
     /**
-     * Le détail du résultat quiz (score, nb bonnes réponses).
+     * Relation "un à un" vers le détail du résultat quiz
+     * (ex : score, nombre de bonnes réponses).
+     *
+     * @return HasOne
      */
     public function quizActivityResult(): HasOne
     {

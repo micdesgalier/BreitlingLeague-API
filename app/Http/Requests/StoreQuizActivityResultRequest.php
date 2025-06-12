@@ -8,7 +8,6 @@ class StoreQuizActivityResultRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique d’authentification/autorisation.
      *
      * @return bool
      */

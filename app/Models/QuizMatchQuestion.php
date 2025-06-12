@@ -11,21 +11,16 @@ class QuizMatchQuestion extends Model
 {
     use HasFactory;
 
-    // Si la table s'appelle différemment, décommentez et ajustez :
-    // protected $table = 'quiz_match_questions';
-
-    // Clé primaire auto-incrémentée par défaut
+    // Clé primaire de type string, non auto-incrémentée
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // Utilisation des timestamps created_at/updated_at par défaut
+    // Utilisation automatique des timestamps (created_at, updated_at)
     public $timestamps = true;
 
     /**
-     * Attributs "mass assignable".
-     *
-     * @var array<int,string>
+     * Attributs pouvant être assignés en masse.
      */
     protected $fillable = [
         'id',
@@ -35,9 +30,7 @@ class QuizMatchQuestion extends Model
     ];
 
     /**
-     * Casts des attributs.
-     *
-     * @var array<string,string>
+     * Conversion automatique des types des attributs.
      */
     protected $casts = [
         'quiz_match_id'     => 'string',
@@ -46,13 +39,11 @@ class QuizMatchQuestion extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le match associé à cette entrée.
-     *
-     * @return BelongsTo
+     * Le match auquel cette question est associée.
      */
     public function quizMatch(): BelongsTo
     {
@@ -60,20 +51,16 @@ class QuizMatchQuestion extends Model
     }
 
     /**
-     * La question associée dans le quiz (référence à Question::code_id).
-     *
-     * @return BelongsTo
+     * La question liée à cette instance de match.
+     * Référence à Question::code_id.
      */
     public function question(): BelongsTo
     {
-        // Le modèle Question utilise 'code_id' comme primaryKey
         return $this->belongsTo(Question::class, 'question_code_id', 'code_id');
     }
 
     /**
-     * Les réponses données pour cette question par les participants.
-     *
-     * @return HasMany
+     * Les réponses fournies par les participants pour cette question.
      */
     public function answers(): HasMany
     {

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
 class QuizMatchQuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Récupérer la liste de toutes les questions associées aux matchs de quiz,
+     * avec leurs relations (match, question, réponses).
      */
     public function index(): JsonResponse
     {
@@ -22,19 +23,21 @@ class QuizMatchQuestionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Créer une nouvelle question associée à un match de quiz.
+     * Valide que le match existe et que la question n'est pas déjà liée à ce match.
+     * Génère un UUID pour l'identifiant de la question.
      */
     public function store(StoreQuizMatchQuestionRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        // Vérifier que le match existe
+        // Vérifier que le match de quiz existe
         $quizMatch = QuizMatch::find($data['quiz_match_id']);
         if (! $quizMatch) {
             return response()->json(['error' => 'QuizMatch introuvable.'], 422);
         }
 
-        // Vérifier qu’on n’a pas déjà cette question pour ce match
+        // Vérifier l'unicité de la question pour ce match
         $exists = QuizMatchQuestion::where('quiz_match_id', $data['quiz_match_id'])
             ->where('question_code_id', $data['question_code_id'])
             ->exists();
@@ -42,17 +45,21 @@ class QuizMatchQuestionController extends Controller
             return response()->json(['error' => 'Cette question est déjà associée à ce match.'], 422);
         }
 
-        // Générer un ID UUID pour la PK si non auto-incrément
+        // Générer un UUID pour la clé primaire
         $data['id'] = (string) Str::uuid();
 
+        // Créer la nouvelle question liée au match
         $item = QuizMatchQuestion::create($data);
+
+        // Charger les relations pour la réponse
         $item->load(['quizMatch', 'question', 'answers']);
 
         return response()->json($item, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Afficher une question spécifique d'un match de quiz,
+     * avec ses relations associées.
      */
     public function show(string $id): JsonResponse
     {
@@ -63,14 +70,14 @@ class QuizMatchQuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mettre à jour une question d'un match de quiz.
+     * Seule la propriété 'order' est modifiable par la validation.
      */
     public function update(UpdateQuizMatchQuestionRequest $request, string $id): JsonResponse
     {
         $item = QuizMatchQuestion::findOrFail($id);
 
         $data = $request->validated();
-        // Seule 'order' peut être modifié selon les règles
         $item->update($data);
 
         $item->load(['quizMatch', 'question', 'answers']);
@@ -78,12 +85,14 @@ class QuizMatchQuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprimer une question d'un match de quiz.
      */
     public function destroy(string $id): JsonResponse
     {
         $item = QuizMatchQuestion::findOrFail($id);
         $item->delete();
+
+        // Retourner une réponse vide avec code 204 No Content
         return response()->json(null, 204);
     }
 }

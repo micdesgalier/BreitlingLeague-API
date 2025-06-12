@@ -11,19 +11,13 @@ class Stage extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     *
-     * Uncomment and adjust if your PK is not 'id'.
-     */
+    // Clé primaire de type string, non auto-incrémentée
     protected $primaryKey = 'code_id';
     public $incrementing = false;
     protected $keyType = 'int';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int,string>
+     * Attributs pouvant être assignés en masse.
      */
     protected $fillable = [
         'code_id',
@@ -33,9 +27,7 @@ class Stage extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array<string,string>
+     * Conversion automatique des types des attributs.
      */
     protected $casts = [
         'code_id'               => 'string',
@@ -45,11 +37,11 @@ class Stage extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // ===== RELATIONS ========
     // ========================
 
     /**
-     * Le quiz auquel appartient ce stage.
+     * Le quiz auquel ce stage est rattaché.
      */
     public function quiz(): BelongsTo
     {
@@ -57,7 +49,7 @@ class Stage extends Model
     }
 
     /**
-     * Les pools (groupes de questions) de ce stage.
+     * Les pools (groupes de questions) associés à ce stage.
      */
     public function pools(): HasMany
     {

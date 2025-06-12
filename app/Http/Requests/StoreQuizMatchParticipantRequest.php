@@ -8,13 +8,12 @@ class StoreQuizMatchParticipantRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique (auth, rôles, etc.).
      *
      * @return bool
      */
     public function authorize(): bool
     {
-        // Pour l’instant on autorise toujours. Changez si nécessaire.
+        // Pour l’instant on autorise toujours. 
         return true;
     }
 

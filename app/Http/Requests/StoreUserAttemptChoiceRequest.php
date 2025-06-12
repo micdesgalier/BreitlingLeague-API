@@ -8,7 +8,6 @@ class StoreUserAttemptChoiceRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Ajuste selon ta logique d’auth (policies, rôles…)
         return true;
     }
 

@@ -11,21 +11,21 @@ use Illuminate\Http\Response;
 class PoolQuestionController extends Controller
 {
     /**
-     * Display a listing of the pool questions.
+     * Retourne la liste de toutes les associations entre pools et questions.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $poolQuestions = PoolQuestion::all();
-        return response()->json($poolQuestions);
+        return response()->json($poolQuestions, Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created pool question in storage.
+     * Enregistre une nouvelle association entre une pool et une question.
      *
-     * @param  \App\Http\Requests\StorePoolQuestionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StorePoolQuestionRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePoolQuestionRequest $request)
     {
@@ -35,11 +35,11 @@ class PoolQuestionController extends Controller
     }
 
     /**
-     * Display the specified pool question.
+     * Affiche une association spécifique entre une pool et une question.
      *
-     * @param  int  $pool_code_id
-     * @param  int  $question_code_id
-     * @return \Illuminate\Http\Response
+     * @param  int  $pool_code_id           ID de la pool
+     * @param  int  $question_code_id       ID de la question
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($pool_code_id, $question_code_id)
     {
@@ -47,16 +47,16 @@ class PoolQuestionController extends Controller
             ->where('question_code_id', $question_code_id)
             ->firstOrFail();
 
-        return response()->json($poolQuestion);
+        return response()->json($poolQuestion, Response::HTTP_OK);
     }
 
     /**
-     * Update the specified pool question in storage.
+     * Met à jour une association spécifique entre une pool et une question.
      *
-     * @param  \App\Http\Requests\UpdatePoolQuestionRequest  $request
-     * @param  int  $pool_code_id
-     * @param  int  $question_code_id
-     * @return \Illuminate\Http\Response
+     * @param  UpdatePoolQuestionRequest  $request
+     * @param  int  $pool_code_id         ID de la pool
+     * @param  int  $question_code_id     ID de la question
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdatePoolQuestionRequest $request, $pool_code_id, $question_code_id)
     {
@@ -66,15 +66,15 @@ class PoolQuestionController extends Controller
 
         $poolQuestion->update($request->validated());
 
-        return response()->json($poolQuestion);
+        return response()->json($poolQuestion, Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified pool question from storage.
+     * Supprime une association entre une pool et une question.
      *
-     * @param  int  $pool_code_id
-     * @param  int  $question_code_id
-     * @return \Illuminate\Http\Response
+     * @param  int  $pool_code_id         ID de la pool
+     * @param  int  $question_code_id     ID de la question
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($pool_code_id, $question_code_id)
     {

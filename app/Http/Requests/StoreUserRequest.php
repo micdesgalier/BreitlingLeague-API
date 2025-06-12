@@ -8,7 +8,6 @@ class StoreUserRequest extends FormRequest
 {
     /**
      * Détermine si l’utilisateur est autorisé à effectuer cette requête.
-     * Ajustez selon votre logique d’authentification/autorisation.
      *
      * @return bool
      */
@@ -37,9 +36,6 @@ class StoreUserRequest extends FormRequest
             // Nouveaux champs boutique et pays
             'boutique'        => 'nullable|string|max:255',
             'pays'            => 'nullable|string|max:255',
-
-            // Si vous gérez le mot de passe, décommentez ou ajustez la règle
-            // 'password' => 'required|string|min:8|confirmed',
         ];
     }
 }

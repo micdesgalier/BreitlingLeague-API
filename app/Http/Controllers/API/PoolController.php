@@ -11,21 +11,21 @@ use Illuminate\Http\Response;
 class PoolController extends Controller
 {
     /**
-     * Display a listing of pools.
+     * Retourne la liste de toutes les pools.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $pools = Pool::all();
-        return response()->json($pools);
+        return response()->json($pools, Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created pool in storage.
+     * Crée une nouvelle pool avec les données validées.
      *
-     * @param  \App\Http\Requests\StorePoolRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StorePoolRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePoolRequest $request)
     {
@@ -35,39 +35,40 @@ class PoolController extends Controller
     }
 
     /**
-     * Display the specified pool.
+     * Affiche les détails d'une pool spécifique.
      *
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Http\Response
+     * @param  Pool  $pool
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Pool $pool)
     {
-        return response()->json($pool);
+        return response()->json($pool, Response::HTTP_OK);
     }
 
     /**
-     * Update the specified pool in storage.
+     * Met à jour une pool existante avec les données fournies.
      *
-     * @param  \App\Http\Requests\UpdatePoolRequest  $request
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Http\Response
+     * @param  UpdatePoolRequest  $request
+     * @param  Pool               $pool
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdatePoolRequest $request, Pool $pool)
     {
         $pool->update($request->validated());
 
-        return response()->json($pool);
+        return response()->json($pool, Response::HTTP_OK);
     }
 
     /**
-     * Remove the specified pool from storage.
+     * Supprime une pool de la base de données.
      *
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Http\Response
+     * @param  Pool  $pool
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Pool $pool)
     {
         $pool->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

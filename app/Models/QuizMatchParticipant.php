@@ -11,21 +11,16 @@ class QuizMatchParticipant extends Model
 {
     use HasFactory;
 
-    // Si votre table s’appelle différemment, décommentez et ajustez :
-    // protected $table = 'quiz_match_participants';
-
-    // Clé primaire auto-incrémentée par défaut (id)
+    // Clé primaire non auto-incrémentée de type string
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // Si vous n’utilisez pas les timestamps created_at/updated_at, mettez false
+    // Utilisation des timestamps created_at et updated_at
     public $timestamps = true;
 
     /**
-     * Attributs "mass assignable".
-     *
-     * @var array<int,string>
+     * Attributs pouvant être assignés en masse.
      */
     protected $fillable = [
         'id',
@@ -39,9 +34,7 @@ class QuizMatchParticipant extends Model
     ];
 
     /**
-     * Casts des attributs.
-     *
-     * @var array<string,string>
+     * Conversion automatique des types des attributs.
      */
     protected $casts = [
         'quiz_match_id'    => 'string',
@@ -54,13 +47,11 @@ class QuizMatchParticipant extends Model
     ];
 
     // ========================
-    // === RELATIONSHIPS ======
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le match associé à ce participant.
-     *
-     * @return BelongsTo
+     * Le match auquel ce participant est rattaché.
      */
     public function quizMatch(): BelongsTo
     {
@@ -68,9 +59,7 @@ class QuizMatchParticipant extends Model
     }
 
     /**
-     * L’utilisateur associé à ce participant.
-     *
-     * @return BelongsTo
+     * L'utilisateur correspondant à ce participant.
      */
     public function user(): BelongsTo
     {
@@ -78,9 +67,7 @@ class QuizMatchParticipant extends Model
     }
 
     /**
-     * Les réponses de ce participant pour les questions du match.
-     *
-     * @return HasMany
+     * Les réponses données par ce participant lors du match.
      */
     public function answers(): HasMany
     {

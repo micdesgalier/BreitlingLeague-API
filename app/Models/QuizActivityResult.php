@@ -10,48 +10,32 @@ class QuizActivityResult extends Model
 {
     use HasFactory;
 
-    /**
-     * Désactive les timestamps si vous n’avez pas de created_at / updated_at.
-     *
-     * @var bool
-     */
+    // Désactive la gestion automatique des timestamps (created_at, updated_at)
     public $timestamps = false;
 
-    /**
-     * Les attributs assignables en masse.
-     *
-     * @var array<int,string>
-     */
+    // Attributs assignables en masse
     protected $fillable = [
         'score',
         'correct_answer_count',
         'activity_result_id',
     ];
 
-    /**
-     * Les casts pour convertir automatiquement les types.
-     *
-     * @var array<string,string>
-     */
+    // Conversion automatique des types des attributs
     protected $casts = [
-        'score'                 => 'float',
-        'correct_answer_count'  => 'integer',
-        'activity_result_id'    => 'integer',
+        'score'                => 'float',
+        'correct_answer_count' => 'integer',
+        'activity_result_id'   => 'integer',
     ];
 
     // ========================
-    // === RELATIONS =========
+    // === RELATIONS ==========
     // ========================
 
     /**
-     * Le résultat d’activité auquel ce détail de quiz est rattaché.
+     * Relation vers le résultat d’activité associé à ce résultat de quiz.
      */
     public function activityResult(): BelongsTo
     {
-        return $this->belongsTo(
-            ActivityResult::class,
-            'activity_result_id',
-            'id'
-        );
+        return $this->belongsTo(ActivityResult::class, 'activity_result_id', 'id');
     }
 }
