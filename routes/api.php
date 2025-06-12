@@ -50,7 +50,9 @@ Route::apiResource('activity-results',                     ActivityResultControl
 Route::apiResource('quiz-activity-results',                QuizActivityResultController::class);
 
 Route::get('users/ranking', [UserController::class, 'ranking']);
+Route::get('users/ranking/{country}', [UserController::class, 'rankingByCountry']);
 Route::get('users/{user}/quiz-match-list', [UserController::class, 'quizMatch']);
+Route::get('users/{user}/group', [UserController::class, 'groupMembers']);
 
 Route::apiResource('users', UserController::class)
      ->where(['user' => '[0-9]+']);

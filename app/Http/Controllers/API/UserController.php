@@ -172,4 +172,98 @@ class UserController extends Controller
             'data'    => $ranked,
         ], 200);
     }
+
+    public function rankingByCountry(string $country): JsonResponse
+    {
+        // 1) Charger les users du pays donné, avec la somme des scores de leurs quizAttempts
+        //    On alias la somme en 'total_score'.
+        $users = User::whereRaw('LOWER(country) = ?', [strtolower($country)])
+             ->withSum('quizAttempts as total_score', 'score')
+             ->get();
+
+        // 2) Ordonner par total_score décroissant. Si total_score null (pas de tentative), on traite comme 0.
+        $users = $users->sortByDesc(function ($user) {
+            return $user->total_score ?? 0;
+        })->values();
+
+        // 3) Calcul du rang (dense ranking : partagés en cas d’égalité)
+        $ranked = [];
+        $prevScore = null;
+        $position = 0;   // position dans la liste (1-based)
+        $currentRank = 0;
+
+        foreach ($users as $user) {
+            $position++;
+            $score = $user->total_score ?? 0;
+            if ($prevScore === null || $score < $prevScore) {
+                // nouveau score inférieur => nouveau rang = position
+                $currentRank = $position;
+                $prevScore = $score;
+            }
+            $ranked[] = [
+                'user' => [
+                    'id'         => $user->id,
+                    'last_name'  => $user->last_name,
+                    'first_name' => $user->first_name,
+                    'nickname'   => $user->nickname,
+                    'email'      => $user->email,
+                    'media'      => $user->media,
+                    'group'      => $user->group ?? null,
+                    'country'    => $user->country ?? null,
+                    // Ajoutez d’autres champs à exposer si besoin
+                ],
+                'total_score' => $score,
+                'rank'        => $currentRank,
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'country' => $country,
+            'data'    => $ranked,
+        ], 200);
+    }
+
+    public function groupMembers(User $user): JsonResponse
+    {
+        $group = $user->group;
+        if (empty($group)) {
+            // Pas de groupe défini : renvoyer un array vide ou message d’erreur selon besoin
+            return response()->json([
+                'success' => true,
+                'message' => 'Aucun groupe défini pour cet utilisateur.',
+                'data'    => [],
+            ], 200);
+        }
+
+        // Récupérer tous les utilisateurs du même groupe
+        $usersInGroup = User::where('group', $group)
+            // Optionnel : si vous voulez exclure l’utilisateur lui-même :
+            // ->where('id', '!=', $user->id)
+            ->withSum('quizAttempts as total_score', 'score') // si vous souhaitez inclure le score total
+            ->get();
+
+        // Construire la réponse : on peut inclure user + total_score + éventuellement un rank local au groupe
+        // Exemple simple : on retourne la liste brute avec leur total_score
+        $result = [];
+        foreach ($usersInGroup as $u) {
+            $result[] = [
+                'id'          => $u->id,
+                'last_name'   => $u->last_name,
+                'first_name'  => $u->first_name,
+                'nickname'    => $u->nickname,
+                'email'       => $u->email,
+                'media'       => $u->media,
+                'group'       => $u->group,
+                'country'     => $u->country,
+                'total_score' => $u->total_score ?? 0,
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'group'   => $group,
+            'data'    => $result,
+        ], 200);
+    }
 }
