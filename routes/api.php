@@ -51,6 +51,7 @@ Route::apiResource('quiz-activity-results',                QuizActivityResultCon
 
 Route::get('users/ranking', [UserController::class, 'ranking']);
 Route::get('users/{user}/quiz-match-list', [UserController::class, 'quizMatch']);
+
 Route::apiResource('users', UserController::class)
      ->where(['user' => '[0-9]+']);
 Route::apiResource('challenges',                           ChallengeController::class);

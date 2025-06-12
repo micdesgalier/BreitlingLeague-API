@@ -23,7 +23,7 @@ class UserAttemptFactory extends Factory
             'end_date'          => $end,
             'is_completed'      => $this->faker->boolean(70),
             'duration'          => $this->faker->numberBetween(30, 3600), // durée en secondes par exemple
-            'score'             => $this->faker->numberBetween(0, 100),
+            'score'             => $this->faker->numberBetween(0, 20000),
             'initial_score'     => $this->faker->numberBetween(0, 100),
             'combo_bonus_score' => $this->faker->numberBetween(0, 50),
             'time_bonus_score'  => $this->faker->numberBetween(0, 50),

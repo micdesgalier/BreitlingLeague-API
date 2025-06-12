@@ -79,25 +79,26 @@ class QuizMatchController extends Controller
      */
     public function startMatch(Request $request): JsonResponse
     {
+        // 1. Validation : on attend quiz_code_id + participants (array de 2 entrées {user_id, points_bet})
         $request->validate([
-            'user_ids'     => 'required|array|size:2',
-            'user_ids.*'   => 'integer|exists:users,id',
-            'quiz_code_id' => 'required|string|exists:quizzes,code_id',
+            'quiz_code_id'  => 'required|string|exists:quizzes,code_id',
+            'participants'  => 'required|array|size:2',
+            'participants.*.user_id'   => 'required|integer|exists:users,id',
+            'participants.*.points_bet'=> 'required|integer|min:0',
         ]);
 
-        $quizCode = $request->input('quiz_code_id');
-        $userIds  = $request->input('user_ids');
+        $quizCode    = $request->input('quiz_code_id');
+        $partsInput  = $request->input('participants'); // tableau de 2 éléments
 
-        // 1. Charger le Quiz et ses relations imbriquées pour récupérer les questions
+        // 2. Charger le Quiz et ses relations imbriquées pour récupérer les questions
         $quiz = Quiz::with(['stages.pools.poolQuestions.question'])
             ->where('code_id', $quizCode)
             ->first();
-
         if (!$quiz) {
             return response()->json(['error' => 'Quiz introuvable'], 404);
         }
 
-        // 2. Parcourir la hiérarchie pour collecter les code_id des questions
+        // 3. Construire la liste unique de codes de question
         $questionCodes = [];
         foreach ($quiz->stages as $stage) {
             foreach ($stage->pools as $pool) {
@@ -112,39 +113,41 @@ class QuizMatchController extends Controller
                 }
             }
         }
-
         if (empty($questionCodes)) {
             return response()->json(['error' => 'Aucune question trouvée pour ce quiz'], 400);
         }
 
-        // 3. Choix aléatoire du participant qui commence
+        // 4. Extraire les user_ids pour le tirage du 1er tour
+        $userIds = array_column($partsInput, 'user_id');
+        // Choix aléatoire du participant qui commence
         $firstTurnUserId = $userIds[array_rand($userIds)];
 
-        // 4. Créer le QuizMatch avec next_turn_user_id et status 'in_progress'
+        // 5. Créer le QuizMatch avec next_turn_user_id et status 'in_progress'
         $quizMatchId = (string) Str::uuid();
         $quizMatch = QuizMatch::create([
-            'id'               => $quizMatchId,
-            'quiz_code_id'     => $quizCode,
-            'status'           => 'in_progress',
-            'created_date'     => now(),
-            'next_turn_user_id'=> $firstTurnUserId,
+            'id'                => $quizMatchId,
+            'quiz_code_id'      => $quizCode,
+            'status'            => 'in_progress',
+            'created_date'      => now(),
+            'next_turn_user_id' => $firstTurnUserId,
         ]);
 
-        // 5. Créer les participants
-        foreach ($userIds as $userId) {
+        // 6. Créer les participants avec leur points_bet respectif
+        foreach ($partsInput as $part) {
+            // On est sûr que part['user_id'] et part['points_bet'] existent et validés
             QuizMatchParticipant::create([
-                'id'                  => (string) Str::uuid(),
-                'quiz_match_id'       => $quizMatchId,
-                'user_id'             => $userId,
-                'invitation_state'    => 'accepted', // ou 'pending' selon logique, mais on considère accepté pour démarrer
-                'score'               => 0,
-                'points_bet'          => 0,
-                'is_winner'           => false,
+                'id'                => (string) Str::uuid(),
+                'quiz_match_id'     => $quizMatchId,
+                'user_id'           => $part['user_id'],
+                'invitation_state'  => 'accepted', // ou 'pending' selon la logique métier
+                'score'             => 0,
+                'points_bet'        => $part['points_bet'],
+                'is_winner'         => false,
                 // last_answer_date reste null
             ]);
         }
 
-        // 6. Créer les QuizMatchQuestion selon les codes collectés
+        // 7. Créer les QuizMatchQuestion selon les codes collectés
         $order = 1;
         foreach ($questionCodes as $questionCode) {
             QuizMatchQuestion::create([
@@ -155,16 +158,13 @@ class QuizMatchController extends Controller
             ]);
         }
 
-        // Retourne l'ID du match et qui commence
+        // 8. Retour
         return response()->json([
-            'id' => $quizMatchId,
+            'id'                 => $quizMatchId,
             'first_turn_user_id' => $firstTurnUserId,
         ], 201);
     }
 
-    /**
-     * Retourne les détails du match, incluant participants, questions+choix, et nextTurnUser.
-     */
     public function detailedShow(string $id): JsonResponse
     {
         $quizMatch = QuizMatch::with([
@@ -178,21 +178,6 @@ class QuizMatchController extends Controller
         }
 
         return response()->json($quizMatch);
-    }
-
-    /**
-     * GET /quiz-matches/{quizMatch}/next-turn
-     * Retourne simplement next_turn_user_id pour que le front sache qui doit jouer ensuite.
-     */
-    public function getNextTurn(QuizMatch $quizMatch): JsonResponse
-    {
-        // Éventuellement vérifier le statut du match si besoin, ex:
-        // if ($quizMatch->status !== 'in_progress') {
-        //     return response()->json(['error'=>'Match non en cours'], 400);
-        // }
-        return response()->json([
-            'next_turn_user_id' => $quizMatch->next_turn_user_id,
-        ]);
     }
 
     public function answerQuestion(Request $request, QuizMatch $quizMatch, string $questionCode): JsonResponse
@@ -309,13 +294,7 @@ class QuizMatchController extends Controller
             ], 400);
         }
 
-        // Optionnel : si vous voulez seulement autoriser la fin quand status == 'in_progress'
-        // if ($quizMatch->status !== 'in_progress') {
-        //     return response()->json(['error' => 'Match non en cours ou déjà terminé'], 400);
-        // }
-
         // On prend exactement deux participants pour comparaison.
-        // Si >2, vous pouvez adapter (par ex. prendre les deux premiers ou gérer tournoi).
         $p1 = $participants->get(0);
         $p2 = $participants->get(1);
 
@@ -325,7 +304,6 @@ class QuizMatchController extends Controller
         // Comparer les scores
         if ($score1 === $score2) {
             // Égalité
-            // Mettre à jour status du QuizMatch à 'completed'
             $quizMatch->status = 'completed';
             $quizMatch->save();
 
@@ -335,22 +313,24 @@ class QuizMatchController extends Controller
             $p1->save();
             $p2->save();
 
-            // Retour JSON
+            // Retour JSON incluant points_bet
             return response()->json([
                 'participants' => [
                     [
-                        'id'        => $p1->id,
-                        'user_id'   => $p1->user_id,
-                        'score'     => $score1,
-                        'is_winner' => false,
-                        'user'      => $p1->user, // eager-loaded
+                        'id'         => $p1->id,
+                        'user_id'    => $p1->user_id,
+                        'score'      => $score1,
+                        'points_bet' => $p1->points_bet,
+                        'is_winner'  => false,
+                        'user'       => $p1->user, // eager-loaded
                     ],
                     [
-                        'id'        => $p2->id,
-                        'user_id'   => $p2->user_id,
-                        'score'     => $score2,
-                        'is_winner' => false,
-                        'user'      => $p2->user,
+                        'id'         => $p2->id,
+                        'user_id'    => $p2->user_id,
+                        'score'      => $score2,
+                        'points_bet' => $p2->points_bet,
+                        'is_winner'  => false,
+                        'user'       => $p2->user,
                     ],
                 ],
                 'result' => 'tie',
@@ -378,28 +358,31 @@ class QuizMatchController extends Controller
         $quizMatch->next_turn_user_id = null;
         $quizMatch->save();
 
-        // Construire la réponse JSON
+        // Construire la réponse JSON, en incluant points_bet
         $responseParticipants = [
             [
-                'id'        => $p1->id,
-                'user_id'   => $p1->user_id,
-                'score'     => $score1,
-                'is_winner' => ($winner->id === $p1->id),
-                'user'      => $p1->user,
+                'id'         => $p1->id,
+                'user_id'    => $p1->user_id,
+                'score'      => $score1,
+                'points_bet' => $p1->points_bet,
+                'is_winner'  => ($winner->id === $p1->id),
+                'user'       => $p1->user,
             ],
             [
-                'id'        => $p2->id,
-                'user_id'   => $p2->user_id,
-                'score'     => $score2,
-                'is_winner' => ($winner->id === $p2->id),
-                'user'      => $p2->user,
+                'id'         => $p2->id,
+                'user_id'    => $p2->user_id,
+                'score'      => $score2,
+                'points_bet' => $p2->points_bet,
+                'is_winner'  => ($winner->id === $p2->id),
+                'user'       => $p2->user,
             ],
         ];
 
         $responseWinner = [
-            'user_id' => $winner->user_id,
-            'score'   => $winner->score,
-            'user'    => $winner->user,
+            'user_id'    => $winner->user_id,
+            'score'      => $winner->score,
+            'points_bet' => $winner->points_bet,
+            'user'       => $winner->user,
         ];
 
         return response()->json([
